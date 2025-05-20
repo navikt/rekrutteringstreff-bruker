@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY .next/standalone /app/
 COPY .next/static ./.next/static
-COPY .next/standalone /app/
+COPY public /app/public
 
 USER nonroot
 
