@@ -1,9 +1,36 @@
+import { BodyLong, Heading, HStack, VStack } from '@navikt/ds-react';
+import Image from 'next/image';
+
 export default function Home() {
   return (
-    <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
-      <main className='flex flex-col gap-[32px] row-start-2 items-center sm:items-start'>
-        Rekrutteringstreff-bruker
-      </main>
+    <div className='flex justify-center items-center min-h-full'>
+      <VStack
+        gap='8'
+        align='start'
+        style={{
+          padding: '2rem',
+          margin: '0 0 2rem 0',
+          backgroundColor: 'white',
+          borderRadius: '4px',
+        }}
+      >
+        <HStack gap='8' align='center' wrap={false}>
+          <VStack gap='6' style={{ flex: 1 }}>
+            <Heading level='1' size='xlarge'>
+              Rekrutteringstreff
+            </Heading>
+            <BodyLong>Her kommer bruker siden for rekrutteringstreff.</BodyLong>
+          </VStack>
+          <div style={{ flexShrink: 0 }}>
+            <Image
+              src='/pusser-opp.svg'
+              width={500}
+              height={500}
+              alt='Vi pusser opp'
+            />
+          </div>
+        </HStack>
+      </VStack>
     </div>
   );
 }
