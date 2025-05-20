@@ -10,8 +10,8 @@ jobs:
     with:
       app_name: 'rekrutteringstreff-bruker'
       pnpm: true
-      playwright: true
-      playwright-github-report: true
+      playwright: false
+      playwright-github-report: false
       dev-vars-path: '.nais/dev-gcp.json'
       prod-vars-path: '.nais/prod-gcp.json'
       deploy-to-dev-if-branch-name-is: 'dev'
