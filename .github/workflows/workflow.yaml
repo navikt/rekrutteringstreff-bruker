@@ -1,0 +1,23 @@
+name: Bygg og Deploy Rekrutteringstreff-bruker
+on:
+  push:
+  workflow_dispatch: # Legger til mulighet for manuell kjøring
+
+jobs:
+  build-and-deploy:
+    name: Next
+    uses: navikt/toi-github-actions-workflows/.github/workflows/build-and-deploy-nextjs.yaml@main
+    with:
+      app_name: 'rekrutteringstreff-bruker'
+      pnpm: true
+      playwright: true
+      playwright-github-report: true
+      dev-vars-path: '.nais/dev-gcp.json'
+      prod-vars-path: '.nais/prod-gcp.json'
+      deploy-to-dev-if-branch-name-is: 'dev'
+    secrets: inherit
+    permissions:
+      contents: write
+      id-token: write
+      security-events: write
+      pages: write

@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    versioning-strategy: "lockfile-only"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "pnpm"
+    ignore:
+      # Optional: Add packages to ignore here if needed
+      # - dependency-name: "example-package"
+    registries:
+      # If you use private registries, define them here
+      # npm-registry:
+      #   type: npm-registry
+      #   url: https://registry.npmjs.org

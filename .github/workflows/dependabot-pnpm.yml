@@ -1,0 +1,30 @@
+name: Dependabot PNPM Support
+
+on:
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - '**/package.json'
+      - 'pnpm-lock.yaml'
+
+jobs:
+  build:
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update pnpm lockfile
+          file_pattern: pnpm-lock.yaml
