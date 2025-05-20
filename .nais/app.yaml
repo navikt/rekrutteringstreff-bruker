@@ -12,8 +12,8 @@ spec:
       enabled: true
       runtime: nodejs
   replicas:
-    max: 1
-    min: 2
+    max: 2
+    min: 1
   image: {{ image }}
   ingresses:
     - {{ NEXT_PUBLIC_BASE_URL }}
