@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@navikt/aksel-icons": "^7.22.0",
+    "@navikt/ds-css": "^7.22.0",
+    "@navikt/ds-react": "^7.22.0",
+    "@navikt/next-logger": "^3.0.3",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.0",
