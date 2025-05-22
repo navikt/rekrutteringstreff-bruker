@@ -30,6 +30,9 @@ spec:
     requests:
       cpu: 200m
       memory: 512Mi
+  tokenx:
+      enabled: true
+
   env:
     - name: NEXT_PUBLIC_BASE_URL
       value: {{ NEXT_PUBLIC_BASE_URL }}
