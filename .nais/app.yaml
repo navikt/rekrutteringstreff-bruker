@@ -29,7 +29,9 @@ spec:
   idporten:
      enabled: true
      sidecar:
-         enabled: true
+          enabled: true
+          level: Level4
+          autoLogin: false
   accessPolicy:
      outbound:
         rules:
