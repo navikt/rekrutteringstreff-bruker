@@ -29,7 +29,7 @@ spec:
   accessPolicy:
      outbound:
         rules:
-          - application: rekrutteringstreff-minside-api     
+          - application: rekrutteringstreff-minside-api
   env:
     - name: NEXT_PUBLIC_BASE_URL
       value: {{ NEXT_PUBLIC_BASE_URL }}
