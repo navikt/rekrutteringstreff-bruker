@@ -1,3 +1,5 @@
+'use client';
+
 import { useEnkeltRekrutteringstreff } from '../../api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
 import SWRLaster from '../../components/SWRLaster';
 import * as React from 'react';
