@@ -39,7 +39,7 @@ export const proxyWithOBO = async (
   }
 
   if (!obo.ok) {
-    logger.error('Ugyldig OBO-token mottatt:', obo);
+    logger.error('Ugyldig OBO-token mottatt:', obo.error);
     return NextResponse.json(
       { beskrivelse: 'Ugyldig OBO-token mottatt' },
       { status: 500 },
