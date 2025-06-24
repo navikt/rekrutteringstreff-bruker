@@ -8,6 +8,7 @@ export interface Iroute {
   api_url: string;
   internUrl: string;
   scope: string;
+  audience: string;
 }
 
 export const RekrutteringstreffMinSide: Iroute = {
@@ -15,4 +16,5 @@ export const RekrutteringstreffMinSide: Iroute = {
   api_url: process.env.REKRUTTERINGSTREFF_MINSIDE_API ?? '',
   internUrl: '/api/rekrutteringstreff-minside',
   scope: `api://${gcp}.toi.rekrutteringstreff-minside-api/.default`,
+  audience: `${gcp}:toi:rekrutteringstreff-minside-api`,
 };
