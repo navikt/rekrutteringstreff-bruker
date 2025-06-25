@@ -11,6 +11,11 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: nodejs
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+      enabled: true
   replicas:
     max: 2
     min: 1
