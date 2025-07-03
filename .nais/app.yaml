@@ -45,4 +45,5 @@ spec:
       value: {{ NEXT_PUBLIC_BASE_URL }}
     - name: REKRUTTERINGSTREFF_MINSIDE_API
       value: http://rekrutteringstreff-minside-api
-
+    - name: LOGIN_URL
+      value: {{ login_url }}

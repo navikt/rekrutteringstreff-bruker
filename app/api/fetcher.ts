@@ -1,7 +1,13 @@
 import { ZodSchema } from 'zod';
 
 const validerSchema = <T>(schema: ZodSchema<T>, data: any) => {
-  return schema.parse(data);
+  const result = schema.safeParse(data);
+    if (result.success) {
+      return result.data;
+    } else {
+      // result.succes === false, so we end up here
+      throw Error("Validation failed");
+    }
 };
 
 export const getAPIwithSchema = <T>(
@@ -9,6 +15,10 @@ export const getAPIwithSchema = <T>(
 ): ((url: string) => Promise<T>) => {
   return async (url: string) => {
     const data = await fetch(url, { method: 'GET', credentials: 'include' });
-    return validerSchema(schema, data);
+    if (!data.ok) {
+      throw new Error(`Network response was not ok: ${data.statusText}`);
+    }
+    const jsonData = await data.json();
+    return validerSchema(schema, jsonData);
   };
 };

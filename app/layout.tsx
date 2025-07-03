@@ -2,6 +2,8 @@ import './globals.css';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import {isLocal} from "@/app/util";
+import MirageInitializer from "@/app/components/MirageInitializer";
 
 export const metadata: Metadata = {
   title: 'Rekrutteringstreff-bruker',
@@ -24,10 +26,19 @@ export default async function RootLayout({
       </head>
       <body className='flex flex-col h-full'>
         <Decorator.Header />
-        <main className='flex-grow flex flex-col'> {children}</main>
+        <BrukLokalMock>
+            <main className='flex-grow flex flex-col'> {children}</main>
+        </BrukLokalMock>
         <Decorator.Footer />
         <Decorator.Scripts loader={Script} />
       </body>
     </html>
   );
 }
+
+const BrukLokalMock = ({ children }: { children: React.ReactNode }) => {
+  if (isLocal) {
+    return <MirageInitializer>{children}</MirageInitializer>;
+  }
+  return children;
+};

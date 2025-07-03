@@ -11,20 +11,18 @@ export interface VisRekrutteringstreffProps {
 const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
   rekrutteringstreffId,
 }) => {
-  const enkeltRekrutteringstreffHook =
-    useEnkeltRekrutteringstreff(rekrutteringstreffId);
+
+  const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(rekrutteringstreffId);
 
   return (
     <SWRLaster hooks={[enkeltRekrutteringstreffHook]}>
       {(rekrutteringstreffData) => (
         <div className='flex flex-col gap-4'>
-          <div>
-            {rekrutteringstreffId} = {rekrutteringstreffData.id}
-          </div>
-          <div>{rekrutteringstreffData.tittel}</div>
-          <div>{rekrutteringstreffData.sted}</div>
-          <div>{rekrutteringstreffData.fraTid}</div>
-          <div>{rekrutteringstreffData.tilTid}</div>
+          <div>Id: {rekrutteringstreffId}</div>
+          <div>Tittel: {rekrutteringstreffData.tittel}</div>
+          <div>Sted: {rekrutteringstreffData.sted}</div>
+          <div>Fra: {rekrutteringstreffData.fraTid}</div>
+          <div>Til: {rekrutteringstreffData.tilTid}</div>
           <div>{rekrutteringstreffData.beskrivelse}</div>
         </div>
       )}

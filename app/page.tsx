@@ -19,7 +19,7 @@ export default function Home() {
             <Heading level='1' size='xlarge'>
               Rekrutteringstreff
             </Heading>
-            <BodyLong>Her kommer bruker siden for rekrutteringstreff.</BodyLong>
+            <BodyLong>Du er ikke logget inn. "Rekrutteringstreff" er en innlogget tjeneste. Vennligst logg inn, eller gå tilbake til Nav.no. </BodyLong>
           </VStack>
           <div style={{ flexShrink: 0 }}>
             <Image
