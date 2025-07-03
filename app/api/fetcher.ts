@@ -16,7 +16,7 @@ export const getAPIwithSchema = <T>(
   return async (url: string) => {
     const data = await fetch(url, { method: 'GET', credentials: 'include' });
     if (!data.ok) {
-      throw new Error(`Network response was not ok: ${data.statusText}`);
+      throw new Error(`Network response was not ok: ${data.statusText}`, {cause: data.status});
     }
     const jsonData = await data.json();
     return validerSchema(schema, jsonData);

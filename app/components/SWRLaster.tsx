@@ -22,7 +22,7 @@ const SWRLaster = <T extends any[]>({
   skjulFeilmelding = false,
   egenFeilmelding,
   visLoaderUnderValidering = false,
-}: ISWRLasterProps<T>): React.ReactElement | null | undefined => {
+}: ISWRLasterProps<T>): React.ReactElement | null => {
   if (hooks.some((hook) => !hook)) {
     return <>{skeleton ? skeleton : <Loader />}</>;
   }
