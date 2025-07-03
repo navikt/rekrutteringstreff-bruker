@@ -34,6 +34,7 @@ export const useEnkeltRekrutteringstreff = (
   } catch (e) {
     if (e instanceof Response && e.status === 401) {
       const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+      console.log('loginUrl', loginUrl);
       window.location.href = `${loginUrl}?redirect=${
           window.location.pathname
       }`;
