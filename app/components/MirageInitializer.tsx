@@ -20,13 +20,10 @@ export default function MirageInitializer({
 
     if (!mirageServer) {
       try {
-        // eslint-disable-next-line no-console
         console.log('Starter Mirage server...');
         mirageServer = makeServer({ environment: 'development' });
-        // eslint-disable-next-line no-console
         console.log('Mirage server startet');
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.error('klarte ikke å starte Mirage server:', error);
       }
     }
@@ -37,7 +34,6 @@ export default function MirageInitializer({
       if (typeof window !== 'undefined') {
         window.addEventListener('beforeunload', () => {
           if (mirageServer) {
-            // eslint-disable-next-line no-console
             console.log('Stopper Mirage...');
             mirageServer.shutdown();
             mirageServer = null;
