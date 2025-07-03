@@ -1,6 +1,4 @@
 import { ZodSchema } from 'zod';
-import Errors from "undici-types/errors";
-import ResponseStatusCodeError = Errors.ResponseStatusCodeError;
 
 const validerSchema = <T>(schema: ZodSchema<T>, data: any) => {
   const result = schema.safeParse(data);
@@ -19,7 +17,7 @@ export const getAPIwithSchema = <T>(
     const response = await fetch(url, { method: 'GET', credentials: 'include' });
 
     if (!response.ok &&  response.status == 401) {
-      throw new ResponseStatusCodeError(`Network response was not ok: ${response.statusText}`, response.status);
+      throw new Response(`Network response was not ok: ${response.statusText}`, {status: response.status});
     }
      if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
