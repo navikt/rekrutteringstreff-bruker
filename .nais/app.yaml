@@ -40,6 +40,8 @@ spec:
      outbound:
         rules:
           - application: rekrutteringstreff-minside-api
+          - application: nav-dekoratoren
+            namespace: personbruker
   env:
     - name: NEXT_PUBLIC_BASE_URL
       value: {{ NEXT_PUBLIC_BASE_URL }}
