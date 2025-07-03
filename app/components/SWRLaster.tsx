@@ -22,7 +22,7 @@ const SWRLaster = <T extends any[]>({
   skjulFeilmelding = false,
   egenFeilmelding,
   visLoaderUnderValidering = false,
-}: ISWRLasterProps<T>): React.ReactElement | null => {
+}: ISWRLasterProps<T>): React.ReactElement | null | undefined => {
   if (hooks.some((hook) => !hook)) {
     return <>{skeleton ? skeleton : <Loader />}</>;
   }
@@ -40,6 +40,14 @@ const SWRLaster = <T extends any[]>({
   if (error && egenFeilmelding) {
     return <>{egenFeilmelding(error)}</>;
   }
+
+  console.log("error", error);
+  if (error instanceof Response && error.status === 401) {
+    const loginUrl = process.env.LOGIN_URL;
+    console.log("loginUrl", loginUrl);
+    window.location.href = `${loginUrl}?redirect=${
+        window.location.pathname
+  }`;
 
   if (error && !skjulFeilmelding) {
     console.warn(error);

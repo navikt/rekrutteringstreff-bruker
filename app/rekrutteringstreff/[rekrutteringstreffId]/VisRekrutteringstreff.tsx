@@ -14,6 +14,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
 
   const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(rekrutteringstreffId);
 
+
   return (
     <SWRLaster hooks={[enkeltRekrutteringstreffHook]}>
       {(rekrutteringstreffData) => (
