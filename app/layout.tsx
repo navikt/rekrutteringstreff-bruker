@@ -16,7 +16,18 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const Decorator = await fetchDecoratorReact({
-    env: 'dev', //TODO Set env variable
+   env: "prod",
+    params: {
+        utilsBackground: "white",
+        context: "privatperson",
+        redirectToApp: true,
+        breadcrumbs: [
+            {
+                title: "Rekrutteringstreff",
+                url: "/rekrutteringstreff",
+            }
+        ],
+    },
   });
 
   return (
