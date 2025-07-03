@@ -41,7 +41,7 @@ const SWRLaster = <T extends any[]>({
   console.log("error.name", error?.name);
   console.log("error", JSON.stringify(error));
   if (error instanceof Response && error.status === 401) {
-    const loginUrl = process.env.LOGIN_URL;
+    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
     console.log("loginUrl", loginUrl);
     window.location.href = `${loginUrl}?redirect=${window.location.pathname}`
   } else {
