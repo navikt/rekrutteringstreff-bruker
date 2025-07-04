@@ -4,8 +4,8 @@ import {useEffect} from "react";
 
 export default function LoginHandler(){
 
-    const sessionUrl= process.env.NEXT_PUBLIC_SESSION_URL
-    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+    const sessionUrl= process.env.NEXT_PUBLIC_SESSION_URL || 'https://login.ekstern.dev.nav.no/oauth2/session';
+    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL || 'https://login.ekstern.dev.nav.no/oauth2/login';
 
     const fetchSessionInfo = async () => {
         console.log(`Henter session fra ${sessionUrl} og loginUrl ${loginUrl}`);
@@ -27,7 +27,7 @@ export default function LoginHandler(){
     useEffect(() => {
         console.log('Henter session info');
         fetchSessionInfo()
-    }, []);
+    }, [fetchSessionInfo]);
 
     return (
         <div></div>
