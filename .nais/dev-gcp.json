@@ -1,4 +1,4 @@
 {
   "NEXT_PUBLIC_BASE_URL": "https://rekrutteringstreff-bruker.intern.dev.nav.no/",
-  "login_url": "https://login.ekstern.dev.nav.no/oauth2/login"
+  "NEXT_PUBLIC_LOGIN_URL": "https://login.ekstern.dev.nav.no/oauth2/login"
 }

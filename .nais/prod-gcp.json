@@ -1,3 +1,3 @@
 {
-  "login_url": "https://login.nav.no/oauth2/login"
+  "NEXT_PUBLIC_LOGIN_URL": "https://login.nav.no/oauth2/login"
 }
