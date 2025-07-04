@@ -20,7 +20,7 @@ export default function LoginHandler(){
             const rekrutteringstreffId = window.location.pathname.split('/').at(-1)
             console.log(`RekrutteringstreffId: ${rekrutteringstreffId}`);
 
-            window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
+            window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}&level=Level3`;
         }
     };
 
