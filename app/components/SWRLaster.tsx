@@ -41,6 +41,10 @@ const SWRLaster = <T extends any[]>({
   console.log("error.name", error?.name);
   console.log("error", JSON.stringify(error));
 
+  if(error instanceof Response && error.status === 401) {
+    throw error;
+  }
+
   if (error && egenFeilmelding) {
     return <>{egenFeilmelding(error)}</>;
   }
