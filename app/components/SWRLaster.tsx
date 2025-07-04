@@ -38,30 +38,32 @@ const SWRLaster = <T extends any[]>({
 
   const error = hooks.find((hook) => hook?.error)?.error;
 
-  console.log("error.name", error?.name);
-  console.log("error", JSON.stringify(error));
-  if (error instanceof Response && error.status === 401) {
-    //const loginUrl = serverConfig.loginUrl;
-    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
-    console.log("loginUrl",loginUrl);
-
-    window.location.href = `${loginUrl}?redirect=${window.location.href}`
-  } else {
-    if (error && egenFeilmelding) {
-      return <>{egenFeilmelding(error)}</>;
-    }
-
-    if (error && !skjulFeilmelding) {
-      console.warn(error);
-      return <div> Feil ved henting av data </div>;
-    }
-
-    if (hooks.every((hook) => hook?.data)) {
-      const data = hooks.map((hook) => hook?.data) as T;
-      return <>{children(...data)}</>;
-    }
-
+  if (error && egenFeilmelding) {
+    return <>{egenFeilmelding(error)}</>;
   }
+
+  if (error && !skjulFeilmelding) {
+    console.warn(error);
+    return <div> Feil ved henting av data </div>;
+  }
+
+  if (hooks.every((hook) => hook?.data)) {
+    const data = hooks.map((hook) => hook?.data) as T;
+    return <>{children(...data)}</>;
+  }
+
+  // console.log("error.name", error?.name);
+  // console.log("error", JSON.stringify(error));
+  // if (error instanceof Response && error.status === 401) {
+  //   //const loginUrl = serverConfig.loginUrl;
+  //   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+  //   console.log("loginUrl",loginUrl);
+  //
+  //   window.location.href = `${loginUrl}?redirect=${window.location.href}`
+  // } else {
+  //
+  //
+  // }
 
   return null;
 };

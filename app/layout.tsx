@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import {isLocal} from "@/app/util";
 import MirageInitializer from "@/app/components/MirageInitializer";
+import LoginHandler from "@/app/components/LoginHandler";
 
 export const metadata: Metadata = {
   title: 'Rekrutteringstreff-bruker',
@@ -37,9 +38,11 @@ export default async function RootLayout({
       </head>
       <body className='flex flex-col h-full'>
         <Decorator.Header />
-        <BrukLokalMock>
-            <main className='flex-grow flex flex-col'> {children}</main>
-        </BrukLokalMock>
+        <LoginHandler>
+            <BrukLokalMock>
+                <main className='flex-grow flex flex-col'> {children}</main>
+            </BrukLokalMock>
+        </LoginHandler>
         <Decorator.Footer />
         <Decorator.Scripts loader={Script} />
       </body>

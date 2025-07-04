@@ -49,3 +49,5 @@ spec:
       value: http://rekrutteringstreff-minside-api
     - name: NEXT_PUBLIC_LOGIN_URL
       value: {{ NEXT_PUBLIC_LOGIN_URL }}
+    - name: NEXT_PUBLIC_SESSION_URL
+      value: {{ NEXT_PUBLIC_SESSION_URL }}
