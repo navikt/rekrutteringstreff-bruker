@@ -30,6 +30,7 @@ export default function LoginHandler(){
     }, [fetchSessionInfo]);
 
     return (
-        <div></div>
+       <>
+       </>
     )
 }
