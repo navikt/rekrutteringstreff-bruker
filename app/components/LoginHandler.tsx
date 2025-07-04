@@ -8,6 +8,7 @@ export default function LoginHandler(){
     const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
     const fetchSessionInfo = async () => {
+        console.log(`Henter session fra ${sessionUrl} og loginUrl ${loginUrl}`);
         const response = await fetch(`${sessionUrl}`, {
             credentials: 'include',
         }).catch((e) => {
