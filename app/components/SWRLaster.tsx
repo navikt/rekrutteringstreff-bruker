@@ -3,6 +3,7 @@
 import { Loader } from '@navikt/ds-react';
 import * as React from 'react';
 import { SWRResponse } from 'swr';
+import {serverConfig} from "@/app/util/serverConfig";
 
 type SWRHookResponse<T> = SWRResponse<T, Error> | undefined;
 
@@ -41,9 +42,10 @@ const SWRLaster = <T extends any[]>({
   console.log("error.name", error?.name);
   console.log("error", JSON.stringify(error));
   if (error instanceof Response && error.status === 401) {
-    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
-    console.log("loginUrl", loginUrl);
-    window.location.href = `${loginUrl}?redirect=${window.location.origin}`
+    const loginUrl = serverConfig.loginUrl;
+    console.log("loginUrl",loginUrl);
+
+    window.location.href = `${serverConfig.loginUrl}?redirect=${window.location.href}`
   } else {
     if (error && egenFeilmelding) {
       return <>{egenFeilmelding(error)}</>;
