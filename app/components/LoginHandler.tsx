@@ -2,7 +2,7 @@
 
 import {useEffect} from "react";
 
-export default function LoginHandler() {
+export default function LoginHandler(){
 
     const sessionUrl= process.env.NEXT_PUBLIC_SESSION_URL
     const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;

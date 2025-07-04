@@ -31,23 +31,22 @@ export default async function RootLayout({
     },
   });
 
-  return (
-    <html lang='no' className='h-full'>
-      <head>
-        <Decorator.HeadAssets />
-      </head>
-      <body className='flex flex-col h-full'>
-        <Decorator.Header />
-        <LoginHandler>
+    return (
+        <html lang='no' className='h-full'>
+            <head>
+                <Decorator.HeadAssets />
+            </head>
+            <body className='flex flex-col h-full'>
+            <Decorator.Header />
+            <LoginHandler />
             <BrukLokalMock>
                 <main className='flex-grow flex flex-col'> {children}</main>
             </BrukLokalMock>
-        </LoginHandler>
-        <Decorator.Footer />
-        <Decorator.Scripts loader={Script} />
-      </body>
-    </html>
-  );
+            <Decorator.Footer />
+            <Decorator.Scripts loader={Script} />
+            </body>
+        </html>
+    );
 }
 
 const BrukLokalMock = ({ children }: { children: React.ReactNode }) => {
