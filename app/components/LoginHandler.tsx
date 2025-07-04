@@ -24,8 +24,9 @@ export default function LoginHandler(){
     };
 
     useEffect(() => {
+        console.log('Henter session info');
         fetchSessionInfo()
-    });
+    }, []);
 
     return (
         <div></div>
