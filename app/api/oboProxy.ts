@@ -19,6 +19,8 @@ export const proxyWithOBO = async (
   }
   if (!token) {
     logger.info('Kunne ikke hente token, redirect til login');
+    logger.info('Login URL:' + process.env.NEXT_PUBLIC_LOGIN_URL);
+
     return NextResponse.json(
       { beskrivelse: 'Kunne ikke hente token' },
       { status: 401 },
