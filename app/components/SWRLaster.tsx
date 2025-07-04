@@ -40,19 +40,25 @@ const SWRLaster = <T extends any[]>({
 
   console.log("error.name", error?.name);
   console.log("error", JSON.stringify(error));
+  if (error instanceof Response && error.status === 401) {
+    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+    console.log("loginUrl", loginUrl);
+    window.location.href = `${loginUrl}?redirect=${window.location.origin}`
+  } else {
+    if (error && egenFeilmelding) {
+      return <>{egenFeilmelding(error)}</>;
+    }
 
-  if (error && egenFeilmelding) {
-    return <>{egenFeilmelding(error)}</>;
-  }
+    if (error && !skjulFeilmelding) {
+      console.warn(error);
+      return <div> Feil ved henting av data </div>;
+    }
 
-  if (error && !skjulFeilmelding) {
-    console.warn(error);
-    return <div> Feil ved henting av data </div>;
-  }
+    if (hooks.every((hook) => hook?.data)) {
+      const data = hooks.map((hook) => hook?.data) as T;
+      return <>{children(...data)}</>;
+    }
 
-  if (hooks.every((hook) => hook?.data)) {
-    const data = hooks.map((hook) => hook?.data) as T;
-    return <>{children(...data)}</>;
   }
 
   return null;
