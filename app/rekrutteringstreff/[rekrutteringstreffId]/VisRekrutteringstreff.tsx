@@ -25,6 +25,8 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
           <div>Fra: {rekrutteringstreffData.fraTid}</div>
           <div>Til: {rekrutteringstreffData.tilTid}</div>
           <div>{rekrutteringstreffData.beskrivelse}</div>
+          <div>Base URL: ${process.env.NEXT_PUBLIC_BASE_URL}</div>
+          <div>Login URL: ${process.env.NEXT_PUBLIC_LOGIN_URL}</div>
         </div>
       )}
     </SWRLaster>
