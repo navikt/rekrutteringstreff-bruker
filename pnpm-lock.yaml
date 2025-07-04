@@ -26,9 +26,6 @@ importers:
       '@navikt/oasis':
         specifier: ^3.8.0
         version: 3.8.0
-      '@next/env':
-        specifier: 15.3.2
-        version: 15.3.2
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^5.2.2
         version: 5.2.2(prettier@3.5.3)
