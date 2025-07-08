@@ -10,12 +10,16 @@ const enkeltRekrutteringstreffEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}`;
 
 const enkeltRekrutteringstreffSchema = z.object({
-  id: z.string().nullable(),
-  tittel: z.string().nullable(),
+  id: z.string(),
+  tittel: z.string(),
   beskrivelse: z.string().nullable(),
   fraTid: z.string().nullable(),
   tilTid: z.string().nullable(),
-  sted: z.string().nullable(),
+  svarfrist: z.string().nullable(),
+  gateadresse: z.string().nullable(),
+  postnummer: z.string().nullable(),
+  poststed: z.string().nullable(),
+  status: z.string(),
 });
 
 export type EnkeltRekrutteringstreffDTO = z.infer<

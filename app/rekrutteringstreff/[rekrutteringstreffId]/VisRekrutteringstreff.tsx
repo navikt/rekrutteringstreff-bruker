@@ -61,7 +61,8 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                                       </IkonMedInnhold>
                                       <IkonMedInnhold
                                           ikon={<LocationPinIcon title="Location pin icon" fontSize="1.5rem" />}>
-                                          <div className="font-bold">{rekrutteringstreffData.sted}</div>
+                                          <div className="font-bold">{rekrutteringstreffData.gateadresse}</div>
+                                          <div>{rekrutteringstreffData.postnummer} {rekrutteringstreffData.poststed}</div>
                                       </IkonMedInnhold>
                                   </HStack>
                                   <div className={"py-8"}>{rekrutteringstreffData.beskrivelse}</div>
