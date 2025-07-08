@@ -36,7 +36,7 @@ export default async function RootLayout({
             <head>
                 <Decorator.HeadAssets />
             </head>
-            <body className='flex flex-col h-full'>
+            <body className='flex flex-col h-full contentContainer'>
             <Decorator.Header />
             {!isLocal && <LoginHandler />}
             <BrukLokalMock>
