@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker/locale/nb_NO';
 import {EnkeltRekrutteringstreffDTO} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
-import {z} from "zod";
 
 const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
   const fraTid = faker.date.future();
