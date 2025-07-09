@@ -17,7 +17,7 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
     status: "Publisert",
     innlegg: Array.from({length: faker.number.int({min: 1, max: 4})}, () => ({
       tittel: faker.lorem.sentence(),
-      htmlContent: faker.lorem.paragraphs(2),
+      htmlContent: `<p>${faker.lorem.paragraphs(2)}</p><p>${faker.lorem.paragraphs(2)}</p>`,
     })),
     arbeidsgivere: Array.from({length: faker.number.int({min: 1, max: 4})}, () => ({
       organisasjonsnummer: faker.number.int({min: 10000000000, max: 99999999999}).toString(),
