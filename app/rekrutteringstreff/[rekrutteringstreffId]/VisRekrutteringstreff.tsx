@@ -10,6 +10,7 @@ import { parseISO, differenceInDays } from "date-fns";
 import { format as formatDateFns } from "date-fns/format";
 import { nb } from "date-fns/locale";
 import GråBoks from "@/app/components/GråBoks";
+import DOMPurify from 'dompurify';
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
@@ -78,7 +79,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                                   {rekrutteringstreffData.innlegg.map((innlegg, index) => (
                                       <VStack gap="space-64" key={index}>
                                           <GråBoks tittel={innlegg.tittel}>
-                                              {innlegg.htmlContent}
+                                              <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(innlegg.htmlContent)}} />
                                           </GråBoks>
                                       </VStack>
                                   ))}
