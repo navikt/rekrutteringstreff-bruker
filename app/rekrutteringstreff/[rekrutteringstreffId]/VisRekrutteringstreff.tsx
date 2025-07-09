@@ -4,7 +4,7 @@ import { useEnkeltRekrutteringstreff } from '../../api/rekrutteringstreff-minsid
 import SWRLaster from '../../components/SWRLaster';
 import * as React from 'react';
 import {ClockIcon, LocationPinIcon} from "@navikt/aksel-icons";
-import {Box, Heading, HStack, Page, Tabs, VStack} from "@navikt/ds-react";
+import {Heading, HStack, Page, Tabs, VStack} from "@navikt/ds-react";
 import IkonMedInnhold from "@/app/components/IkonMedInnhold";
 import { parseISO, differenceInDays } from "date-fns";
 import { format as formatDateFns } from "date-fns/format";
