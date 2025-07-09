@@ -20,6 +20,14 @@ const enkeltRekrutteringstreffSchema = z.object({
   postnummer: z.string().nullable(),
   poststed: z.string().nullable(),
   status: z.string(),
+  innlegg: z.array(z.object({
+    tittel: z.string(),
+    htmlContent: z.string(),
+  })),
+  arbeidsgivere: z.array(z.object({
+    organisasjonsnummer: z.string(),
+    navn: z.string(),
+  })),
 });
 
 export type EnkeltRekrutteringstreffDTO = z.infer<
@@ -43,7 +51,6 @@ export const useEnkeltRekrutteringstreff = (
     throw e;
   }
 }
-
 
 export const rekrutteringstreffMirage = (server: any) => {
   server.get(enkeltRekrutteringstreffEndepunkt('*'), () =>  mockBaseRekrutteringstreff)

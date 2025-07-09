@@ -7,7 +7,7 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
   return {
     id: faker.number.int({min: 100000, max: 999999}).toString(),
     tittel: faker.lorem.sentence(),
-    beskrivelse: faker.lorem.paragraph(),
+    beskrivelse: '',
     fraTid: fraTid.toISOString(),
     tilTid: tilTid.toISOString(),
     svarfrist: faker.date.between({from: fraTid, to: tilTid}).toString(),
@@ -15,6 +15,14 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
     postnummer: faker.location.zipCode(),
     poststed: faker.location.city(),
     status: "Publisert",
+    innlegg: Array.from({length: faker.number.int({min: 1, max: 4})}, () => ({
+      tittel: faker.lorem.sentence(),
+      htmlContent: faker.lorem.paragraphs(2),
+    })),
+    arbeidsgivere: Array.from({length: faker.number.int({min: 1, max: 4})}, () => ({
+      organisasjonsnummer: faker.number.int({min: 10000000000, max: 99999999999}).toString(),
+      navn: faker.company.name(),
+    })),
   }
 };
 

@@ -40,7 +40,9 @@ export default async function RootLayout({
             <Decorator.Header />
             {!isLocal && <LoginHandler />}
             <BrukLokalMock>
-                <main className='flex-grow flex flex-col'> {children}</main>
+                <main className='flex-grow flex flex-col'>
+                    {children}
+                </main>
             </BrukLokalMock>
             <Decorator.Footer />
             <Decorator.Scripts loader={Script} />
