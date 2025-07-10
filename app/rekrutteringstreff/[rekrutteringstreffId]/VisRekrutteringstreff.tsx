@@ -1,10 +1,13 @@
 'use client';
 
-import { useEnkeltRekrutteringstreff } from '../../api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
+import {
+    ArbeidsgiverDTO, InnleggDTO,
+    useEnkeltRekrutteringstreff
+} from '../../api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
 import SWRLaster from '../../components/SWRLaster';
 import * as React from 'react';
 import {ClockIcon, LocationPinIcon} from "@navikt/aksel-icons";
-import {Heading, HStack, Page, Tabs, VStack} from "@navikt/ds-react";
+import {Heading, HStack, Page, Show, Tabs, VStack} from "@navikt/ds-react";
 import IkonMedInnhold from "@/app/components/IkonMedInnhold";
 import { parseISO, differenceInDays } from "date-fns";
 import { format as formatDateFns } from "date-fns/format";
@@ -35,6 +38,26 @@ function antallDaterTilDato(dato: string | null): string {
    return differenceInDays(isoDato, new Date()) + '';
 }
 
+function visArbeidsgivere(arbeidsgivere: ArbeidsgiverDTO[]) {
+    return arbeidsgivere.map((arbeigsgiver, index) => (
+           <VStack gap="space-64" key={index}>
+               <GråBoks tittel={arbeigsgiver.navn}>
+                   Org.nr: {arbeigsgiver.organisasjonsnummer}
+               </GråBoks>
+           </VStack>
+    ));
+}
+
+function visInnlegg(innlegg: InnleggDTO[]) {
+    return innlegg.map((ettInnlegg, index) => (
+        <VStack gap="space-64" key={index}>
+            <GråBoks tittel={ettInnlegg.tittel}>
+              <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(ettInnlegg.htmlContent)}} />
+            </GråBoks>
+        </VStack>
+    ));
+}
+
 const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
   rekrutteringstreffId,
 }) => {
@@ -51,9 +74,8 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
               return (
                   <Page>
                       <Page.Block as="main" width="xl" gutters>
-
                           <Heading size="medium" className="mb-6">{rekrutteringstreffData.tittel}</Heading>
-                          <HStack gap="space-64" className="pb-6">
+                          <HStack gap="space-64" className="pb-10">
                               <IkonMedInnhold ikon={<ClockIcon title="Clock icon" fontSize="1.5rem" />}>
                                   <div
                                       className="font-bold">Om {antallDaterTilDato(rekrutteringstreffData.fraTid)} dager
@@ -68,32 +90,36 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                               </IkonMedInnhold>
                           </HStack>
 
-                          <Tabs defaultValue="innlegg">
-                              <Tabs.List>
-                                  <Tabs.Tab value="innlegg"
-                                            label={`Siste aktivitet (${rekrutteringstreffData.innlegg.length})`} />
-                                  <Tabs.Tab value="arbeidsgivere"
-                                            label={`Arbeidsgivere (${rekrutteringstreffData.arbeidsgivere.length})`} />
-                              </Tabs.List>
-                              <Tabs.Panel value="innlegg">
-                                  {rekrutteringstreffData.innlegg.map((innlegg, index) => (
-                                      <VStack gap="space-64" key={index}>
-                                          <GråBoks tittel={innlegg.tittel}>
-                                              <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(innlegg.htmlContent)}} />
-                                          </GråBoks>
-                                      </VStack>
-                                  ))}
-                              </Tabs.Panel>
-                              <Tabs.Panel value="arbeidsgivere">
-                                  {rekrutteringstreffData.arbeidsgivere.map((arbeigsgiver, index) => (
-                                      <VStack gap="space-64" key={index}>
-                                          <GråBoks tittel={arbeigsgiver.navn}>
-                                              Org.nr: {arbeigsgiver.organisasjonsnummer}
-                                          </GråBoks>
-                                      </VStack>
-                                  ))}
-                              </Tabs.Panel>
-                          </Tabs>
+                          <Show below="lg" >
+                              <Tabs defaultValue="innlegg">
+                                  <Tabs.List>
+                                      <Tabs.Tab value="innlegg"
+                                                label={`Siste aktivitet (${rekrutteringstreffData.innlegg.length})`} />
+                                      <Tabs.Tab value="arbeidsgivere"
+                                                label={`Arbeidsgivere (${rekrutteringstreffData.arbeidsgivere.length})`} />
+                                  </Tabs.List>
+                                  <Tabs.Panel value="innlegg">
+                                      {visInnlegg(rekrutteringstreffData.innlegg)}
+                                  </Tabs.Panel>
+                                  <Tabs.Panel value="arbeidsgivere">
+                                      {visArbeidsgivere(rekrutteringstreffData.arbeidsgivere)}
+                                  </Tabs.Panel>
+                              </Tabs>
+                          </Show>
+
+                           <Show  above="lg">
+                               <HStack>
+                                   <div style={{'width': '70%'}} className="pr-8">
+                                       <Heading size="xsmall">Siste aktivitet</Heading>
+                                       {visInnlegg(rekrutteringstreffData.innlegg)}
+                                   </div>
+                                   <div style={{'width': '30%'}}>
+                                       <Heading size="xsmall">Arbeidsgivere</Heading>
+                                       {visArbeidsgivere(rekrutteringstreffData.arbeidsgivere)}
+                                   </div>
+                               </HStack>
+                           </Show>
+
                       </Page.Block>
                   </Page>
               )

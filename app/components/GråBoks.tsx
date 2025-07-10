@@ -17,7 +17,7 @@ const GråBoks: React.FC<GråBoksProps> = ({
   return (
     <Box
       padding='space-16'
-      margin='space-16'
+      marginBlock='space-16'
       background='bg-subtle'
       borderRadius="xlarge"
       className={"" + className}
