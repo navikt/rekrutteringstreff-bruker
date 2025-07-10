@@ -14,6 +14,7 @@ const Svarboks: React.FC<SvarboksProps> = ({svarfrist}) => {
           borderRadius="large"
           borderWidth="1"
           borderColor="border-subtle"
+            className="mb-8"
       >
         <HStack className="text-base" align={"center"} justify="space-between">
             <div style={{width: '70%'}}>

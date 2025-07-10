@@ -26,7 +26,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
               return (
                   <Page>
                       <Page.Block as="main" width="xl" gutters>
-                          <HGrid columns={{  xs: "1", lg: "70% 30%" }} className="mb-10" gap="0">
+                          <HGrid columns={{  xs: "1", lg: "70% 30%" }} gap="0">
                               <div >
                                   <Heading size="medium" className="mb-6">{rekrutteringstreff.tittel}</Heading>
                                   <HGrid columns={{  xs: 1, lg: 2 }} gap="space-24" className="pb-10 text-base">
