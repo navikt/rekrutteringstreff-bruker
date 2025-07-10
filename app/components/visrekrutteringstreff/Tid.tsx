@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ClockIcon} from "@navikt/aksel-icons";
-import {antallDagerTilDato, formatterDato} from "@/app/util";
+import {antallDagerTilDato, capitalizeFirstLetter, formatterDato} from "@/app/util";
 import IkonMedInnhold from "@/app/components/IkonMedInnhold";
 
 export interface TidProps {
@@ -14,8 +14,8 @@ const Tid: React.FC<TidProps> = ({fraTid, tilTid}) => {
             <div
                 className="font-bold">Om {antallDagerTilDato(fraTid)} dager
             </div>
-            <div>{formatterDato(fraTid)} -</div>
-            <div>{formatterDato(tilTid)}</div>
+            <div>{capitalizeFirstLetter((formatterDato(fraTid)))} til</div>
+            <div>{capitalizeFirstLetter((formatterDato(tilTid)))}</div>
         </IkonMedInnhold>
   );
 };

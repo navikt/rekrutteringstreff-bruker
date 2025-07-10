@@ -25,7 +25,7 @@ export function formatterDato(date: string | null): string  {
     if (!date) {
         return '';
     }
-    return capitalizeFirstLetter(formatDateFns(date, "EEEE d. MMMM yyyy 'kl' hh:MM", {locale: nb,}));
+    return formatDateFns(date, "EEEE d. MMMM yyyy 'kl' hh:MM", {locale: nb,});
 }
 
 export function antallDagerTilDato(dato: string | null): string {
