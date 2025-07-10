@@ -10,7 +10,7 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
     beskrivelse: '',
     fraTid: fraTid.toISOString(),
     tilTid: tilTid.toISOString(),
-    svarfrist: faker.date.between({from: fraTid, to: tilTid}).toString(),
+    svarfrist: faker.date.between({from: fraTid, to: tilTid}).toISOString(),
     gateadresse: faker.location.streetAddress(),
     postnummer: faker.location.zipCode(),
     poststed: faker.location.city(),

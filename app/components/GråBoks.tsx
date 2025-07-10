@@ -19,7 +19,7 @@ const GråBoks: React.FC<GråBoksProps> = ({
       padding='space-16'
       marginBlock='space-16'
       background='bg-subtle'
-      borderRadius="xlarge"
+      borderRadius="large"
       className={"" + className}
     >
       <div className='mb-4 flex items-center'>
@@ -28,9 +28,11 @@ const GråBoks: React.FC<GråBoksProps> = ({
             {ikon}
           </div>
         )}
-        <Heading size='small'>{tittel}</Heading>
+        <Heading size='xsmall'>{tittel}</Heading>
       </div>
-      {children}
+      <div className="text-base">
+        {children}
+      </div>
     </Box>
   );
 };
