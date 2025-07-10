@@ -1,49 +1,21 @@
 'use client';
 
-import {
-    ArbeidsgiverDTO, InnleggDTO,
-    useEnkeltRekrutteringstreff
-} from '../../api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
+import {useEnkeltRekrutteringstreff} from '../../api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
 import SWRLaster from '../../components/SWRLaster';
 import * as React from 'react';
-import {ClockIcon, LocationPinIcon} from "@navikt/aksel-icons";
-import {Heading, HGrid, Page, Show, Tabs, VStack} from "@navikt/ds-react";
-import IkonMedInnhold from "@/app/components/IkonMedInnhold";
-import GråBoks from "@/app/components/GråBoks";
-import DOMPurify from 'dompurify';
-import Svarboks from "@/app/components/Svarboks";
-import {antallDagerTilDato, formatterDato} from "@/app/util";
+import {Heading, HGrid, Page, Show, Tabs} from "@navikt/ds-react";
+import Svarboks from "@/app/components/visrekrutteringstreff/Svarboks";
+import ArbeidsgiverListe from "@/app/components/visrekrutteringstreff/ArbeidsgiverListe";
+import InnleggListe from "@/app/components/visrekrutteringstreff/InnleggListe";
+import Tid from "@/app/components/visrekrutteringstreff/Tid";
+import Sted from "@/app/components/visrekrutteringstreff/Sted";
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
 }
 
-function visArbeidsgivere(arbeidsgivere: ArbeidsgiverDTO[]) {
-    return arbeidsgivere.map((arbeigsgiver, index) => (
-           <VStack gap="space-64" key={index}>
-               <GråBoks tittel={arbeigsgiver.navn}>
-                   Org.nr: {arbeigsgiver.organisasjonsnummer}
-               </GråBoks>
-           </VStack>
-    ));
-}
-
-function visInnlegg(innlegg: InnleggDTO[]) {
-    return innlegg.map((ettInnlegg, index) => (
-        <VStack gap="space-64" key={index}>
-            <GråBoks tittel={ettInnlegg.tittel}>
-              <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(ettInnlegg.htmlContent)}} />
-            </GråBoks>
-        </VStack>
-    ));
-}
-
-const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
-  rekrutteringstreffId,
-}) => {
-
+const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteringstreffId,}) => {
   const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(rekrutteringstreffId);
-
   return (
       <div className='mb-8 flex items-center gap-10'>
         <SWRLaster hooks={[enkeltRekrutteringstreffHook]}>
@@ -58,18 +30,11 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                               <div >
                                   <Heading size="medium" className="mb-6">{rekrutteringstreff.tittel}</Heading>
                                   <HGrid columns={{  xs: 1, lg: 2 }} gap="space-24" className="pb-10 text-base">
-                                      <IkonMedInnhold ikon={<ClockIcon title="Clock icon" fontSize="1.5rem" />}>
-                                          <div
-                                              className="font-bold">Om {antallDagerTilDato(rekrutteringstreff.fraTid)} dager
-                                          </div>
-                                          <div>{formatterDato(rekrutteringstreff.fraTid)} -</div>
-                                          <div>{formatterDato(rekrutteringstreff.tilTid)}</div>
-                                      </IkonMedInnhold>
-                                      <IkonMedInnhold
-                                          ikon={<LocationPinIcon title="Location pin icon" fontSize="1.5rem" />}>
-                                          <div className="font-bold">{rekrutteringstreff.gateadresse}</div>
-                                          <div>{rekrutteringstreff.postnummer} {rekrutteringstreff.poststed}</div>
-                                      </IkonMedInnhold>
+                                      <Tid fraTid={rekrutteringstreff.fraTid} tilTid={rekrutteringstreff.tilTid}/>
+                                      <Sted gateadresse={rekrutteringstreff.gateadresse}
+                                            postnummer={rekrutteringstreff.postnummer}
+                                            poststed={rekrutteringstreff.poststed}
+                                      />
                                   </HGrid>
                               </div>
                               <div >
@@ -86,10 +51,10 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                                                 label={`Arbeidsgivere (${rekrutteringstreff.arbeidsgivere.length})`} />
                                   </Tabs.List>
                                   <Tabs.Panel value="innlegg">
-                                      {visInnlegg(rekrutteringstreff.innlegg)}
+                                      <InnleggListe innlegg={rekrutteringstreff.innlegg} />
                                   </Tabs.Panel>
                                   <Tabs.Panel value="arbeidsgivere">
-                                      {visArbeidsgivere(rekrutteringstreff.arbeidsgivere)}
+                                      <ArbeidsgiverListe arbeidsgivere={rekrutteringstreff.arbeidsgivere} />
                                   </Tabs.Panel>
                               </Tabs>
                           </Show>
@@ -98,11 +63,11 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                                <HGrid columns={ "70% 30%" }>
                                   <div className="pr-8">
                                       <Heading size="xsmall">Siste aktivitet</Heading>
-                                      {visInnlegg(rekrutteringstreff.innlegg)}
+                                      <InnleggListe innlegg={rekrutteringstreff.innlegg} />
                                   </div>
                                   <div>
                                       <Heading size="xsmall">Arbeidsgivere</Heading>
-                                      {visArbeidsgivere(rekrutteringstreff.arbeidsgivere)}
+                                      <ArbeidsgiverListe arbeidsgivere={rekrutteringstreff.arbeidsgivere} />
                                   </div>
                                </HGrid>
                           </Show>
