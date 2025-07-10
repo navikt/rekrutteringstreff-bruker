@@ -9,6 +9,16 @@ import {mockBaseRekrutteringstreff} from "@/app/api/rekrutteringstreff-minside/[
 const enkeltRekrutteringstreffEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}`;
 
+const ArbeidsgiverSchema = z.object({
+  organisasjonsnummer: z.string(),
+  navn: z.string(),
+});
+
+const InnleggSchema = z.object({
+  tittel: z.string(),
+  htmlContent: z.string(),
+});
+
 const enkeltRekrutteringstreffSchema = z.object({
   id: z.string(),
   tittel: z.string(),
@@ -20,18 +30,20 @@ const enkeltRekrutteringstreffSchema = z.object({
   postnummer: z.string().nullable(),
   poststed: z.string().nullable(),
   status: z.string(),
-  innlegg: z.array(z.object({
-    tittel: z.string(),
-    htmlContent: z.string(),
-  })),
-  arbeidsgivere: z.array(z.object({
-    organisasjonsnummer: z.string(),
-    navn: z.string(),
-  })),
+  innlegg: z.array(InnleggSchema),
+  arbeidsgivere: z.array(ArbeidsgiverSchema),
 });
 
 export type EnkeltRekrutteringstreffDTO = z.infer<
   typeof enkeltRekrutteringstreffSchema
+>;
+
+export type ArbeidsgiverDTO = z.infer<
+  typeof ArbeidsgiverSchema
+>;
+
+export type InnleggDTO = z.infer<
+  typeof InnleggSchema
 >;
 
 export const useEnkeltRekrutteringstreff = (
