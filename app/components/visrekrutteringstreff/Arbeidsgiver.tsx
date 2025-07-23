@@ -1,6 +1,6 @@
 import {ArbeidsgiverDTO} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
 import * as React from 'react';
-import GråBoks from "@/app/components/GråBoks";
+import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
 
 export interface ArbeigsgiverProps {
     arbeidsgiver: ArbeidsgiverDTO;
@@ -8,9 +8,9 @@ export interface ArbeigsgiverProps {
 
 const Arbeidsgiver: React.FC<ArbeigsgiverProps> = ({arbeidsgiver}) => {
   return (
-       <GråBoks tittel={arbeidsgiver.navn}>
+       <BoksMedTittelOgInnhold tittel={arbeidsgiver.navn}>
            Org.nr: {arbeidsgiver.organisasjonsnummer}
-       </GråBoks>
+       </BoksMedTittelOgInnhold>
   );
 };
 

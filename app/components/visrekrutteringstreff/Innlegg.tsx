@@ -1,7 +1,7 @@
 import {InnleggDTO} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
 import * as React from 'react';
-import GråBoks from "@/app/components/GråBoks";
 import DOMPurify from "dompurify";
+import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
 
 export interface ArbeigsgiverProps {
     innlegg: InnleggDTO;
@@ -9,9 +9,9 @@ export interface ArbeigsgiverProps {
 
 const Innlegg: React.FC<ArbeigsgiverProps> = ({innlegg}) => {
   return (
-      <GråBoks tittel={innlegg.tittel}>
+      <BoksMedTittelOgInnhold tittel={innlegg.tittel}>
           <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(innlegg.htmlContent)}} />
-      </GråBoks>
+      </BoksMedTittelOgInnhold>
   );
 };
 

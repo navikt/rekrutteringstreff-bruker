@@ -1,33 +1,67 @@
-import {Box, Button, HStack} from '@navikt/ds-react';
+import {Button, HStack} from '@navikt/ds-react';
 import * as React from 'react';
 import {antallDagerTilDato, formatterDato} from "@/app/util";
+import Boks from "@/app/components/Boks";
+import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
+import PåmeldtChips from "@/app/components/visrekrutteringstreff/PåmeldtChips";
 
 export interface SvarboksProps {
+    erInvitert: boolean;
+    harSvart: boolean;
+    påmeldt: boolean;
     svarfrist: string | null;
 }
 
-const Svarboks: React.FC<SvarboksProps> = ({svarfrist}) => {
-  return (
-      <Box
-          padding='space-16'
-          background='surface-alt-3-subtle'
-          borderRadius="large"
-          borderWidth="1"
-          borderColor="border-subtle"
-            className="mb-8"
-      >
+const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, påmeldt, svarfrist}) => {
+
+    const fargekode = "blå";
+
+    if (!erInvitert) {
+        return (
+            <BoksMedTittelOgInnhold fargeKode={fargekode} className="mb-8" tittel="Vil du være med?">
+                <div className="text-base">
+                    Treffet har begrenset med plasser, men det hendet at det åpner seg ekstra rom for folk
+                    som er ekstra motivert.
+                </div>
+                <div className="text-base mt-2">
+                    Tips: Hør med veilederen din i dialogen og be dem sjekke om du kan bli med.
+                </div>
+            </BoksMedTittelOgInnhold>
+        );
+    }
+
+    if (!harSvart) {
+        return (
+           <Boks fargeKode={fargekode} className="mb-8">
+                <HStack className="text-base" align={"center"} justify="space-between">
+                <div style={{width: '70%'}}>
+                        <div>🔥🔥🔥</div>
+                        <div className="font-bold">Utløper om {antallDagerTilDato(svarfrist)} dager</div>
+                        <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
+                    </div>
+                   <div className="align-middle">
+                        <Button variant="primary">Svar</Button>
+                    </div>
+                </HStack>
+           </Boks>
+        )
+    }
+
+    return (
+      <Boks fargeKode={fargekode} className="mb-8">
         <HStack className="text-base" align={"center"} justify="space-between">
-            <div style={{width: '70%'}}>
-                <div>🔥🔥🔥</div>
-                <div className="font-bold">Utløper om {antallDagerTilDato(svarfrist)} dager</div>
-                <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
+            <div style={{width: '60%'}}>
+                <div className="font-bold">
+                   <PåmeldtChips påmeldt={påmeldt} />
+                </div>
+                <div className="py-2">Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
             </div>
-            <div className="align-middle">
-                <Button variant="primary">Svar</Button>
+            <div className="align-middle " >
+                <Button variant="secondary" className="place-self-end" size="medium">Endre svar</Button>
             </div>
         </HStack>
-      </Box>
-);
+      </Boks>
+  );
 };
 
 export default Svarboks;
