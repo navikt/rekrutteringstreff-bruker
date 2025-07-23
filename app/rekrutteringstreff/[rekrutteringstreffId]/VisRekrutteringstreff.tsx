@@ -69,11 +69,11 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                           <Show above="lg">
                                <HGrid columns={ "65% 35%" }>
                                   <div className="pr-8">
-                                      <Heading size="xsmall" className="mb-2">Siste aktivitet</Heading>
+                                      <Heading size="xsmall" className="mb-4">Siste aktivitet</Heading>
                                       <InnleggListe innlegg={rekrutteringstreff.innlegg} />
                                   </div>
                                   <div>
-                                      <Heading size="xsmall" className="mb-2">Arbeidsgivere</Heading>
+                                      <Heading size="xsmall" className="mb-4">Arbeidsgivere</Heading>
                                       <ArbeidsgiverListe arbeidsgivere={rekrutteringstreff.arbeidsgivere} />
                                   </div>
                                </HGrid>
