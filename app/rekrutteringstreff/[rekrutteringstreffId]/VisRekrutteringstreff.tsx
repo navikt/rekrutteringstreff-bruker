@@ -4,12 +4,12 @@ import {useEnkeltRekrutteringstreff} from '../../api/rekrutteringstreff-minside/
 import SWRLaster from '../../components/SWRLaster';
 import * as React from 'react';
 import {Heading, HGrid, Page, Show, Tabs} from "@navikt/ds-react";
-import Svarboks from "@/app/components/visrekrutteringstreff/Svarboks";
 import ArbeidsgiverListe from "@/app/components/visrekrutteringstreff/ArbeidsgiverListe";
 import InnleggListe from "@/app/components/visrekrutteringstreff/InnleggListe";
 import Tid from "@/app/components/visrekrutteringstreff/Tid";
 import Sted from "@/app/components/visrekrutteringstreff/Sted";
 import {useEnkeltRekrutteringstreffSvar} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreffSvar";
+import Svarboks from "@/app/components/svar/Svarboks";
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
