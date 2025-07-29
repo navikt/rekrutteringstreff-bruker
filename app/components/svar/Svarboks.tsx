@@ -9,12 +9,13 @@ import SvarModal from "@/app/components/svar/SvarModal";
 
 export interface SvarboksProps {
     erInvitert: boolean;
+    erPåmeldt: boolean;
     harSvart: boolean;
-    påmeldt: boolean;
     svarfrist: string | null;
+    rekrutteringstreffId: string;
 }
 
-const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, påmeldt, svarfrist}) => {
+const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, rekrutteringstreffId}) => {
 
     const [isSvarModalOpen, setSvarModalOpen] = useState(false);
 
@@ -34,6 +35,20 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, påmeldt, svar
         );
     }
 
+    const harSvartSomBooleanEllerNull = () => {
+        if (!harSvart) {
+            return null;
+        }
+        return erPåmeldt
+    }
+
+    const svarModalElement = <SvarModal
+            erÅpen={isSvarModalOpen}
+            onClose={() => setSvarModalOpen(false)}
+            svarfrist={svarfrist}
+            rekrutteringstreffId={rekrutteringstreffId}
+            gjeldendeSvar={harSvartSomBooleanEllerNull()}/>
+
     if (!harSvart) {
         return (
             <>
@@ -49,7 +64,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, påmeldt, svar
                         </div>
                     </HStack>
                 </Boks>
-                <SvarModal erÅpen={isSvarModalOpen} onClose={() => setSvarModalOpen(false)} svarfrist={svarfrist}/>
+                {svarModalElement}
             </>
         )
     }
@@ -60,7 +75,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, påmeldt, svar
                 <HStack className="text-base" align={"center"} justify="space-between">
                     <div style={{width: '60%'}}>
                         <div className="font-bold">
-                            <PåmeldtChips påmeldt={påmeldt} />
+                            <PåmeldtChips erPåmeldt={erPåmeldt} />
                         </div>
                         <div className="py-2">Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
                     </div>
@@ -75,7 +90,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, påmeldt, svar
                     </div>
                 </HStack>
             </Boks>
-            <SvarModal erÅpen={isSvarModalOpen} onClose={() => setSvarModalOpen(false)} svarfrist={svarfrist} />
+            {svarModalElement}
         </>
   );
 };

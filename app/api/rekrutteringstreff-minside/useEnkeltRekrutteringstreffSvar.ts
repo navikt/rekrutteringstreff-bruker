@@ -14,8 +14,8 @@ const enkeltRekrutteringstreffSvarEndepunkt = (rekrutteringstreffId: string) =>
 
 const enkeltRekrutteringstreffSvarSchema = z.object({
   erInvitert: z.boolean(),
+  erPåmeldt: z.boolean(),
   harSvart: z.boolean(),
-  påmeldt: z.boolean(),
 });
 
 export type EnkeltRekrutteringstreffSvarDTO = z.infer<

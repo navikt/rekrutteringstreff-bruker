@@ -4,8 +4,8 @@ import {EnkeltRekrutteringstreffSvarDTO} from "@/app/api/rekrutteringstreff-mins
 const createMockRekrutteringstreffSvar = (): EnkeltRekrutteringstreffSvarDTO => {
   return {
     erInvitert: faker.datatype.boolean(),
+    erPåmeldt: faker.datatype.boolean(),
     harSvart: faker.datatype.boolean(),
-    påmeldt: faker.datatype.boolean(),
   }
 };
 

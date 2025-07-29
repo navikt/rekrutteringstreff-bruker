@@ -42,9 +42,10 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                               </div>
                               <div >
                                   <Svarboks erInvitert={enkeltRekrutteringstreffSvar.erInvitert}
+                                            erPåmeldt={enkeltRekrutteringstreffSvar.erPåmeldt}
                                             harSvart={enkeltRekrutteringstreffSvar.harSvart}
-                                            påmeldt={enkeltRekrutteringstreffSvar.påmeldt}
                                             svarfrist={rekrutteringstreff.svarfrist}
+                                            rekrutteringstreffId={rekrutteringstreffId}
                                   />
                               </div>
                           </HGrid>

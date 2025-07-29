@@ -9,14 +9,41 @@ import {
 import IkonOgTekst from "@/app/components/svar/IkonOgTekst";
 import Boks from "@/app/components/Boks";
 import {antallDagerTilDato, formatterDato} from "@/app/util";
+import {avgiSvar} from "@/app/api/rekrutteringstreff-minside/avgiSvar";
+import {useState} from "react";
 
 export interface SvarModalProps {
     erÅpen: boolean;
     onClose: () => void;
     svarfrist: string | null;
+    rekrutteringstreffId: string;
+    gjeldendeSvar: boolean | null;
 }
 
-const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarfrist}) => {
+const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarfrist, rekrutteringstreffId, gjeldendeSvar}) => {
+
+    async function avgiSvarClicked(svar: boolean) {
+        try {
+            setVisFeilmelding(false);
+            const result = await avgiSvar(rekrutteringstreffId, svar);
+            console.log("Svar sendt:", result);
+            if (result.ok) {
+                onClose();
+            } else {
+                console.error("Feil ved sending av svar:", result);
+                setVisFeilmelding(true);
+            }
+        } catch (error) {
+            console.error("Feil ved sending av svar:", error);
+            setVisFeilmelding(true);
+        }
+    }
+
+    const [svar, setSvar] = useState<boolean|null>(gjeldendeSvar);
+    const [visFeilmelding, setVisFeilmelding] = useState<boolean>(false);
+
+    console.log("svar", svar);
+
     return (
         <Modal
             open={erÅpen}
@@ -58,9 +85,9 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarfrist}) => {
                             Du kan endre svaret ditt frem til fristen. Det gjør ikke noe om du ombestemmer deg.
                         `}
                     />
-                    <RadioGroup legend="" onChange={() => {}}>
-                        <Radio value="true" size="small"><span className="mr-2">👍</span><span className="text-base">Ja, jeg kommer</span></Radio>
-                        <Radio value="false" size="small"><span className="mr-2">👎</span><span className="text-base">Nei, jeg kommer ikke</span></Radio>
+                    <RadioGroup legend="" value={svar} onChange={(value) => setSvar(value)}>
+                        <Radio value={true} size="small"><span className="mr-2">👍</span><span className="text-base">Ja, jeg kommer</span></Radio>
+                        <Radio value={false} size="small"><span className="mr-2">👎</span><span className="text-base">Nei, jeg kommer ikke</span></Radio>
                     </RadioGroup>
                     <Boks>
                         <div>🔥🔥🔥</div>
@@ -70,8 +97,13 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarfrist}) => {
                 </VStack>
             </Modal.Body>
             <Modal.Footer>
-                <Button>Send</Button>
+                <Button onClick={() => avgiSvarClicked(svar as boolean)} disabled={svar === null}>Send</Button>
                 <Button variant="secondary" onClick={() => onClose()}>Avbryt</Button>
+                {visFeilmelding &&
+                    <div className="text-red-600 mb-6 text-base font-semibold">
+                        Noe gikk galt ved sending av svar, vennligst prøv igjen senere.
+                    </div>
+                }
             </Modal.Footer>
         </Modal>
   );
