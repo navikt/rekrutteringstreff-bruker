@@ -6,16 +6,15 @@ import {
     mockBaseRekrutteringstreffPostSvar
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffSvarPostMock";
 
-const avgiSvarEndepunkt = (rekrutteringstreffId: string) =>
-  `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}/svar`;
+const avgiSvarEndepunkt = `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/svar`;
 
 
 export const avgiSvar = async (
     rekrutteringstreffId: string, erPåmeldt: boolean
 ): Promise<Response> => {
-    return await putApi(avgiSvarEndepunkt(rekrutteringstreffId), {erPåmeldt});
+    return await putApi(avgiSvarEndepunkt, {rekrutteringstreffId, erPåmeldt});
 }
 
 export const avgiSvarMirage = (server: any) => {
-  server.post(avgiSvarEndepunkt('*'), () =>  mockBaseRekrutteringstreffPostSvar)
+  server.post(avgiSvarEndepunkt, () =>  mockBaseRekrutteringstreffPostSvar)
 };
