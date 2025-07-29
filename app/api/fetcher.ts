@@ -29,12 +29,12 @@ export const getAPIwithSchema = <T>(
   };
 };
 
-export const postApi = async (
+export const putApi = async (
     url: string,
     body: any,
 ) :  Promise<Response> => {
   const response = await fetch(url, {
-    method: 'POST',
+    method: 'PUT',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
@@ -44,6 +44,6 @@ export const postApi = async (
     ),
   });
 
-  logger.info("POST response:", response);
+  logger.info("PUT response:", response);
   return response;
 };

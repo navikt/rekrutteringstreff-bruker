@@ -1,7 +1,7 @@
 'use client';
 
 import { RekrutteringstreffMinSide } from '../api-routes';
-import {postApi} from '../fetcher';
+import {putApi} from '../fetcher';
 import {
     mockBaseRekrutteringstreffPostSvar
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffSvarPostMock";
@@ -13,7 +13,7 @@ const avgiSvarEndepunkt = (rekrutteringstreffId: string) =>
 export const avgiSvar = async (
     rekrutteringstreffId: string, erPåmeldt: boolean
 ): Promise<Response> => {
-    return await postApi(avgiSvarEndepunkt(rekrutteringstreffId), {erPåmeldt});
+    return await putApi(avgiSvarEndepunkt(rekrutteringstreffId), {erPåmeldt});
 }
 
 export const avgiSvarMirage = (server: any) => {
