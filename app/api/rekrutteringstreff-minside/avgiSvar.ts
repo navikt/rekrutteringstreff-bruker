@@ -6,7 +6,7 @@ import {
     mockBaseRekrutteringstreffPostSvar
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffSvarPostMock";
 
-const avgiSvarEndepunkt = `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/svar`;
+const avgiSvarEndepunkt = `${RekrutteringstreffMinSide.internUrl}/svar`;
 
 
 export const avgiSvar = async (
