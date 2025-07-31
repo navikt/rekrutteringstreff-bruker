@@ -42,8 +42,6 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
     const [svar, setSvar] = useState<boolean|null>(gjeldendeSvar);
     const [visFeilmelding, setVisFeilmelding] = useState<boolean>(false);
 
-    console.log("svar", svar);
-
     return (
         <Modal
             open={erÅpen}
