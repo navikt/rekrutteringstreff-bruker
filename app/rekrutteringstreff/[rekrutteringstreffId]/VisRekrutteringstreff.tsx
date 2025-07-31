@@ -44,6 +44,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                                             erPåmeldt={enkeltRekrutteringstreffSvar.erPåmeldt}
                                             harSvart={enkeltRekrutteringstreffSvar.harSvart}
                                             svarfrist={rekrutteringstreff.svarfrist}
+                                            laster={enkeltRekrutteringstreffSvarHook.isLoading}
                                             rekrutteringstreffId={rekrutteringstreffId}
                                             svarEndret={() => enkeltRekrutteringstreffSvarHook.mutate()}
                                   />

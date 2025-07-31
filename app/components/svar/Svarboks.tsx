@@ -1,4 +1,4 @@
-import {Button, HStack} from '@navikt/ds-react';
+import {Button, HStack, Loader} from '@navikt/ds-react';
 import * as React from 'react';
 import {antallDagerTilDato, formatterDato} from "@/app/util";
 import Boks from "@/app/components/Boks";
@@ -11,16 +11,25 @@ export interface SvarboksProps {
     erInvitert: boolean;
     erPåmeldt: boolean;
     harSvart: boolean;
+    laster: boolean;
     svarfrist: string | null;
     rekrutteringstreffId: string;
     svarEndret: () => void;
 }
 
-const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, rekrutteringstreffId, svarEndret}) => {
+const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, rekrutteringstreffId, svarEndret, laster}) => {
 
     const [isSvarModalOpen, setSvarModalOpen] = useState(false);
 
     const fargekode = "blå";
+
+    if (laster) {
+        return (
+            <Boks fargeKode={fargekode} className="mb-8 flex justify-center ">
+                <Loader title='Laster...' />
+            </Boks>
+        );
+    }
 
     if (!erInvitert) {
         return (
