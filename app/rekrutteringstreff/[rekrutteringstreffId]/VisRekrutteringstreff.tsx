@@ -25,7 +25,6 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
               if (!rekrutteringstreff) {
                 return <div>Ingen data funnet for rekrutteringstreff med ID: {rekrutteringstreffId}</div>;
               }
-              console.log("enkeltRekrutteringstreffSvar", enkeltRekrutteringstreffSvar)
               return (
                   <Page>
                       <Page.Block as="main" width="xl" gutters>
@@ -46,6 +45,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                                             harSvart={enkeltRekrutteringstreffSvar.harSvart}
                                             svarfrist={rekrutteringstreff.svarfrist}
                                             rekrutteringstreffId={rekrutteringstreffId}
+                                            svarEndret={() => enkeltRekrutteringstreffSvarHook.mutate()}
                                   />
                               </div>
                           </HGrid>

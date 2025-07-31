@@ -13,9 +13,10 @@ export interface SvarboksProps {
     harSvart: boolean;
     svarfrist: string | null;
     rekrutteringstreffId: string;
+    svarEndret: () => void;
 }
 
-const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, rekrutteringstreffId}) => {
+const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, rekrutteringstreffId, svarEndret}) => {
 
     const [isSvarModalOpen, setSvarModalOpen] = useState(false);
 
@@ -45,6 +46,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
     const svarModalElement = <SvarModal
             erÅpen={isSvarModalOpen}
             onClose={() => setSvarModalOpen(false)}
+            svarEndret={() => svarEndret()}
             svarfrist={svarfrist}
             rekrutteringstreffId={rekrutteringstreffId}
             gjeldendeSvar={harSvartSomBooleanEllerNull()}/>

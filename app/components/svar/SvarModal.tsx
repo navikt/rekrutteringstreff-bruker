@@ -15,22 +15,22 @@ import {useState} from "react";
 export interface SvarModalProps {
     erÅpen: boolean;
     onClose: () => void;
+    svarEndret: () => void;
     svarfrist: string | null;
     rekrutteringstreffId: string;
     gjeldendeSvar: boolean | null;
 }
 
-const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarfrist, rekrutteringstreffId, gjeldendeSvar}) => {
+const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svarfrist, rekrutteringstreffId, gjeldendeSvar}) => {
 
     async function avgiSvarClicked(svar: boolean) {
         try {
             setVisFeilmelding(false);
             const result = await avgiSvar(rekrutteringstreffId, svar);
-            console.log("Svar sendt:", result);
             if (result.ok) {
+                svarEndret();
                 onClose();
             } else {
-                console.error("Feil ved sending av svar:", result);
                 setVisFeilmelding(true);
             }
         } catch (error) {
