@@ -16,5 +16,5 @@ export const avgiSvar = async (
 }
 
 export const avgiSvarMirage = (server: any) => {
-  server.post(avgiSvarEndepunkt, () =>  mockBaseRekrutteringstreffPostSvar)
+  server.put(avgiSvarEndepunkt('*'), () =>  mockBaseRekrutteringstreffPostSvar)
 };
