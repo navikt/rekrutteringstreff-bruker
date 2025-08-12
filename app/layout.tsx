@@ -36,16 +36,16 @@ export default async function RootLayout({
             <head>
                 <Decorator.HeadAssets />
             </head>
-            <body className='flex flex-col h-full contentContainer'>
-            <Decorator.Header />
-            {!isLocal && <LoginHandler />}
-            <BrukLokalMock>
-                <main className='flex-grow flex flex-col'>
-                    {children}
-                </main>
-            </BrukLokalMock>
-            <Decorator.Footer />
-            <Decorator.Scripts loader={Script} />
+            <body style={{'scrollbarGutter': 'stable'}}>
+                <Decorator.Header />
+                {!isLocal && <LoginHandler />}
+                <BrukLokalMock>
+                    <main className='flex-grow flex flex-col contentContainer' style={{'scrollbarGutter': 'stable'}}>
+                        {children}
+                    </main>
+                </BrukLokalMock>
+                <Decorator.Footer />
+                <Decorator.Scripts loader={Script} />
             </body>
         </html>
     );

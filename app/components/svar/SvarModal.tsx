@@ -53,6 +53,7 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                 closeButton: true,
                 heading: "Svar på om du vil komme",
             }}
+            closeOnBackdropClick={true}
         >
             <Modal.Body>
                 <VStack gap="space-24">
