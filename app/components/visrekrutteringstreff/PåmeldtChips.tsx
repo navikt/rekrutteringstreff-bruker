@@ -10,13 +10,13 @@ const PåmeldtChips: React.FC<PåmeldtChipsProps> = ({erPåmeldt}) => {
     let variant: "success" | "error" = "success";
     let textColor: "text-green-700" | "text-red-700" = "text-green-700";
     let tekst = "Jeg blir med";
-    let icon:  React.ReactNode = <XMarkOctagonIcon title={tekst} fontSize="1.5rem" />;
+    let icon:  React.ReactNode = <ChevronDownCircleIcon title={tekst} fontSize="1.5rem" />;
 
     if (!erPåmeldt) {
         variant = "error";
         textColor = "text-red-700";
         tekst = "Jeg blir ikke med";
-        icon = <ChevronDownCircleIcon title={tekst} fontSize="1.5rem" />;
+        icon = <XMarkOctagonIcon title={tekst} fontSize="1.5rem" />;
     }
 
   return (

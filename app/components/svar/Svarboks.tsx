@@ -82,7 +82,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
 
     return (
         <>
-            <Boks fargeKode={fargekode} className="mb-8">
+            <Boks fargeKode={"hvit"} className="mb-8">
                 <HStack className="text-base" align={"center"} justify="space-between">
                     <div style={{width: '60%'}}>
                         <div className="font-bold">
