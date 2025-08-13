@@ -25,7 +25,7 @@ export function formatterDato(date: string | null): string  {
     if (!date) {
         return '';
     }
-    return formatDateFns(date, "EEEE d. MMMM yyyy 'kl' hh:MM", {locale: nb,});
+    return formatDateFns(date, "EEEE d. MMMM yyyy 'kl' HH:MM", {locale: nb,});
 }
 
 export function antallDagerTilDato(dato: string | null): string {
@@ -34,4 +34,21 @@ export function antallDagerTilDato(dato: string | null): string {
     }
     const isoDato = parseISO(dato);
     return differenceInDays(isoDato, new Date()) + '';
+}
+
+export function erMellomDatoer(fraDato: string | null, tilDato: string | null): boolean {
+    if (!fraDato || !tilDato) {
+        return false;
+    }
+    const fra = parseISO(fraDato);
+    const til = parseISO(tilDato);
+    const iDag = new Date();
+    return iDag >= fra && iDag <= til;
+}
+
+export function erDatoPassert(datoSomStreng: string | null): boolean {
+    if (!datoSomStreng) {
+        return false;
+    }
+    return parseISO(datoSomStreng) <= new Date();
 }

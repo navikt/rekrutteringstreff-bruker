@@ -7,7 +7,7 @@ export interface BoksMedTittelOgInnholdProps {
   ikon?: React.ReactNode | undefined;
   tittel: string;
   className?: string;
-  fargeKode?: 'grå' | 'blå';
+  fargeKode?: 'grå' | 'blå' | 'hvit';
 }
 
 const BoksMedTittelOgInnhold: React.FC<BoksMedTittelOgInnholdProps> = ({

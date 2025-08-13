@@ -1,6 +1,6 @@
 import {Button, HStack, Loader} from '@navikt/ds-react';
 import * as React from 'react';
-import {antallDagerTilDato, formatterDato} from "@/app/util";
+import {antallDagerTilDato, erDatoPassert, erMellomDatoer, formatterDato} from "@/app/util";
 import Boks from "@/app/components/Boks";
 import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
 import PåmeldtChips from "@/app/components/visrekrutteringstreff/PåmeldtChips";
@@ -13,27 +13,41 @@ export interface SvarboksProps {
     harSvart: boolean;
     laster: boolean;
     svarfrist: string | null;
+    fraTid: string | null;
+    tilTid: string | null;
     rekrutteringstreffId: string;
     svarEndret: () => void;
 }
 
-const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, rekrutteringstreffId, svarEndret, laster}) => {
+const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, fraTid, tilTid, rekrutteringstreffId, svarEndret, laster}) => {
 
     const [isSvarModalOpen, setSvarModalOpen] = useState(false);
 
-    const fargekode = "blå";
-
     if (laster) {
         return (
-            <Boks fargeKode={fargekode} className="mb-8 flex justify-center ">
+            <Boks fargeKode={"blå"} className="mb-8 flex justify-center ">
                 <Loader title='Laster...' />
             </Boks>
         );
     }
 
+    if (erDatoPassert(tilTid)) {
+        return <Boks fargeKode={"hvit"} className="mb-8">
+            <div>🎉</div>
+            <div className="font-bold mt-2 text-base">Treffet er over for denne gang</div>
+        </Boks>
+    }
+
+    if (erMellomDatoer(fraTid, tilTid)) {
+        return <Boks fargeKode={"hvit"} className="mb-8">
+            <div>⏱️️⏱️️⏱️️</div>
+            <div className="font-bold mt-2 text-base">Treffet er i gang</div>
+        </Boks>
+    }
+
     if (!erInvitert) {
         return (
-            <BoksMedTittelOgInnhold fargeKode={fargekode} className="mb-8" tittel="Vil du være med?">
+            <BoksMedTittelOgInnhold fargeKode={"blå"} className="mb-8" tittel="Vil du være med?">
                 <div className="text-base">
                     Treffet har begrenset med plasser, men det hendet at det åpner seg ekstra rom for folk
                     som er ekstra motivert.
@@ -63,7 +77,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
     if (!harSvart) {
         return (
             <>
-                <Boks fargeKode={fargekode} className="mb-8">
+                <Boks fargeKode={"blå"} className="mb-8">
                     <HStack className="text-base" align={"center"} justify="space-between">
                         <div style={{width: '70%'}}>
                             <div>🔥🔥🔥</div>

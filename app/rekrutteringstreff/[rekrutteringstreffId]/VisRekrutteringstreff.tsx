@@ -15,7 +15,7 @@ export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
 }
 
-const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteringstreffId,}) => {
+const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteringstreffId}) => {
   const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(rekrutteringstreffId);
   const enkeltRekrutteringstreffSvarHook = useEnkeltRekrutteringstreffSvar(rekrutteringstreffId);
   return (
@@ -44,6 +44,8 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                                             erPåmeldt={enkeltRekrutteringstreffSvar.erPåmeldt}
                                             harSvart={enkeltRekrutteringstreffSvar.harSvart}
                                             svarfrist={rekrutteringstreff.svarfrist}
+                                            fraTid={rekrutteringstreff.fraTid}
+                                            tilTid={rekrutteringstreff.tilTid}
                                             laster={enkeltRekrutteringstreffSvarHook.isLoading}
                                             rekrutteringstreffId={rekrutteringstreffId}
                                             svarEndret={() => enkeltRekrutteringstreffSvarHook.mutate()}

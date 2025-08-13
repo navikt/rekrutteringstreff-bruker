@@ -2,15 +2,18 @@ import { faker } from '@faker-js/faker/locale/nb_NO';
 import {EnkeltRekrutteringstreffDTO} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
 
 const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
-  const fraTid = faker.date.future();
-  const tilTid = faker.date.future({refDate: fraTid});
+  const fraTid = faker.date.between({
+    from: faker.date.recent({days: 10}),
+    to: faker.date.soon({days: 40})}
+  );
+  const tilTid = faker.date.soon({refDate: fraTid, days: 3});
   return {
     id: faker.number.int({min: 100000, max: 999999}).toString(),
     tittel: faker.lorem.sentence(),
     beskrivelse: '',
     fraTid: fraTid.toISOString(),
     tilTid: tilTid.toISOString(),
-    svarfrist: faker.date.between({from: fraTid, to: tilTid}).toISOString(),
+    svarfrist: faker.date.recent({refDate: fraTid, days: 3}).toISOString(),
     gateadresse: faker.location.streetAddress(),
     postnummer: faker.location.zipCode(),
     poststed: faker.location.city(),
