@@ -1,13 +1,13 @@
 import { Box } from '@navikt/ds-react';
 import * as React from 'react';
 
-export interface GråBoksProps {
+export interface BoksProps {
   children?: React.ReactNode | undefined;
   className?: string;
   fargeKode?: 'grå' | 'blå' | 'hvit';
 }
 
-const Boks: React.FC<GråBoksProps> = ({
+const Boks: React.FC<BoksProps> = ({
   children,
   className,
   fargeKode
