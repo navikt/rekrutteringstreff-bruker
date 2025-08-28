@@ -11,6 +11,7 @@ import Boks from "@/app/components/Boks";
 import {antallDagerTilDato, formatterDato} from "@/app/util";
 import {avgiSvar} from "@/app/api/rekrutteringstreff-minside/avgiSvar";
 import {useState} from "react";
+import { logger } from '@navikt/next-logger';
 
 export interface SvarModalProps {
     erÅpen: boolean;
@@ -28,13 +29,14 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
             setVisFeilmelding(false);
             const result = await avgiSvar(rekrutteringstreffId, svar);
             if (result.ok) {
+                logger.info("Svar sendt for rekrutteringstreff med id " + rekrutteringstreffId);
                 svarEndret();
                 onClose();
             } else {
                 setVisFeilmelding(true);
             }
         } catch (error) {
-            console.error("Feil ved sending av svar:", error);
+            logger.error(`Feil ved sending av svar for rekturreringstreff med id ${rekrutteringstreffId}`, error);
             setVisFeilmelding(true);
         }
     }

@@ -10,6 +10,7 @@ import Tid from "@/app/components/visrekrutteringstreff/Tid";
 import Sted from "@/app/components/visrekrutteringstreff/Sted";
 import {useEnkeltRekrutteringstreffSvar} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreffSvar";
 import Svarboks from "@/app/components/svar/Svarboks";
+import { logger } from '@navikt/next-logger';
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
@@ -23,8 +24,10 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
         <SWRLaster hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}>
           {(rekrutteringstreff, enkeltRekrutteringstreffSvar) => {
               if (!rekrutteringstreff) {
+                logger.warn(`Fant ikke data for rekrutteringsteff med id: ${rekrutteringstreffId}`);
                 return <div>Ingen data funnet for rekrutteringstreff med ID: {rekrutteringstreffId}</div>;
               }
+              logger.warn(`Viser rekrutteringsteff med id: ${rekrutteringstreffId}`);
               return (
                   <Page>
                       <Page.Block as="main" width="xl" gutters>
