@@ -29,14 +29,14 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
             setVisFeilmelding(false);
             const result = await avgiSvar(rekrutteringstreffId, svar);
             if (result.ok) {
-                logger.info("Svar sendt for rekrutteringstreff med id " + rekrutteringstreffId);
+                logger.info(`Svar sendt ${svar} rekrutteringstreff ${rekrutteringstreffId}`);
                 svarEndret();
                 onClose();
             } else {
                 setVisFeilmelding(true);
             }
         } catch (error) {
-            logger.error(`Feil ved sending av svar for rekturreringstreff med id ${rekrutteringstreffId}`, error);
+            logger.error(`Feil ved sending av svar for rekturreringstreff ${rekrutteringstreffId}`, error);
             setVisFeilmelding(true);
         }
     }
