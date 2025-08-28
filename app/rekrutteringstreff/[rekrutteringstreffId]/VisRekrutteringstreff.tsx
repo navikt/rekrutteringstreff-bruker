@@ -27,7 +27,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                 logger.warn(`Fant ikke data for rekrutteringsteff med id: ${rekrutteringstreffId}`);
                 return <div>Ingen data funnet for rekrutteringstreff med ID: {rekrutteringstreffId}</div>;
               }
-              logger.warn(`Viser rekrutteringsteff med id: ${rekrutteringstreffId}`);
+              logger.info(`Viser rekrutteringsteff med id: ${rekrutteringstreffId}`);
               return (
                   <Page>
                       <Page.Block as="main" width="xl" gutters>
