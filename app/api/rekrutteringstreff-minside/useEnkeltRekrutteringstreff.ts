@@ -4,7 +4,10 @@ import { RekrutteringstreffMinSide } from '../api-routes';
 import { getAPIwithSchema } from '../fetcher';
 import useSWR from 'swr';
 import { z } from 'zod';
-import {mockBaseRekrutteringstreff} from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock";
+import {
+  mockRekrutteringstreff,
+  mockRekrutteringstreffFremITid, mockRekrutteringstreffIGang, mockRekrutteringstreffTilbakeITid,
+} from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock";
 
 const enkeltRekrutteringstreffEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}`;
@@ -65,5 +68,11 @@ export const useEnkeltRekrutteringstreff = (
 }
 
 export const rekrutteringstreffMirage = (server: any) => {
-  server.get(enkeltRekrutteringstreffEndepunkt('*'), () =>  mockBaseRekrutteringstreff)
+  server.get(enkeltRekrutteringstreffEndepunkt('2'), () =>  mockRekrutteringstreffFremITid)
+  server.get(enkeltRekrutteringstreffEndepunkt('3'), () =>  mockRekrutteringstreffFremITid)
+  server.get(enkeltRekrutteringstreffEndepunkt('4'), () =>  mockRekrutteringstreffFremITid)
+  server.get(enkeltRekrutteringstreffEndepunkt('5'), () =>  mockRekrutteringstreffFremITid)
+  server.get(enkeltRekrutteringstreffEndepunkt('6'), () =>  mockRekrutteringstreffIGang)
+  server.get(enkeltRekrutteringstreffEndepunkt('7'), () =>  mockRekrutteringstreffTilbakeITid)
+  server.get(enkeltRekrutteringstreffEndepunkt('*'), () =>  mockRekrutteringstreff)
 };

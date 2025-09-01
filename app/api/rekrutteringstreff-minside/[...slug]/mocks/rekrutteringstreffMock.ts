@@ -29,4 +29,45 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
   }
 };
 
-export const mockBaseRekrutteringstreff = createMockRekrutteringstreff();
+const createMockRekrutteringstreffFremITid = (): EnkeltRekrutteringstreffDTO => {
+  const fraTid = faker.date.soon({days: 30});
+  const tilTid = faker.date.soon({refDate: fraTid, days: 3});
+  return {...createMockRekrutteringstreff(),
+    fraTid: fraTid.toISOString(),
+    tilTid: tilTid.toISOString(),
+    svarfrist: faker.date.recent({refDate: fraTid, days: 2}).toISOString()
+  }
+};
+
+const createMockRekrutteringstreffTilbakeITid = (): EnkeltRekrutteringstreffDTO => {
+  const fraTid = faker.date.recent({days: 30});
+  const tilTid = faker.date.soon({refDate: fraTid, days: 1});
+  return {...createMockRekrutteringstreff(),
+    fraTid: fraTid.toISOString(),
+    tilTid: tilTid.toISOString(),
+    svarfrist: faker.date.soon({refDate: fraTid, days: 2}).toISOString()
+  }
+};
+
+const createMockRekrutteringstreffIGang = (): EnkeltRekrutteringstreffDTO => {
+  const fraTid = faker.date.recent({days: 3});
+  const tilTid = faker.date.soon({days: 2});
+  return {...createMockRekrutteringstreff(),
+    fraTid: fraTid.toISOString(),
+    tilTid: tilTid.toISOString(),
+    svarfrist: faker.date.soon({refDate: fraTid, days: 2}).toISOString()
+  }
+};
+
+
+export const mockRekrutteringstreff = createMockRekrutteringstreff();
+export const mockRekrutteringstreffFremITid = createMockRekrutteringstreffFremITid();
+export const mockRekrutteringstreffTilbakeITid = createMockRekrutteringstreffTilbakeITid();
+export const mockRekrutteringstreffIGang = createMockRekrutteringstreffIGang();
+
+
+
+
+
+
+

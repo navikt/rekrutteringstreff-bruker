@@ -14,6 +14,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Test cases
+[http://localhost:3000/rekrutteringstreff/1](http://localhost:3000/rekrutteringstreff/1) Alt er random
+[http://localhost:3000/rekrutteringstreff/2](http://localhost:3000/rekrutteringstreff/2) Treff frem i tid hvor jobbsøker ikke har svart
+[http://localhost:3000/rekrutteringstreff/3](http://localhost:3000/rekrutteringstreff/3) Treff frem i tid hvor jobbsøker har svart ja
+[http://localhost:3000/rekrutteringstreff/4](http://localhost:3000/rekrutteringstreff/4) Treff frem i tid hvor jobbsøker har svart nei
+[http://localhost:3000/rekrutteringstreff/5](http://localhost:3000/rekrutteringstreff/5) Treff frem i tid hvor jobbsøker ikke er invitert
+[http://localhost:3000/rekrutteringstreff/6](http://localhost:3000/rekrutteringstreff/6) Treff som er i gang
+[http://localhost:3000/rekrutteringstreff/7](http://localhost:3000/rekrutteringstreff/7) Treff som er passert
+
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
