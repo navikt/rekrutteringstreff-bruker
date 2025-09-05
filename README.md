@@ -38,7 +38,7 @@ pnpm test
 pnpm test --ui
 ```
 
-Testresultater: [navikt.github.io/rekrutteringsbistand-bruker](https://navikt.github.io/rekrutteringsbistand-bruker/playwright-report)
+Testresultater: [navikt.github.io/rekrutteringstreff-bruker/playwright-report](https://navikt.github.io/rekrutteringstreff-bruker/playwright-report)
 
 ## Learn More
 
