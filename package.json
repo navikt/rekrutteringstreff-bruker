@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "pnpm exec playwright test --reporter=html",
+    "test-dev": "next dev -p 1337",
     "lint": "next lint"
   },
   "dependencies": {
