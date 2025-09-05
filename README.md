@@ -32,6 +32,7 @@ pnpm exec playwright install (kun første gang)
 pnpm exec playwright codegen
 
 # Kjør tester
+pnpm test-dev (starter dev server)
 pnpm test
 
 # Åpne UI-modus
