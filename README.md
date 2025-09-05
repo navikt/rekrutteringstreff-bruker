@@ -24,6 +24,22 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 [http://localhost:3000/rekrutteringstreff/7](http://localhost:3000/rekrutteringstreff/7) Treff som er passert
 
 
+### 🎭 Playwright
+
+```bash
+# Generer tester
+pnpm exec playwright install (kun første gang)
+pnpm exec playwright codegen
+
+# Kjør tester
+pnpm test
+
+# Åpne UI-modus
+pnpm test --ui
+```
+
+Testresultater: [navikt.github.io/rekrutteringsbistand-bruker](https://navikt.github.io/rekrutteringsbistand-bruker/playwright-report)
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

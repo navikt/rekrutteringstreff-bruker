@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack ",
     "build": "next build",
     "start": "next start",
+    "test": "pnpm exec playwright test --reporter=html",
     "lint": "next lint"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.52.0",
     "@faker-js/faker": "^9.8.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
