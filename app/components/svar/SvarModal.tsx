@@ -16,7 +16,7 @@ import { logger } from '@navikt/next-logger';
 export interface SvarModalProps {
     erÅpen: boolean;
     onClose: () => void;
-    svarEndret: () => void;
+    svarEndret: (svar: boolean) => void;
     svarfrist: string | null;
     rekrutteringstreffId: string;
     gjeldendeSvar: boolean | null;
@@ -30,7 +30,7 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
             const result = await avgiSvar(rekrutteringstreffId, svar);
             if (result.ok) {
                 logger.info(`Svar sendt ${svar} rekrutteringstreff ${rekrutteringstreffId}`);
-                svarEndret();
+                svarEndret(svar);
                 onClose();
             } else {
                 setVisFeilmelding(true);

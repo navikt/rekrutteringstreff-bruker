@@ -51,7 +51,9 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                                             tilTid={rekrutteringstreff.tilTid}
                                             laster={enkeltRekrutteringstreffSvarHook.isLoading}
                                             rekrutteringstreffId={rekrutteringstreffId}
-                                            svarEndret={() => enkeltRekrutteringstreffSvarHook.mutate()}
+                                            svarEndret={(svar) => {
+                                                enkeltRekrutteringstreffSvarHook.mutate({erInvitert: true, erPåmeldt: svar, harSvart: true});
+                                            }}
                                   />
                               </div>
                           </HGrid>
