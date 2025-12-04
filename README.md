@@ -5,20 +5,41 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/rekrutteringstreff/1](http://localhost:3000/rekrutteringstreff/1) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Test cases
+[http://localhost:3000/rekrutteringstreff/1](http://localhost:3000/rekrutteringstreff/1) Alt er random
+[http://localhost:3000/rekrutteringstreff/2](http://localhost:3000/rekrutteringstreff/2) Treff frem i tid hvor jobbsøker ikke har svart
+[http://localhost:3000/rekrutteringstreff/3](http://localhost:3000/rekrutteringstreff/3) Treff frem i tid hvor jobbsøker har svart ja
+[http://localhost:3000/rekrutteringstreff/4](http://localhost:3000/rekrutteringstreff/4) Treff frem i tid hvor jobbsøker har svart nei
+[http://localhost:3000/rekrutteringstreff/5](http://localhost:3000/rekrutteringstreff/5) Treff frem i tid hvor jobbsøker ikke er invitert
+[http://localhost:3000/rekrutteringstreff/6](http://localhost:3000/rekrutteringstreff/6) Treff som er i gang
+[http://localhost:3000/rekrutteringstreff/7](http://localhost:3000/rekrutteringstreff/7) Treff som er passert
+
+
+### 🎭 Playwright
+
+```bash
+# Generer tester
+pnpm exec playwright install (kun første gang)
+pnpm exec playwright codegen
+
+# Kjør tester
+pnpm test-dev (starter dev server)
+pnpm test
+
+# Åpne UI-modus
+pnpm test --ui
+```
+
+Testresultater: [navikt.github.io/rekrutteringstreff-bruker/playwright-report](https://navikt.github.io/rekrutteringstreff-bruker/playwright-report)
 
 ## Learn More
 

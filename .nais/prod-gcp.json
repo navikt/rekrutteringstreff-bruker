@@ -1,0 +1,4 @@
+{
+  "NEXT_PUBLIC_LOGIN_URL": "https://login.nav.no/oauth2/login",
+  "NEXT_PUBLIC_SESSION_URL": "https://login.nav.no/oauth2/session"
+}

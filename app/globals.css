@@ -1,26 +1,25 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+@import 'tailwindcss';
+@import '@navikt/ds-css' layer(components);
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.contentContainer {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: var(--edge-spacing);
+}
+
+/* Innlegg sitt htmlcontent bruker paragrafer og ikke linjeskift. Legg derfor på ekstra spacing  */
+p {
+    padding-bottom: 1.2rem;
+}
+
+/* Decorator.HeadAssets setter "overflow-y: scroll", så overstyrer dette for å slippe scrolling bak modaler */
+.navds-modal__document-body {
+    overflow: hidden;
 }
