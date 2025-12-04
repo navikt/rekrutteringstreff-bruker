@@ -17,7 +17,7 @@ const IkonMedInnhold: React.FC<ITekstMedIkon> = ({children,
 }) => {
   return (
     <div
-      className={`flex  ${className}`}
+      className={`flex ${className}`}
       title={title}
       aria-label={title || ariaLabel}
     >
