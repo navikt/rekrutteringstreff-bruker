@@ -36,7 +36,7 @@ export default async function RootLayout({
             <head>
                 <Decorator.HeadAssets />
             </head>
-            <body style={{'scrollbarGutter': 'stable'}}>
+            <body style={{scrollbarGutter: 'stable'}}>
                 <Decorator.Header />
                 {!isLocal && <LoginHandler />}
                 <BrukLokalMock>

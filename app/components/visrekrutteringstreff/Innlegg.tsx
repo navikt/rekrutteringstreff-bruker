@@ -1,3 +1,5 @@
+'use client';
+
 import {InnleggDTO} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
 import * as React from 'react';
 import DOMPurify from "dompurify";

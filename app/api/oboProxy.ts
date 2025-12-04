@@ -31,7 +31,7 @@ export const proxyWithOBO = async (
   try {
     obo = isLocal
       ? ({ ok: true, token: 'DEV' } as TokenResult)
-      : await requestTokenxOboToken(token, proxy.audience)
+      : await requestTokenxOboToken(token, proxy.audience);
   } catch (error) {
     logger.error('Feil ved henting av OBO-token:', error);
     return NextResponse.json(

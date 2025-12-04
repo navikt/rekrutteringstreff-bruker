@@ -3,11 +3,11 @@ import * as React from 'react';
 import {VStack} from "@navikt/ds-react";
 import Arbeidsgiver from "@/app/components/visrekrutteringstreff/Arbeidsgiver";
 
-export interface ArbeigsgiverProps {
+export interface ArbeidsgiverListeProps {
     arbeidsgivere: ArbeidsgiverDTO[];
 }
 
-const ArbeidsgiverListe: React.FC<ArbeigsgiverProps> = ({arbeidsgivere}) => {
+const ArbeidsgiverListe: React.FC<ArbeidsgiverListeProps> = ({arbeidsgivere}) => {
   return (
       arbeidsgivere.map((arbeidsgiver, index) => (
            <VStack gap="space-64" key={index}>

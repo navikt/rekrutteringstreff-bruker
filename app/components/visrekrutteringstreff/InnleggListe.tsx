@@ -3,11 +3,11 @@ import * as React from 'react';
 import {VStack} from "@navikt/ds-react";
 import Innlegg from "@/app/components/visrekrutteringstreff/Innlegg";
 
-export interface ArbeigsgiverProps {
+export interface InnleggListeProps {
     innlegg: InnleggDTO[];
 }
 
-const ArbeidsgiverListe: React.FC<ArbeigsgiverProps> = ({innlegg}) => {
+const InnleggListe: React.FC<InnleggListeProps> = ({innlegg}) => {
   return (
       innlegg.map((ettInnlegg, index) => (
            <VStack gap="space-64" key={index}>
@@ -16,4 +16,4 @@ const ArbeidsgiverListe: React.FC<ArbeigsgiverProps> = ({innlegg}) => {
   )));
 };
 
-export default ArbeidsgiverListe;
+export default InnleggListe;
