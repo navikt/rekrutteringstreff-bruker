@@ -17,14 +17,13 @@ interface UmamiProviderProps {
 
 export const UmamiProvider = ({ children }: UmamiProviderProps) => {
   const analyticsInstance = getAnalyticsInstance("rekrutteringstreff-bruker");
-  console.log("window.umami", window.umami);
   console.log("analyticsInstance", analyticsInstance);
 
   const track = (event: UmamiEventObject, eventData?: Record<string, any>) => {
-    if (window.umami && analyticsInstance) {
+    if (analyticsInstance) {
+      logger.info(event, 'Logger Umami event');
       analyticsInstance(event.navn, {
           ...eventData,
-          path: window.location.pathname,
           domene: event.domene,
       });
     } else {
