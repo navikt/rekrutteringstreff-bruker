@@ -22,7 +22,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
   const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(rekrutteringstreffId);
   const enkeltRekrutteringstreffSvarHook = useEnkeltRekrutteringstreffSvar(rekrutteringstreffId);
   const { track } = useUmami();
-  track(UmamiEvent.Rekrutteringstreff.vis_side_for_rektruteringstreff, { rekrutteringstreffId });
+  track(UmamiEvent.Rekrutteringstreff.vis_side_for_rektruteringstreff);
   return (
       <div className='mb-8 flex items-center gap-10'>
         <SWRLaster hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}>

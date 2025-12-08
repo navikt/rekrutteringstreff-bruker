@@ -12,6 +12,8 @@ import {antallDagerTilDato, formatterDato} from "@/app/util";
 import {avgiSvar} from "@/app/api/rekrutteringstreff-minside/avgiSvar";
 import {useState} from "react";
 import { logger } from '@navikt/next-logger';
+import {useUmami} from "@/app/providers/UmamiContext";
+import {UmamiEvent} from "@/app/util/umamiEvents";
 
 export interface SvarModalProps {
     erÅpen: boolean;
@@ -23,6 +25,7 @@ export interface SvarModalProps {
 }
 
 const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svarfrist, rekrutteringstreffId, gjeldendeSvar}) => {
+    const { track } = useUmami();
 
     async function avgiSvarClicked(svar: boolean) {
         try {
@@ -32,6 +35,7 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                 logger.info(`Svar sendt ${svar} rekrutteringstreff ${rekrutteringstreffId}`);
                 svarEndret(svar);
                 onClose();
+                track(svar ? UmamiEvent.Rekrutteringstreff.svar_ja : UmamiEvent.Rekrutteringstreff.svar_nei);
             } else {
                 setVisFeilmelding(true);
             }

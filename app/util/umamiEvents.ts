@@ -30,14 +30,13 @@ const Generell = lagEventPrefix(UmamiDomene.Generell, {
 });
 
 const Forside = lagEventPrefix(UmamiDomene.Forside, {
-  se_mine_stillinger_knapp: 'Se mine stillinger knapp',
-  opprett_ny_stilling_knapp: 'Opprett ny stilling knapp',
+  vis_forside: 'Vis forside',
 });
 
 const Rekrutteringstreff = lagEventPrefix(UmamiDomene.Rekrutteringstreff, {
   vis_side_for_rektruteringstreff: 'Vis side for rekrutteringstreff',
-  meld_på_rekrutteringstreff: 'Meld på rekrutteringstreff',
-  avmeld_rekrutteringstreff: 'Avmeld rekrutteringstreff',
+  svar_ja: 'Svar ja',
+  svar_nei: 'Svar nei',
 });
 
 export const UmamiEvent = {
