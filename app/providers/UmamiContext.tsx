@@ -3,7 +3,7 @@
 import { logger } from '@navikt/next-logger';
 import { createContext, ReactNode, useContext } from 'react';
 import {UmamiEventObject} from "@/app/util/umamiEvents";
-import {AnalyticsEvent, getAnalyticsInstance} from "@navikt/nav-dekoratoren-moduler";
+import {getAnalyticsInstance} from "@navikt/nav-dekoratoren-moduler";
 
 interface UmamiContextType {
   track: (event: UmamiEventObject, eventData?: Record<string, any>) => void;
@@ -17,6 +17,8 @@ interface UmamiProviderProps {
 
 export const UmamiProvider = ({ children }: UmamiProviderProps) => {
   const analyticsInstance = getAnalyticsInstance("rekrutteringstreff-bruker");
+  console.log("window.umami", window.umami);
+  console.log("analyticsInstance", analyticsInstance);
 
   const track = (event: UmamiEventObject, eventData?: Record<string, any>) => {
     if (window.umami && analyticsInstance) {
