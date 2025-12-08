@@ -11,6 +11,8 @@ import Sted from "@/app/components/visrekrutteringstreff/Sted";
 import {useEnkeltRekrutteringstreffSvar} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreffSvar";
 import Svarboks from "@/app/components/svar/Svarboks";
 import { logger } from '@navikt/next-logger';
+import {useUmami} from "@/app/providers/UmamiContext";
+import {UmamiEvent} from "@/app/util/umamiEvents";
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
@@ -19,6 +21,8 @@ export interface VisRekrutteringstreffProps {
 const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteringstreffId}) => {
   const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(rekrutteringstreffId);
   const enkeltRekrutteringstreffSvarHook = useEnkeltRekrutteringstreffSvar(rekrutteringstreffId);
+  const { track } = useUmami();
+  track(UmamiEvent.Rekrutteringstreff.vis_side_for_rektruteringstreff, { rekrutteringstreffId });
   return (
       <div className='mb-8 flex items-center gap-10'>
         <SWRLaster hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}>
