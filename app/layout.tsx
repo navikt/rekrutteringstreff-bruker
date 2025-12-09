@@ -5,6 +5,7 @@ import Script from 'next/script';
 import {isLocal} from "@/app/util";
 import MirageInitializer from "@/app/components/MirageInitializer";
 import LoginHandler from "@/app/components/LoginHandler";
+import {UmamiProvider} from "@/app/providers/UmamiContext";
 
 export const metadata: Metadata = {
   title: 'Rekrutteringstreff-bruker',
@@ -39,11 +40,13 @@ export default async function RootLayout({
             <body style={{scrollbarGutter: 'stable'}}>
                 <Decorator.Header />
                 {!isLocal && <LoginHandler />}
-                <BrukLokalMock>
-                    <main className='flex-grow flex flex-col contentContainer' style={{'scrollbarGutter': 'stable'}}>
-                        {children}
-                    </main>
-                </BrukLokalMock>
+                <UmamiProvider>
+                    <BrukLokalMock>
+                        <main className='flex-grow flex flex-col contentContainer' style={{'scrollbarGutter': 'stable'}}>
+                            {children}
+                        </main>
+                    </BrukLokalMock>
+                </UmamiProvider>
                 <Decorator.Footer />
                 <Decorator.Scripts loader={Script} />
             </body>
