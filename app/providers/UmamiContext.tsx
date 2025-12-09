@@ -17,7 +17,6 @@ interface UmamiProviderProps {
 
 export const UmamiProvider = ({ children }: UmamiProviderProps) => {
   const analyticsInstance = getAnalyticsInstance("rekrutteringstreff-bruker");
-  console.log("analyticsInstance", analyticsInstance);
 
   const track = (event: UmamiEventObject, eventData?: Record<string, any>) => {
     if (analyticsInstance) {
