@@ -5,10 +5,15 @@ import { BodyLong, Heading, HStack, VStack } from '@navikt/ds-react';
 import Image from 'next/image';
 import {useUmami} from "@/app/providers/UmamiContext";
 import {UmamiEvent} from "@/app/util/umamiEvents";
+import {useEffect} from "react";
 
 const InfoSide: React.FC = () => {
   const { track } = useUmami();
-  track(UmamiEvent.Forside.vis_forside);
+
+  useEffect(() => {
+    track(UmamiEvent.Forside.vis_forside);
+  }, [track]);
+
   return (
     <div className='flex justify-center items-center min-h-full'>
       <VStack

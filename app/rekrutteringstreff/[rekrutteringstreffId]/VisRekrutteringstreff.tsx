@@ -13,6 +13,7 @@ import Svarboks from "@/app/components/svar/Svarboks";
 import { logger } from '@navikt/next-logger';
 import {useUmami} from "@/app/providers/UmamiContext";
 import {UmamiEvent} from "@/app/util/umamiEvents";
+import {useEffect} from "react";
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
@@ -22,7 +23,11 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
   const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(rekrutteringstreffId);
   const enkeltRekrutteringstreffSvarHook = useEnkeltRekrutteringstreffSvar(rekrutteringstreffId);
   const { track } = useUmami();
-  track(UmamiEvent.Rekrutteringstreff.vis_side_for_rektruteringstreff);
+
+  useEffect(() => {
+    track(UmamiEvent.Rekrutteringstreff.vis_side_for_rektruteringstreff);
+  }, [track]);
+
   return (
       <div className='mb-8 flex items-center gap-10'>
         <SWRLaster hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}>
