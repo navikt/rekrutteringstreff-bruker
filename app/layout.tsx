@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import {isLocal} from "@/app/util";
 import MirageInitializer from "@/app/components/MirageInitializer";
-import LoginHandler from "@/app/components/LoginHandler";
 import {UmamiProvider} from "@/app/providers/UmamiContext";
 
 export const metadata: Metadata = {
@@ -39,7 +38,6 @@ export default async function RootLayout({
             </head>
             <body style={{scrollbarGutter: 'stable'}}>
                 <Decorator.Header />
-                {!isLocal && <LoginHandler />}
                 <UmamiProvider>
                     <BrukLokalMock>
                         <main className='flex-grow flex flex-col contentContainer' style={{'scrollbarGutter': 'stable'}}>
