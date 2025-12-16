@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {useUmami} from "@/app/providers/UmamiContext";
 import {UmamiEvent} from "@/app/util/umamiEvents";
 import {useEffect} from "react";
+import PusserOppBilde from '@/public/pusser-opp.svg';
 
 const InfoSide: React.FC = () => {
   const { track } = useUmami();
@@ -35,7 +36,7 @@ const InfoSide: React.FC = () => {
           </VStack>
           <div style={{ flexShrink: 0 }}>
             <Image
-              src='/pusser-opp.svg'
+              src={PusserOppBilde}
               width={500}
               height={500}
               alt='Vi pusser opp'
