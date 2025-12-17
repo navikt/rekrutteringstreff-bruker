@@ -17,9 +17,11 @@ export interface SvarboksProps {
     tilTid: string | null;
     rekrutteringstreffId: string;
     svarEndret: (svar: boolean) => void;
+    status: string;
 }
 
-const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, fraTid, tilTid, rekrutteringstreffId, svarEndret, laster}) => {
+const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, fraTid, tilTid,
+           rekrutteringstreffId, svarEndret, laster, status}) => {
 
     const [isSvarModalOpen, setSvarModalOpen] = useState(false);
 
@@ -29,6 +31,13 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
                 <Loader title='Laster...' />
             </Boks>
         );
+    }
+
+    if (status === "AVLYST") {
+        return <Boks fargeKode={"hvit"} className="mb-8">
+            <div>❌</div>
+            <div className="font-bold mt-2 text-base">Treffet er dessverre avlyst</div>
+        </Boks>
     }
 
     if (erDatoPassert(tilTid)) {
@@ -67,12 +76,12 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
     }
 
     const svarModalElement = <SvarModal
-            erÅpen={isSvarModalOpen}
-            onClose={() => setSvarModalOpen(false)}
-            svarEndret={(svar: boolean) => svarEndret(svar)}
-            svarfrist={svarfrist}
-            rekrutteringstreffId={rekrutteringstreffId}
-            gjeldendeSvar={harSvartSomBooleanEllerNull()}/>
+        erÅpen={isSvarModalOpen}
+        onClose={() => setSvarModalOpen(false)}
+        svarEndret={(svar: boolean) => svarEndret(svar)}
+        svarfrist={svarfrist}
+        rekrutteringstreffId={rekrutteringstreffId}
+        gjeldendeSvar={harSvartSomBooleanEllerNull()} />
 
     if (!harSvart) {
         return (
@@ -117,7 +126,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
             </Boks>
             {svarModalElement}
         </>
-  );
+    );
 };
 
 export default Svarboks;

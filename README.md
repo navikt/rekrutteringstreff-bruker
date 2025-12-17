@@ -22,6 +22,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 [http://localhost:3000/rekrutteringstreff/5](http://localhost:3000/rekrutteringstreff/5) Treff frem i tid hvor jobbsøker ikke er invitert
 [http://localhost:3000/rekrutteringstreff/6](http://localhost:3000/rekrutteringstreff/6) Treff som er i gang
 [http://localhost:3000/rekrutteringstreff/7](http://localhost:3000/rekrutteringstreff/7) Treff som er passert
+[http://localhost:3000/rekrutteringstreff/8](http://localhost:3000/rekrutteringstreff/8) Treff som er avlyst
 
 
 ### 🎭 Playwright

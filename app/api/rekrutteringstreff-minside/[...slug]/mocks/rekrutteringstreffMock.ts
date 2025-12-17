@@ -17,7 +17,7 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
     gateadresse: faker.location.streetAddress(),
     postnummer: faker.location.zipCode(),
     poststed: faker.location.city(),
-    status: "Publisert",
+    status: "PUBLISERT",
     innlegg: Array.from({length: faker.number.int({min: 1, max: 4})}, () => ({
       tittel: faker.lorem.sentence(),
       htmlContent: `<p>${faker.lorem.paragraphs(2)}</p><p>${faker.lorem.paragraphs(2)}</p>`,
@@ -59,11 +59,22 @@ const createMockRekrutteringstreffIGang = (): EnkeltRekrutteringstreffDTO => {
   }
 };
 
+const createMockRekrutteringstreffAvlyst = (): EnkeltRekrutteringstreffDTO => {
+  const fraTid = faker.date.soon({days: 30});
+  const tilTid = faker.date.soon({refDate: fraTid, days: 3});
+  return {...createMockRekrutteringstreff(),
+    fraTid: fraTid.toISOString(),
+    tilTid: tilTid.toISOString(),
+    svarfrist: faker.date.recent({refDate: fraTid, days: 2}).toISOString(),
+    status: "AVLYST",
+  }
+};
 
 export const mockRekrutteringstreff = createMockRekrutteringstreff();
 export const mockRekrutteringstreffFremITid = createMockRekrutteringstreffFremITid();
 export const mockRekrutteringstreffTilbakeITid = createMockRekrutteringstreffTilbakeITid();
 export const mockRekrutteringstreffIGang = createMockRekrutteringstreffIGang();
+export const mockRekrutteringstreffAvlyst = createMockRekrutteringstreffAvlyst();
 
 
 
