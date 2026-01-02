@@ -38,7 +38,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
               }
               logger.info(`Viser rekrutteringstreff ${rekrutteringstreffId}`);
               return (
-                  <Page>
+                  <Page className="min-w-full">
                       <Page.Block as="main" width="xl" gutters>
                           <HGrid columns={{  xs: "1", lg: "65% 35%" }} gap="0">
                               <div >
@@ -51,13 +51,14 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                                       />
                                   </HGrid>
                               </div>
-                              <div >
+                              <div>
                                   <Svarboks erInvitert={enkeltRekrutteringstreffSvar.erInvitert}
                                             erPåmeldt={enkeltRekrutteringstreffSvar.erPåmeldt}
                                             harSvart={enkeltRekrutteringstreffSvar.harSvart}
                                             svarfrist={rekrutteringstreff.svarfrist}
                                             fraTid={rekrutteringstreff.fraTid}
                                             tilTid={rekrutteringstreff.tilTid}
+                                            status={rekrutteringstreff.status}
                                             laster={enkeltRekrutteringstreffSvarHook.isLoading}
                                             rekrutteringstreffId={rekrutteringstreffId}
                                             svarEndret={(svar) => {
