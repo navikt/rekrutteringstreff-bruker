@@ -27,22 +27,15 @@ const InfoSide: React.FC = () => {
           borderRadius: '4px',
         }}
       >
-        <HStack gap='8' align='center' wrap={false}>
-          <VStack gap='6' style={{ flex: 1 }}>
-            <Heading level='1' size='xlarge'>
-              Rekrutteringstreff
-            </Heading>
-            <BodyLong>Du er ikke logget inn. Rekrutteringstreff er en innlogget tjeneste. Vennligst logg inn, eller gå tilbake til Nav.no. </BodyLong>
-          </VStack>
-          <div style={{ flexShrink: 0 }}>
-            <Image
-              src={PusserOppBilde}
-              width={500}
-              height={500}
-              alt='Vi pusser opp'
-            />
-          </div>
-        </HStack>
+        <Heading level='1' size='xlarge'>
+          Rekrutteringstreff
+        </Heading>
+        <BodyLong>
+            Dette er møteplassen der du som jobbsøker kan komme i direkte dialog med arbeidsgivere om konkrete stillinger.<br/>
+            For å delta må du være registrert som arbeidssøker hos Nav og ha en oppdatert CV.<br/>
+            <br/>
+            Ønsker du å delta, må du ta kontakt med veileder ved ditt nærmeste Nav kontor
+        </BodyLong>
       </VStack>
     </div>
   );
