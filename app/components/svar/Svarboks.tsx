@@ -6,6 +6,7 @@ import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
 import PåmeldtChips from "@/app/components/visrekrutteringstreff/PåmeldtChips";
 import {useState} from "react";
 import SvarModal from "@/app/components/svar/SvarModal";
+import {LocationPinIcon, XMarkOctagonIcon} from "@navikt/aksel-icons";
 
 export interface SvarboksProps {
     erInvitert: boolean;
@@ -34,9 +35,10 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
     }
 
     if (status === "AVLYST") {
-        return <Boks fargeKode={"hvit"} className="mb-8">
-            <div>❌</div>
-            <div className="font-bold mt-2 text-base">Treffet er dessverre avlyst</div>
+        return <Boks fargeKode="hvit" borderColor="border-danger" className="mb-8">
+            <div><XMarkOctagonIcon title="Location pin icon" fontSize="1.7rem" color="red" /></div>
+            <div className="font-bold mt-2 text-base">Arrangement avlyst</div>
+            <div className="text-base">Vi beklager ulempene dette medfører, og vil informere dersom seminaret settes opp på nytt.</div>
         </Boks>
     }
 

@@ -67,6 +67,10 @@ const createMockRekrutteringstreffAvlyst = (): EnkeltRekrutteringstreffDTO => {
     tilTid: tilTid.toISOString(),
     svarfrist: faker.date.recent({refDate: fraTid, days: 2}).toISOString(),
     status: "AVLYST",
+    tittel: "test adresse",
+    innlegg: [
+      { tittel: "Om treffet", htmlContent: "<p>Test</p>" }
+    ]
   }
 };
 
