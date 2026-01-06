@@ -47,8 +47,6 @@ export default async function RootLayout({
             className='grow flex flex-col contentContainer'
             style={{ scrollbarGutter: 'stable' }}
           >
-            <img src='/logo.svg' />
-            <button></button>
             {children}
           </main>
         </BrukLokalMock>
