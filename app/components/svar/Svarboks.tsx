@@ -6,6 +6,7 @@ import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
 import PåmeldtChips from "@/app/components/visrekrutteringstreff/PåmeldtChips";
 import {useState} from "react";
 import SvarModal from "@/app/components/svar/SvarModal";
+import {LocationPinIcon, XMarkOctagonIcon} from "@navikt/aksel-icons";
 
 export interface SvarboksProps {
     erInvitert: boolean;
@@ -17,9 +18,11 @@ export interface SvarboksProps {
     tilTid: string | null;
     rekrutteringstreffId: string;
     svarEndret: (svar: boolean) => void;
+    status: string;
 }
 
-const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, fraTid, tilTid, rekrutteringstreffId, svarEndret, laster}) => {
+const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, svarfrist, fraTid, tilTid,
+           rekrutteringstreffId, svarEndret, laster, status}) => {
 
     const [isSvarModalOpen, setSvarModalOpen] = useState(false);
 
@@ -29,6 +32,14 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
                 <Loader title='Laster...' />
             </Boks>
         );
+    }
+
+    if (status === "AVLYST") {
+        return <Boks fargeKode="hvit" borderColor="border-danger" className="mb-8">
+            <div><XMarkOctagonIcon title="Location pin icon" fontSize="1.7rem" color="red" /></div>
+            <div className="font-bold mt-2 text-base">Arrangement avlyst</div>
+            <div className="text-base">Vi beklager ulempene dette medfører, og vil informere dersom seminaret settes opp på nytt.</div>
+        </Boks>
     }
 
     if (erDatoPassert(tilTid)) {
@@ -67,12 +78,12 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
     }
 
     const svarModalElement = <SvarModal
-            erÅpen={isSvarModalOpen}
-            onClose={() => setSvarModalOpen(false)}
-            svarEndret={(svar: boolean) => svarEndret(svar)}
-            svarfrist={svarfrist}
-            rekrutteringstreffId={rekrutteringstreffId}
-            gjeldendeSvar={harSvartSomBooleanEllerNull()}/>
+        erÅpen={isSvarModalOpen}
+        onClose={() => setSvarModalOpen(false)}
+        svarEndret={(svar: boolean) => svarEndret(svar)}
+        svarfrist={svarfrist}
+        rekrutteringstreffId={rekrutteringstreffId}
+        gjeldendeSvar={harSvartSomBooleanEllerNull()} />
 
     if (!harSvart) {
         return (
@@ -117,7 +128,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
             </Boks>
             {svarModalElement}
         </>
-  );
+    );
 };
 
 export default Svarboks;

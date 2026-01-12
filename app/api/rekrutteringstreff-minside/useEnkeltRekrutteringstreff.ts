@@ -5,7 +5,7 @@ import { getAPIwithSchema } from '../fetcher';
 import useSWR from 'swr';
 import { z } from 'zod';
 import {
-  mockRekrutteringstreff,
+  mockRekrutteringstreff, mockRekrutteringstreffAvlyst,
   mockRekrutteringstreffFremITid, mockRekrutteringstreffIGang, mockRekrutteringstreffTilbakeITid,
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock";
 
@@ -74,5 +74,6 @@ export const rekrutteringstreffMirage = (server: any) => {
   server.get(enkeltRekrutteringstreffEndepunkt('5'), () =>  mockRekrutteringstreffFremITid)
   server.get(enkeltRekrutteringstreffEndepunkt('6'), () =>  mockRekrutteringstreffIGang)
   server.get(enkeltRekrutteringstreffEndepunkt('7'), () =>  mockRekrutteringstreffTilbakeITid)
+  server.get(enkeltRekrutteringstreffEndepunkt('8'), () =>  mockRekrutteringstreffAvlyst)
   server.get(enkeltRekrutteringstreffEndepunkt('*'), () =>  mockRekrutteringstreff)
 };
