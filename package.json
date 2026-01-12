@@ -1,15 +1,4 @@
 {
-  "name": "rekrutteringstreff-bruker",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "test": "pnpm exec playwright test --reporter=html",
-    "test-dev": "next dev -p 1337",
-    "lint": "next lint"
-  },
   "dependencies": {
     "@navikt/aksel-icons": "^7.33.3",
     "@navikt/ds-css": "^7.33.3",
@@ -40,10 +29,24 @@
     "eslint-config-next": "15.3.2",
     "miragejs": "0.1.48",
     "nav-faker": "^3.2.4",
+    "pa11y": "^9.0.1",
+    "pa11y-ci": "^4.0.1",
     "prettier": "^3.6.2",
     "prettier-plugin-sort-json": "^4.1.1",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3"
-  }
+  },
+  "name": "rekrutteringstreff-bruker",
+  "private": true,
+  "scripts": {
+    "a11y": "PUPPETEER_EXECUTABLE_PATH=$(node -e \"console.log(require('@playwright/test').chromium.executablePath())\") pa11y-ci",
+    "build": "next build",
+    "dev": "next dev --turbopack",
+    "lint": "next lint",
+    "start": "next start",
+    "test": "pnpm exec playwright test --reporter=html",
+    "test-dev": "next dev -p 1337"
+  },
+  "version": "0.1.0"
 }

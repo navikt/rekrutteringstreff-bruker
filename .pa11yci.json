@@ -1,0 +1,25 @@
+{
+  "defaults": {
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox"]
+    },
+    "hideElements": [
+      "[data-pa11y-ignore='decorator-header']",
+      "[data-pa11y-ignore='decorator-footer']"
+    ],
+    "standard": "WCAG2AA",
+    "threshold": 0,
+    "timeout": 60000,
+    "wait": 1000
+  },
+  "urls": [
+    "http://localhost:1337",
+    "http://localhost:1337/rekrutteringstreff/2 ",
+    "http://localhost:1337/rekrutteringstreff/3 ",
+    "http://localhost:1337/rekrutteringstreff/4 ",
+    "http://localhost:1337/rekrutteringstreff/5 ",
+    "http://localhost:1337/rekrutteringstreff/6 ",
+    "http://localhost:1337/rekrutteringstreff/7 ",
+    "http://localhost:1337/rekrutteringstreff/8 "
+  ]
+}
