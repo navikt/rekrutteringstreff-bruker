@@ -86,22 +86,22 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
         rekrutteringstreffId={rekrutteringstreffId}
         gjeldendeSvar={harSvartSomBooleanEllerNull()} />
 
-    const formatterSvarfrist = (svarfrist: string | null) => {
+    const svarfristSomTekst = (svarfrist: string | null) => {
         if (erDatoPassert(svarfrist)) {
-            return `Svarfrist er utløpt`;
+            return "Svarfrist er utløpt";
         }
 
         if (svarfrist && isToday(parseISO(svarfrist))) {
-            return <span>Utløper i dag</span>;
+            return "Utløper i dag";
         }
 
         if (svarfrist && isTomorrow(parseISO(svarfrist))) {
-            return <span>Utløper i morgen</span>;
+            return "Utløper i morgen";
         }
 
         const dagerTilDato = antallDagerTilDato(svarfrist);
         if (dagerTilDato === "1") {
-            return `Utløper om mindre enn 2 dager`;
+            return "Utløper om mindre enn 2 dager";
         }
 
         return `Utløper om ${dagerTilDato} dager`;
@@ -114,7 +114,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
                     <HStack className="text-base" align={"center"} justify="space-between">
                         <div style={{width: '70%'}}>
                             <div>🔥🔥🔥</div>
-                            <div className="font-bold">{formatterSvarfrist(svarfrist)}</div>
+                            <div className="font-bold">{svarfristSomTekst(svarfrist)}</div>
                             <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
                         </div>
                         <div className="align-middle">
