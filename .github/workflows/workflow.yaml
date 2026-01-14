@@ -6,9 +6,10 @@ on:
 jobs:
   build-and-deploy:
     name: Next
-    uses: navikt/toi-github-actions-workflows/.github/workflows/build-and-deploy-nextjs.yaml@v6
+    uses: navikt/toi-github-actions-workflows/.github/workflows/build-and-deploy-nextjs.yaml@v8.1
     with:
       pnpm: true
+      a11y: true
       playwright: true
       playwright-github-report: true
       dev-vars-path: '.nais/dev-gcp.json'
