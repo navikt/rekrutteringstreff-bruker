@@ -7,7 +7,7 @@ import PåmeldtChips from "@/app/components/visrekrutteringstreff/PåmeldtChips"
 import {useState} from "react";
 import SvarModal from "@/app/components/svar/SvarModal";
 import {XMarkOctagonIcon} from "@navikt/aksel-icons";
-import {isToday, isTomorrow} from "date-fns";
+import {isToday, isTomorrow, parseISO} from "date-fns";
 
 export interface SvarboksProps {
     erInvitert: boolean;
@@ -86,26 +86,26 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
         rekrutteringstreffId={rekrutteringstreffId}
         gjeldendeSvar={harSvartSomBooleanEllerNull()} />
 
-     const formatterSvarfrist = (svarfrist: string | null) => {
-         if (svarfrist && isToday(svarfrist)) {
-             return <span>Utløper i dag</span>
-         }
+    const formatterSvarfrist = (svarfrist: string | null) => {
+        if (erDatoPassert(svarfrist)) {
+            return `Svarfrist er utløpt`
+        }
 
-         if (svarfrist && isTomorrow(svarfrist)) {
-             return <span>Utløper i morgen</span>
-         }
+        if (svarfrist && isToday(parseISO(svarfrist))) {
+            return <span>Utløper i dag</span>
+        }
 
-         const dagerTilDato = antallDagerTilDato(svarfrist);
-         if (dagerTilDato == "1") {
-             return `Utløper om mindre enn 2 dager`
-         }
+        if (svarfrist && isTomorrow(parseISO(svarfrist))) {
+            return <span>Utløper i morgen</span>
+        }
 
-         if (dagerTilDato < "0") {
-             return `Svarfrist er utløpt`
-         }
+        const dagerTilDato = antallDagerTilDato(svarfrist);
+        if (dagerTilDato == "1") {
+            return `Utløper om mindre enn 2 dager`
+        }
 
-         return `Utløper om ${dagerTilDato} dager`
-     }
+        return `Utløper om ${dagerTilDato} dager`
+    }
 
     if (!harSvart) {
         return (

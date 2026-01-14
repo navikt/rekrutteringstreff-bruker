@@ -9,7 +9,7 @@ import {
     formatterKlokkeslett
 } from "@/app/util";
 import IkonMedInnhold from "@/app/components/IkonMedInnhold";
-import {isSameDay, isToday, isTomorrow} from "date-fns";
+import {isSameDay, isToday, isTomorrow, parseISO} from "date-fns";
 
 export interface TidProps {
     fraTid: string | null;
@@ -28,11 +28,11 @@ const Tid: React.FC<TidProps> = ({fraTid, tilTid}) => {
           return <span>Treffet er over</span>;
       }
 
-      if (fraTid && isToday(fraTid)) {
+      if (fraTid && isToday(parseISO(fraTid))) {
         return <span>I dag</span>
       }
 
-      if (fraTid && isTomorrow(fraTid)) {
+      if (fraTid && isTomorrow(parseISO(fraTid))) {
         return <span>I morgen</span>
       }
 
