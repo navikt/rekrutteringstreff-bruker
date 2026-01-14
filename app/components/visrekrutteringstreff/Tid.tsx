@@ -47,7 +47,7 @@ const Tid: React.FC<TidProps> = ({fraTid, tilTid}) => {
       if (fraTid === null || tilTid === null) {
           return null;
       }
-      if (isSameDay(fraTid, tilTid)) {
+      if (isSameDay(parseISO(fraTid), parseISO(tilTid))) {
           return <div>{capitalizeFirstLetter((formatterDato(fraTid)))} - {formatterKlokkeslett(tilTid)}</div>
       }
 
