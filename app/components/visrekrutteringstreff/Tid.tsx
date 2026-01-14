@@ -1,7 +1,15 @@
 import * as React from 'react';
 import {ClockIcon} from "@navikt/aksel-icons";
-import {antallDagerTilDato, capitalizeFirstLetter, erDatoPassert, erMellomDatoer, formatterDato} from "@/app/util";
+import {
+    antallDagerTilDato,
+    capitalizeFirstLetter,
+    erDatoPassert,
+    erMellomDatoer,
+    formatterDato,
+    formatterKlokkeslett
+} from "@/app/util";
 import IkonMedInnhold from "@/app/components/IkonMedInnhold";
+import {isSameDay, isToday, isTomorrow} from "date-fns";
 
 export interface TidProps {
     fraTid: string | null;
@@ -17,16 +25,45 @@ const Tid: React.FC<TidProps> = ({fraTid, tilTid}) => {
       }
       const erTreffetOver = erDatoPassert(tilTid);
       if (erTreffetOver) {
-          return <span>For {antallDagerTilDato(tilTid).replace("-", "")} dager siden</span>;
+          return <span>Treffet er over</span>;
       }
-      return <span>Om {antallDagerTilDato(fraTid)} dager</span>;
+
+      if (fraTid && isToday(fraTid)) {
+        return <span>I dag</span>
+      }
+
+      if (fraTid && isTomorrow(fraTid)) {
+        return <span>I morgen</span>
+      }
+
+      const dagerTilDato = antallDagerTilDato(fraTid);
+      if (dagerTilDato === "1") {
+        return <span>Mindre enn 2 dager til</span>;
+      }
+      return <span>Om {dagerTilDato} dager</span>;
+  }
+
+  function fraOgTilDato(fraTid: string | null, tilTid: string | null) {
+      if (fraTid === null || tilTid === null) {
+          return null;
+      }
+      if (isSameDay(fraTid, tilTid)) {
+          return <div>{capitalizeFirstLetter((formatterDato(fraTid)))} - {formatterKlokkeslett(tilTid)}</div>
+      }
+
+      return (
+          <>
+            <div>{capitalizeFirstLetter((formatterDato(fraTid)))} til</div>
+            <div>{capitalizeFirstLetter((formatterDato(tilTid)))}</div>
+          </>
+      )
+
   }
 
   return (
         <IkonMedInnhold ikon={<ClockIcon title="Clock icon" fontSize="1.5rem" />}>
             <div className="font-bold">{tekstligBeskrivelse(fraTid, tilTid)}</div>
-            <div>{capitalizeFirstLetter((formatterDato(fraTid)))} til</div>
-            <div>{capitalizeFirstLetter((formatterDato(tilTid)))}</div>
+            {fraOgTilDato(fraTid, tilTid)}
         </IkonMedInnhold>
   );
 };

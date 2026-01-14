@@ -35,7 +35,7 @@ test.describe(`Svarboks tester`, () => {
 
   test('Svarboks vises korrekt når treffet er passert', async ({ page }) => {
     await åpneUrlMedId(page, 7);
-    await expect(page.getByText('Treffet er over for denne gang')).toBeVisible();
+    await expect(page.getByText('Treffet er over')).toBeVisible();
   });
 
   const åpneUrlMedId = async (page: Page, rekrutteringstreffId: number) => {

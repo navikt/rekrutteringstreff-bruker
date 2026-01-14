@@ -30,7 +30,7 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
 };
 
 const createMockRekrutteringstreffFremITid = (): EnkeltRekrutteringstreffDTO => {
-  const fraTid = faker.date.soon({days: 30});
+  const fraTid = faker.date.soon({days: 15});
   const tilTid = faker.date.soon({refDate: fraTid, days: 3});
   return {...createMockRekrutteringstreff(),
     fraTid: fraTid.toISOString(),

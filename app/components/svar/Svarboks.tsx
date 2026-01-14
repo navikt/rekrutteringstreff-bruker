@@ -6,7 +6,8 @@ import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
 import PåmeldtChips from "@/app/components/visrekrutteringstreff/PåmeldtChips";
 import {useState} from "react";
 import SvarModal from "@/app/components/svar/SvarModal";
-import {LocationPinIcon, XMarkOctagonIcon} from "@navikt/aksel-icons";
+import {XMarkOctagonIcon} from "@navikt/aksel-icons";
+import {isToday, isTomorrow} from "date-fns";
 
 export interface SvarboksProps {
     erInvitert: boolean;
@@ -45,7 +46,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
     if (erDatoPassert(tilTid)) {
         return <Boks fargeKode={"hvit"} className="mb-8">
             <div>🎉</div>
-            <div className="font-bold mt-2 text-base">Treffet er over for denne gang</div>
+            <div className="font-bold mt-2 text-base">Treffet er over</div>
         </Boks>
     }
 
@@ -85,6 +86,27 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
         rekrutteringstreffId={rekrutteringstreffId}
         gjeldendeSvar={harSvartSomBooleanEllerNull()} />
 
+     const formatterSvarfrist = (svarfrist: string | null) => {
+         if (svarfrist && isToday(svarfrist)) {
+             return <span>Utløper i dag</span>
+         }
+
+         if (svarfrist && isTomorrow(svarfrist)) {
+             return <span>Utløper i morgen</span>
+         }
+
+         const dagerTilDato = antallDagerTilDato(svarfrist);
+         if (dagerTilDato == "1") {
+             return `Utløper om mindre enn 2 dager`
+         }
+
+         if (dagerTilDato < "0") {
+             return `Svarfrist er utløpt`
+         }
+
+         return `Utløper om ${dagerTilDato} dager`
+     }
+
     if (!harSvart) {
         return (
             <>
@@ -92,7 +114,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
                     <HStack className="text-base" align={"center"} justify="space-between">
                         <div style={{width: '70%'}}>
                             <div>🔥🔥🔥</div>
-                            <div className="font-bold">Utløper om {antallDagerTilDato(svarfrist)} dager</div>
+                            <div className="font-bold">{formatterSvarfrist(svarfrist)}</div>
                             <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
                         </div>
                         <div className="align-middle">
