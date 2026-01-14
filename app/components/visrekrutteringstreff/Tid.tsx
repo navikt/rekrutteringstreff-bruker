@@ -29,11 +29,11 @@ const Tid: React.FC<TidProps> = ({fraTid, tilTid}) => {
       }
 
       if (fraTid && isToday(parseISO(fraTid))) {
-        return <span>I dag</span>
+        return <span>I dag</span>;
       }
 
       if (fraTid && isTomorrow(parseISO(fraTid))) {
-        return <span>I morgen</span>
+        return <span>I morgen</span>;
       }
 
       const dagerTilDato = antallDagerTilDato(fraTid);
@@ -48,7 +48,7 @@ const Tid: React.FC<TidProps> = ({fraTid, tilTid}) => {
           return null;
       }
       if (isSameDay(parseISO(fraTid), parseISO(tilTid))) {
-          return <div>{capitalizeFirstLetter((formatterDato(fraTid)))} - {formatterKlokkeslett(tilTid)}</div>
+          return <div>{capitalizeFirstLetter((formatterDato(fraTid)))} - {formatterKlokkeslett(tilTid)}</div>;
       }
 
       return (

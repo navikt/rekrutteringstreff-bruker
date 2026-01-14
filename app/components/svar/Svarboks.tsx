@@ -88,23 +88,23 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
 
     const formatterSvarfrist = (svarfrist: string | null) => {
         if (erDatoPassert(svarfrist)) {
-            return `Svarfrist er utløpt`
+            return `Svarfrist er utløpt`;
         }
 
         if (svarfrist && isToday(parseISO(svarfrist))) {
-            return <span>Utløper i dag</span>
+            return <span>Utløper i dag</span>;
         }
 
         if (svarfrist && isTomorrow(parseISO(svarfrist))) {
-            return <span>Utløper i morgen</span>
+            return <span>Utløper i morgen</span>;
         }
 
         const dagerTilDato = antallDagerTilDato(svarfrist);
-        if (dagerTilDato == "1") {
-            return `Utløper om mindre enn 2 dager`
+        if (dagerTilDato === "1") {
+            return `Utløper om mindre enn 2 dager`;
         }
 
-        return `Utløper om ${dagerTilDato} dager`
+        return `Utløper om ${dagerTilDato} dager`;
     }
 
     if (!harSvart) {
