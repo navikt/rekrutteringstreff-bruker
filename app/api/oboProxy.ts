@@ -55,9 +55,8 @@ export const proxyWithOBO = async (
     );
   }
   const originalUrl = new URL(req.url);
-
   const path =
-    proxy.api_route + originalUrl.pathname.replace(proxy.internUrl, '');
+    proxy.api_route + originalUrl.pathname.replace(proxy.internUrlWithoutBaseUrl, '');
   const newUrl = customRoute
     ? proxy.api_url + customRoute
     : `${proxy.api_url}${path}${originalUrl.search}`;

@@ -1,4 +1,5 @@
 {
+  "NEXT_PUBLIC_BASE_URL": "https://www.nav.no/rekrutteringstreff",
   "NEXT_PUBLIC_LOGIN_URL": "https://login.nav.no/oauth2/login",
   "NEXT_PUBLIC_SESSION_URL": "https://login.nav.no/oauth2/session"
 }

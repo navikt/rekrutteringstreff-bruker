@@ -1,7 +1,5 @@
 'use client';
 
-import { useEnkeltRekrutteringstreff } from '../../api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
-import SWRLaster from '../../components/SWRLaster';
 import { useEnkeltRekrutteringstreffSvar } from '@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreffSvar';
 import Svarboks from '@/app/components/svar/Svarboks';
 import ArbeidsgiverListe from '@/app/components/visrekrutteringstreff/ArbeidsgiverListe';
@@ -13,6 +11,8 @@ import { logger } from '@navikt/next-logger';
 import {useUmami} from "@/app/providers/UmamiContext";
 import {UmamiEvent} from "@/app/util/umamiEvents";
 import {useEffect} from "react";
+import SWRLaster from "@/app/components/SWRLaster";
+import {useEnkeltRekrutteringstreff} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
