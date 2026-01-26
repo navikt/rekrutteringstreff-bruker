@@ -55,21 +55,13 @@ export const proxyWithOBO = async (
     );
   }
   const originalUrl = new URL(req.url);
-
-  logger.info(`Original request customRoute: ${customRoute}`);
-  logger.info(`Original request pathname: ${originalUrl.pathname}`);
-  logger.info(`Original request search: ${originalUrl.search}`);
-
   const path =
     proxy.api_route + originalUrl.pathname.replace(proxy.internUrlWithoutBaseUrl, '');
-  logger.info(`path: ${path}`);
   const newUrl = customRoute
     ? proxy.api_url + customRoute
     : `${proxy.api_url}${path}${originalUrl.search}`;
 
   const requestUrl = isLocal ? originalUrl : newUrl;
-
-  logger.info(`Proxying request to: ${requestUrl} from: ${originalUrl}`);
 
   try {
     const originalHeaders = new Headers(req.headers);
