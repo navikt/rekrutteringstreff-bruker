@@ -7,8 +7,8 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Rekrutteringstreff-bruker',
-  description: 'Bruker for rekrutteringstreff',
+  title: 'Rekrutteringstreff',
+  description: 'Rekrutteringstreff',
 };
 
 export default async function RootLayout({

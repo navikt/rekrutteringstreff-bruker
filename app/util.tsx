@@ -25,7 +25,7 @@ export function formatterDato(date: string | null): string  {
     if (!date) {
         return '';
     }
-    return formatDateFns(date, "EEEE d. MMMM yyyy 'kl' HH:mm", {locale: nb,});
+    return formatDateFns(date, "EEEE d. MMMM yyyy 'kl.' HH.mm", {locale: nb,});
 }
 
 export function formatterKlokkeslett(date: string | null): string  {
