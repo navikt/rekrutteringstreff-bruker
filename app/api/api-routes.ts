@@ -12,6 +12,6 @@ export interface Iroute {
 export const RekrutteringstreffMinSide: Iroute = {
   api_route: '/api',
   api_url: process.env.REKRUTTERINGSTREFF_MINSIDE_API ?? '',
-  internUrl: '/rekrutteringstreff/api/rekrutteringstreff-minside',
+  internUrl: '/api/rekrutteringstreff-minside',
   audience: `${gcp}:toi:rekrutteringstreff-minside-api`,
 };
