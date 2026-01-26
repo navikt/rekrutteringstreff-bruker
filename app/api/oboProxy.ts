@@ -56,6 +56,8 @@ export const proxyWithOBO = async (
   }
   const originalUrl = new URL(req.url);
 
+  logger.info(`Original request pathame:`, originalUrl.pathname);
+
   const path =
     proxy.api_route + originalUrl.pathname.replace(proxy.internUrl, '');
   const newUrl = customRoute
@@ -63,6 +65,8 @@ export const proxyWithOBO = async (
     : `${proxy.api_url}${path}${originalUrl.search}`;
 
   const requestUrl = isLocal ? originalUrl : newUrl;
+
+  logger.info(`Proxying request to: ${requestUrl} from: ${originalUrl}`);
 
   try {
     const originalHeaders = new Headers(req.headers);
