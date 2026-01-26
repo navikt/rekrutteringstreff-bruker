@@ -15,7 +15,6 @@ jobs:
       dev-vars-path: '.nais/dev-gcp.json'
       prod-vars-path: '.nais/prod-gcp.json'
       deploy-to-dev-if-branch-name-is: 'prod-config'
-      deploy-to-dev-only: true
     secrets: inherit
     permissions:
       contents: write
