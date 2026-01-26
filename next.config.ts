@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  basePath: '/rekrutteringstreff',
   transpilePackages: ['@navikt/ds-react', '@navikt/ds-css'],
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
