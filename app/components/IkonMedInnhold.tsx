@@ -16,20 +16,20 @@ const IkonMedInnhold: React.FC<ITekstMedIkon> = ({children,
   className,
 }) => {
   return (
-    <div
-      className={`flex ${className}`}
-      title={title}
-      aria-label={title || ariaLabel}
-    >
-      <HStack gap={"space-12"}>
-        <VStack >
-          {ikon}
-        </VStack>
-        <VStack>
-          {children}
-        </VStack>
-      </HStack>
-    </div>
+      <div
+          className={`flex ${className}`}
+          title={title}
+          aria-label={title || ariaLabel}
+      >
+        <HStack gap={"space-12"}>
+          <VStack>
+            {ikon}
+          </VStack>
+          <VStack>
+            {children}
+          </VStack>
+        </HStack>
+      </div>
   );
 };
 
