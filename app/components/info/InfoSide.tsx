@@ -18,7 +18,7 @@ const InfoSide: React.FC = () => {
   return (
     <div className='flex justify-center items-center min-h-full'>
       <VStack
-        gap='8'
+        gap="space-32"
         align='start'
         style={{
           padding: '2rem',

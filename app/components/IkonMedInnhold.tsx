@@ -21,14 +21,14 @@ const IkonMedInnhold: React.FC<ITekstMedIkon> = ({children,
       title={title}
       aria-label={title || ariaLabel}
     >
-        <HStack gap={'3'}>
-          <VStack >
-            {ikon}
-          </VStack>
-          <VStack>
-            {children}
-          </VStack>
-        </HStack>
+      <HStack gap={"space-12"}>
+        <VStack >
+          {ikon}
+        </VStack>
+        <VStack>
+          {children}
+        </VStack>
+      </HStack>
     </div>
   );
 };
