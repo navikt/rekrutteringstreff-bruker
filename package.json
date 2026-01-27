@@ -6,7 +6,7 @@
     "@navikt/ds-tailwind": "^8.1.0",
     "@navikt/ds-tokens": "^8.1.0",
     "@navikt/nav-dekoratoren-moduler": "^3.6.1",
-    "@navikt/next-logger": "^3.0.3",
+    "@navikt/next-logger": "^4.5.0",
     "@navikt/oasis": "^4.1.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "date-fns": "^4.1.0",

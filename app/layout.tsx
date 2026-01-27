@@ -5,11 +5,16 @@ import { isLocal } from '@/app/util';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import {configureLogger} from "@navikt/next-logger";
 
 export const metadata: Metadata = {
   title: 'Rekrutteringstreff',
   description: 'Rekrutteringstreff',
 };
+
+configureLogger({
+  basePath: "/rekrutteringstreff",
+});
 
 export default async function RootLayout({
   children,
