@@ -1,11 +1,17 @@
-import { Box } from '@navikt/ds-react';
 import * as React from 'react';
+import type {
+  AkselColoredBorderToken,
+  AkselColoredStatelessBackgroundToken,
+  AkselDynamicStatelessBackgroundToken,
+  AkselRootBackgroundToken, AkselRootBorderToken
+} from "@navikt/ds-tokens/types";
+import { Box } from "@navikt/ds-react/Box";
 
 export interface BoksProps {
   children?: React.ReactNode | undefined;
   className?: string;
   fargeKode?: 'grå' | 'blå' | 'hvit';
-  borderColor?: 'border-danger';
+  borderColor?: Exclude<AkselRootBorderToken, "focus"> | AkselColoredBorderToken;
 }
 
 const Boks: React.FC<BoksProps> = ({
@@ -14,31 +20,31 @@ const Boks: React.FC<BoksProps> = ({
   fargeKode,
   borderColor,
 }) => {
-  const bakrunnsfarge = (fargeKode?: string) => {
+  const bakrunnsfarge = (fargeKode?: string): AkselRootBackgroundToken | AkselColoredStatelessBackgroundToken | AkselDynamicStatelessBackgroundToken => {
     switch (fargeKode) {
       case "blå":
-        return "surface-action-subtle";
+        return "accent-moderate";
       case "grå":
-        return "bg-subtle";
+        return "neutral-moderate";
       case "hvit":
-        return "surface-default";
+        return "default";
       default:
-        return "bg-subtle"; // Fallback if no color is specified
+        return "accent-moderate"; // Fallback if no color is specified
     }
   }
 
-  const borderColorFraFargeKode = fargeKode === 'blå' || fargeKode === 'hvit' ? "border-subtle" : "border-default"
+  const borderColorFraFargeKode = fargeKode === 'blå' || fargeKode === 'hvit' ? "info-subtle" : "neutral"
 
   return (
     <Box
       padding='space-16'
       background={bakrunnsfarge(fargeKode)}
-      borderRadius="large"
+      borderRadius="8"
       borderColor={borderColor || borderColorFraFargeKode}
       borderWidth={fargeKode === 'blå' || fargeKode === 'hvit' ? "1" : "0"}
       className={"mb-5 " + className}
     >
-        {children}
+      {children}
     </Box>
   );
 };

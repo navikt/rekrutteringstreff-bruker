@@ -8,7 +8,7 @@ export interface IkonOgTekstProps {
 
 const IkonOgTekst: React.FC<IkonOgTekstProps> = ({ikon, tekst}) => {
   return (
-      <HGrid columns={{xs: "7% 93%"}} gap="0">
+      <HGrid columns={{xs: "7% 93%"}} gap="space-0">
           {ikon}
           <span className="text-base">{tekst}</span>
       </HGrid>
