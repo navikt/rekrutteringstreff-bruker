@@ -7,16 +7,13 @@ import InnleggListe from '@/app/components/visrekrutteringstreff/InnleggListe';
 import Sted from '@/app/components/visrekrutteringstreff/Sted';
 import Tid from '@/app/components/visrekrutteringstreff/Tid';
 import { Heading, HGrid, Page, Show, Tabs } from '@navikt/ds-react';
-import {configureLogger, logger} from '@navikt/next-logger';
+import {logger} from '@navikt/next-logger';
 import {useUmami} from "@/app/providers/UmamiContext";
 import {UmamiEvent} from "@/app/util/umamiEvents";
 import {useEffect} from "react";
 import SWRLaster from "@/app/components/SWRLaster";
 import {useEnkeltRekrutteringstreff} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
 
-configureLogger({
-  basePath: "/rekrutteringstreff",
-});
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
