@@ -22,7 +22,7 @@ const IkonMedInnhold: React.FC<ITekstMedIkon> = ({children,
           aria-label={title || ariaLabel}
       >
         <HStack gap={"space-12"}>
-          <VStack>
+          <VStack aria-hidden="true">
             {ikon}
           </VStack>
           <VStack>

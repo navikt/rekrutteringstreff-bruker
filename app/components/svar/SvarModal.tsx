@@ -8,7 +8,7 @@ import {
 } from "@navikt/aksel-icons";
 import IkonOgTekst from "@/app/components/svar/IkonOgTekst";
 import Boks from "@/app/components/Boks";
-import {antallDagerTilDato, formatterDato} from "@/app/util";
+import {formatterDato, svarfristSomTekst} from "@/app/util";
 import {avgiSvar} from "@/app/api/rekrutteringstreff-minside/avgiSvar";
 import {useState} from "react";
 import { logger } from '@navikt/next-logger';
@@ -90,13 +90,13 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                             Du kan endre svaret ditt frem til fristen. Det gjør ikke noe om du ombestemmer deg.
                         `}
                     />
-                    <RadioGroup legend="" value={svar} onChange={(value) => setSvar(value)}>
-                        <Radio value={true} size="small"><span className="mr-2">👍</span><span className="text-base">Ja, jeg kommer</span></Radio>
-                        <Radio value={false} size="small"><span className="mr-2">👎</span><span className="text-base">Nei, jeg kommer ikke</span></Radio>
+                    <RadioGroup legend="Kommer du på rekrutteringstreffet?" value={svar} onChange={(value) => setSvar(value)}>
+                        <Radio value={true} size="small"><span className="mr-2" aria-hidden="true">👍</span><span className="text-base">Ja, jeg kommer</span></Radio>
+                        <Radio value={false} size="small"><span className="mr-2" aria-hidden="true">👎</span><span className="text-base">Nei, jeg kommer ikke</span></Radio>
                     </RadioGroup>
                     <Boks>
-                        <div>🔥🔥🔥</div>
-                        <div className="font-bold">Utløper om {antallDagerTilDato(svarfrist)} dager</div>
+                        <div aria-hidden="true">🔥🔥🔥</div>
+                        <div className="font-bold">{svarfristSomTekst(svarfrist)}</div>
                         <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
                     </Boks>
                 </VStack>
@@ -105,7 +105,7 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                 <Button onClick={() => avgiSvarClicked(svar as boolean)} disabled={svar === null}>Send</Button>
                 <Button variant="secondary" onClick={() => onClose()}>Avbryt</Button>
                 {visFeilmelding &&
-                    <div className="text-red-600 mb-6 text-base font-semibold">
+                    <div role="alert" aria-live="assertive" className="text-red-600 mb-6 text-base font-semibold">
                         Noe gikk galt ved sending av svar, vennligst prøv igjen senere.
                     </div>
                 }

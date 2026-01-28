@@ -1,5 +1,4 @@
 import VisRekrutteringstreff from './VisRekrutteringstreff';
-import {isLocal} from "@/app/util";
 import LoginHandler from "@/app/components/LoginHandler";
 
 export default async function RekrutteringstreffPage({
@@ -14,9 +13,8 @@ export default async function RekrutteringstreffPage({
   }
 
   return (
-      <>
-        {!isLocal && <LoginHandler />}
-        <VisRekrutteringstreff rekrutteringstreffId={rekrutteringstreffId} />;
-      </>
+      <LoginHandler>
+          <VisRekrutteringstreff rekrutteringstreffId={rekrutteringstreffId} />
+      </LoginHandler>
   );
 }
