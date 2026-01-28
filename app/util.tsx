@@ -1,6 +1,6 @@
 import {format as formatDateFns} from "date-fns/format";
 import {nb} from "date-fns/locale";
-import {differenceInDays, parseISO} from "date-fns";
+import {differenceInDays, isToday, isTomorrow, parseISO} from "date-fns";
 
 export const isLocal = process.env.NEXT_PUBLIC_DEVELOPER === 'local';
 const onPremCLuster = () => {
@@ -58,4 +58,25 @@ export function erDatoPassert(datoSomStreng: string | null): boolean {
         return false;
     }
     return parseISO(datoSomStreng) <= new Date();
+}
+
+export const svarfristSomTekst = (svarfrist: string | null) => {
+    if (erDatoPassert(svarfrist)) {
+        return "Svarfrist er utløpt";
+    }
+
+    if (svarfrist && isToday(parseISO(svarfrist))) {
+        return "Utløper i dag";
+    }
+
+    if (svarfrist && isTomorrow(parseISO(svarfrist))) {
+        return "Utløper i morgen";
+    }
+
+    const dagerTilDato = antallDagerTilDato(svarfrist);
+    if (dagerTilDato === "1") {
+        return "Utløper om mindre enn 2 dager";
+    }
+
+    return `Utløper om ${dagerTilDato} dager`;
 }

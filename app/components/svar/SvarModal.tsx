@@ -8,7 +8,7 @@ import {
 } from "@navikt/aksel-icons";
 import IkonOgTekst from "@/app/components/svar/IkonOgTekst";
 import Boks from "@/app/components/Boks";
-import {antallDagerTilDato, formatterDato} from "@/app/util";
+import {formatterDato, svarfristSomTekst} from "@/app/util";
 import {avgiSvar} from "@/app/api/rekrutteringstreff-minside/avgiSvar";
 import {useState} from "react";
 import { logger } from '@navikt/next-logger';
@@ -96,7 +96,7 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                     </RadioGroup>
                     <Boks>
                         <div aria-hidden="true">🔥🔥🔥</div>
-                        <div className="font-bold">Utløper om {antallDagerTilDato(svarfrist)} dager</div>
+                        <div className="font-bold">{svarfristSomTekst(svarfrist)}</div>
                         <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
                     </Boks>
                 </VStack>
