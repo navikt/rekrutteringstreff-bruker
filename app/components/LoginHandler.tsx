@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {isLocal} from "@/app/util";
+import Sidelaster from "@/app/components/Sidelaster";
 
 interface LoginHandlerProps {
   children: React.ReactNode;
@@ -58,9 +59,9 @@ export default function LoginHandler({ children }: LoginHandlerProps) {
     fetchSessionInfo();
   }, [loginUrl, sessionUrl]);
 
-  // Vis ingenting mens vi sjekker auth - loader vises av annen komponent
+  // Vis sidelaster mens vi sjekker autentisering
   if (isChecking) {
-    return null;
+    return <Sidelaster/>;
   }
 
   // Vis children kun når brukeren er autentisert
