@@ -37,7 +37,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
 
     if (status === "AVLYST") {
         return <Boks fargeKode="hvit" borderColor="danger-subtle" className="mb-8">
-            <div><XMarkOctagonIcon title="Location pin icon" fontSize="1.7rem" color="red" /></div>
+            <div aria-hidden="true"><XMarkOctagonIcon title="Location pin icon" fontSize="1.7rem" color="red" /></div>
             <div className="font-bold mt-2 text-base">Arrangement avlyst</div>
             <div className="text-base">Vi beklager ulempene dette medfører, og vil informere dersom seminaret settes opp på nytt.</div>
         </Boks>
@@ -45,14 +45,14 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
 
     if (erDatoPassert(tilTid)) {
         return <Boks fargeKode={"hvit"} className="mb-8">
-            <div>🎉</div>
+            <div aria-hidden="true">🎉</div>
             <div className="font-bold mt-2 text-base">Treffet er over</div>
         </Boks>
     }
 
     if (erMellomDatoer(fraTid, tilTid)) {
         return <Boks fargeKode={"hvit"} className="mb-8">
-            <div>⏱️️⏱️️⏱️️</div>
+            <div aria-hidden="true">⏱️️⏱️️⏱️️</div>
             <div className="font-bold mt-2 text-base">Treffet er i gang</div>
         </Boks>
     }
@@ -113,7 +113,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
                 <Boks fargeKode={"blå"} className="mb-8">
                     <HStack className="text-base" align={"center"} justify="space-between">
                         <div style={{width: '70%'}}>
-                            <div>🔥🔥🔥</div>
+                            <div aria-hidden="true">🔥🔥🔥</div>
                             <div className="font-bold">{svarfristSomTekst(svarfrist)}</div>
                             <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
                         </div>
