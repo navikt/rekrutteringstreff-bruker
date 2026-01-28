@@ -47,6 +47,7 @@ export default async function RootLayout({
             <BrukLokalMock>
               <main
                 className='flex-grow flex flex-col contentContainer'
+                id="maincontent"
                 style={{ scrollbarGutter: 'stable' }}
               >
                 {children}
