@@ -66,17 +66,17 @@ export const svarfristSomTekst = (svarfrist: string | null) => {
     }
 
     if (svarfrist && isToday(parseISO(svarfrist))) {
-        return "Utløper i dag";
+        return "Svarfristen utløper i dag";
     }
 
     if (svarfrist && isTomorrow(parseISO(svarfrist))) {
-        return "Utløper i morgen";
+        return "Svarfristen utløper i morgen";
     }
 
     const dagerTilDato = antallDagerTilDato(svarfrist);
     if (dagerTilDato === "1") {
-        return "Utløper om mindre enn 2 dager";
+        return "Svarfristen utløper om mindre enn 2 dager";
     }
 
-    return `Utløper om ${dagerTilDato} dager`;
+    return `Svarfristen utløper om ${dagerTilDato} dager`;
 }
