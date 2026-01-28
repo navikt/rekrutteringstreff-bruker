@@ -90,9 +90,9 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                             Du kan endre svaret ditt frem til fristen. Det gjør ikke noe om du ombestemmer deg.
                         `}
                     />
-                    <RadioGroup legend="" value={svar} onChange={(value) => setSvar(value)}>
-                        <Radio value={true} size="small"><span className="mr-2">👍</span><span className="text-base">Ja, jeg kommer</span></Radio>
-                        <Radio value={false} size="small"><span className="mr-2">👎</span><span className="text-base">Nei, jeg kommer ikke</span></Radio>
+                    <RadioGroup legend="Kommer du på rekrutteringstreffet?" value={svar} onChange={(value) => setSvar(value)}>
+                        <Radio value={true} size="small"><span className="mr-2" aria-hidden="true">👍</span><span className="text-base">Ja, jeg kommer</span></Radio>
+                        <Radio value={false} size="small"><span className="mr-2" aria-hidden="true">👎</span><span className="text-base">Nei, jeg kommer ikke</span></Radio>
                     </RadioGroup>
                     <Boks>
                         <div aria-hidden="true">🔥🔥🔥</div>
