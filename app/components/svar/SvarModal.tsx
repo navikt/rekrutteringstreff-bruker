@@ -95,7 +95,7 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                         <Radio value={false} size="small"><span className="mr-2">👎</span><span className="text-base">Nei, jeg kommer ikke</span></Radio>
                     </RadioGroup>
                     <Boks>
-                        <div>🔥🔥🔥</div>
+                        <div aria-hidden="true">🔥🔥🔥</div>
                         <div className="font-bold">Utløper om {antallDagerTilDato(svarfrist)} dager</div>
                         <div>Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
                     </Boks>
