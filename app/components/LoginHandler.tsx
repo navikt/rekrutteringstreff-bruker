@@ -21,8 +21,10 @@ export default function LoginHandler({ children }: LoginHandlerProps) {
 
   useEffect(() => {
     if (isLocal) {
-        // I lokal utvikling hopper vi over autentisering
-        setIsAuthenticated(true);
+      // I lokal utvikling hopper vi over autentisering
+      setIsChecking(false);
+      setIsAuthenticated(true);
+      return;
     }
 
     const fetchSessionInfo = async () => {
