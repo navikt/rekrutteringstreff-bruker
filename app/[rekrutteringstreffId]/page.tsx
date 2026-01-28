@@ -16,7 +16,7 @@ export default async function RekrutteringstreffPage({
   return (
       <>
         {!isLocal && <LoginHandler />}
-        <VisRekrutteringstreff rekrutteringstreffId={rekrutteringstreffId} />;
+        <VisRekrutteringstreff rekrutteringstreffId={rekrutteringstreffId} />
       </>
   );
 }
