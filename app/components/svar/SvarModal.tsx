@@ -105,7 +105,7 @@ const SvarModal: React.FC<SvarModalProps> = ({erÅpen, onClose, svarEndret, svar
                 <Button onClick={() => avgiSvarClicked(svar as boolean)} disabled={svar === null}>Send</Button>
                 <Button variant="secondary" onClick={() => onClose()}>Avbryt</Button>
                 {visFeilmelding &&
-                    <div className="text-red-600 mb-6 text-base font-semibold">
+                    <div role="alert" aria-live="assertive" className="text-red-600 mb-6 text-base font-semibold">
                         Noe gikk galt ved sending av svar, vennligst prøv igjen senere.
                     </div>
                 }
