@@ -4,7 +4,7 @@ import {InnleggDTO} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutte
 import * as React from 'react';
 import DOMPurify from "dompurify";
 import BoksMedTittelOgInnhold from "@/app/components/BoksMedTittelOgInnhold";
-import {Chips, Tag} from "@navikt/ds-react";
+import {Tag} from "@navikt/ds-react";
 
 export interface InnleggProps {
     innlegg: InnleggDTO;
