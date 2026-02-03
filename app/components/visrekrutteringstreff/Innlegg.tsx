@@ -13,8 +13,10 @@ export interface InnleggProps {
 const Innlegg: React.FC<InnleggProps> = ({innlegg}) => {
   return (
       <BoksMedTittelOgInnhold tittel={innlegg.tittel}>
-          <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(innlegg.htmlContent)}} />
-          <Tag variant="moderate" data-color="meta-purple" className="text-base">Teksten er kvalitetssikret av KI</Tag>
+          <div
+              className="[&_ul]:list-disc [&_ul]:pl-6"
+              dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(innlegg.htmlContent)}} />
+          <Tag variant="moderate" data-color="meta-purple" className="text-base mt-4">Teksten er kvalitetssikret av KI</Tag>
       </BoksMedTittelOgInnhold>
   );
 };

@@ -74,11 +74,22 @@ const createMockRekrutteringstreffAvlyst = (): EnkeltRekrutteringstreffDTO => {
   }
 };
 
+const createMockRekrutteringstreffForskjelligFormattering = (): EnkeltRekrutteringstreffDTO => {
+  const fraTid = faker.date.soon({days: 30});
+  const tilTid = faker.date.soon({refDate: fraTid, days: 3});
+  return {...createMockRekrutteringstreff(),
+    innlegg: [
+      { tittel: "Forskjellig formattering", htmlContent: "<p><strong>Bold</strong></p><p><strong><em>Italic</em></strong></p><p>Liste</p><ul><li><p>punkt 1</p></li><li><p>punkt 2</p></li></ul>Siste linje" }
+    ],
+  }
+};
+
 export const mockRekrutteringstreff = createMockRekrutteringstreff();
 export const mockRekrutteringstreffFremITid = createMockRekrutteringstreffFremITid();
 export const mockRekrutteringstreffTilbakeITid = createMockRekrutteringstreffTilbakeITid();
 export const mockRekrutteringstreffIGang = createMockRekrutteringstreffIGang();
 export const mockRekrutteringstreffAvlyst = createMockRekrutteringstreffAvlyst();
+export const mockRekrutteringstreffForskjelligFormattering = createMockRekrutteringstreffForskjelligFormattering();
 
 
 
