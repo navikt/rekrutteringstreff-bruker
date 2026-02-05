@@ -16,7 +16,7 @@ body {
 
 /* Innlegg sitt htmlcontent bruker paragrafer og ikke linjeskift. Legg derfor på ekstra spacing  */
 p {
-    padding-bottom: 1.2rem;
+    margin: 0.4rem 0;
 }
 
 /* Decorator.HeadAssets setter "overflow-y: scroll", så overstyrer dette for å slippe scrolling bak modaler */
