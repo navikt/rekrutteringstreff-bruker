@@ -15,6 +15,7 @@ export const getAPIwithSchema = <T>(
 ): ((url: string) => Promise<T>) => {
   return async (url: string) => {
     const response = await fetch(url, { method: 'GET', credentials: 'include' });
+    logger.info("getAPIwithSchema response.status: " + response.status);
 
     if (response.status === 404) {
       logger.info("404 Not Found for URL: " + url);
