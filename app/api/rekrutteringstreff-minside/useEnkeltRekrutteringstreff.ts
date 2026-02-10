@@ -6,9 +6,13 @@ import useSWR from 'swr';
 import { z } from 'zod';
 import {
   mockRekrutteringstreff,
-  mockRekrutteringstreffAvlyst, mockRekrutteringstreffForskjelligFormattering,
-  mockRekrutteringstreffFremITid, mockRekrutteringstreffIGang, mockRekrutteringstreffTilbakeITid,
-} from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock";
+  mockRekrutteringstreffAvlyst,
+  mockRekrutteringstreffForskjelligFormattering,
+  mockRekrutteringstreffFremITid,
+  mockRekrutteringstreffIGang,
+  mockRekrutteringstreffTilbakeITid,
+} from '@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock';
+import {Response as MiragejsResponse} from "miragejs";
 
 const enkeltRekrutteringstreffEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}`;
@@ -59,7 +63,7 @@ export const useEnkeltRekrutteringstreff = (
     {
       onError: (error) => {
         // Håndter 401 ved å redirecte til login
-        if (error instanceof Response && error.status === 401) {
+        if (error instanceof Response && error.status == 401) {
           const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
           window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
         }
@@ -72,16 +76,14 @@ export const useEnkeltRekrutteringstreff = (
 }
 
 export const rekrutteringstreffMirage = (server: any) => {
-  server.get(enkeltRekrutteringstreffEndepunkt('2'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('3'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('4'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('5'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('6'), () =>  mockRekrutteringstreffIGang)
-  server.get(enkeltRekrutteringstreffEndepunkt('7'), () =>  mockRekrutteringstreffTilbakeITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('8'), () =>  mockRekrutteringstreffAvlyst)
-  server.get(enkeltRekrutteringstreffEndepunkt('9'), () =>  mockRekrutteringstreffForskjelligFormattering)
-  server.get(enkeltRekrutteringstreffEndepunkt('10'), () => {
-    return new Response(null, {status: 404});
-  })
-  server.get(enkeltRekrutteringstreffEndepunkt('*'), () =>  mockRekrutteringstreff)
+  server.get(enkeltRekrutteringstreffEndepunkt('2'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('3'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('4'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('5'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('6'), () => mockRekrutteringstreffIGang);
+  server.get(enkeltRekrutteringstreffEndepunkt('7'), () => mockRekrutteringstreffTilbakeITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('8'), () => mockRekrutteringstreffAvlyst);
+  server.get(enkeltRekrutteringstreffEndepunkt('9'), () => mockRekrutteringstreffForskjelligFormattering);
+  server.get(enkeltRekrutteringstreffEndepunkt('10'), () => { return new MiragejsResponse(404)});
+  server.get(enkeltRekrutteringstreffEndepunkt('*'), () => mockRekrutteringstreff);
 };

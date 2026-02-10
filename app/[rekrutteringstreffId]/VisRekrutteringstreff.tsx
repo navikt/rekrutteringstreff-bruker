@@ -29,6 +29,12 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
   }, [track]);
 
   const håndterFeil = (error: Error) => {
+
+    logger.warn("Feil ved henting av rekrutteringstreff:", error);
+    if (error instanceof Response ) {
+      logger.warn("Error.status:", error.status);
+    }
+
       // Sjekk om det er en 404-feil
     if (error instanceof Response && error.status === 404) {
       logger.warn(`Rekrutteringstreff med id ${rekrutteringstreffId} ikke funnet (404)`);
@@ -104,10 +110,10 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                                                 fraTid={rekrutteringstreff.fraTid}
                                                 tilTid={rekrutteringstreff.tilTid}
                                                 status={rekrutteringstreff.status}
-                                                laster={enkeltRekrutteringstreffSvarHook.isLoading}
+                                                laster={enkeltRekrutteringstreffSvarHook?.isLoading || false}
                                                 rekrutteringstreffId={rekrutteringstreffId}
                                                 svarEndret={(svar) => {
-                                                    enkeltRekrutteringstreffSvarHook.mutate({
+                                                    enkeltRekrutteringstreffSvarHook?.mutate({
                                                         erInvitert: true,
                                                         erPåmeldt: svar,
                                                         harSvart: true

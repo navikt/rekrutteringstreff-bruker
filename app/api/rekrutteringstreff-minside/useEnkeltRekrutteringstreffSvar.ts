@@ -41,7 +41,7 @@ export const useEnkeltRekrutteringstreffSvar = (
       const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
       window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
     }
-    throw e;
+    // 404 og andre feil vil bli tilgjengelig via result.error
   }
 }
 
