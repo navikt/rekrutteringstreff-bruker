@@ -28,9 +28,54 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
     track(UmamiEvent.Rekrutteringstreff.vis_side_for_rektruteringstreff);
   }, [track]);
 
+  const håndterFeil = (error: Error) => {
+      // Sjekk om det er en 404-feil
+    if (error instanceof Response && error.status === 404) {
+      logger.warn(`Rekrutteringstreff med id ${rekrutteringstreffId} ikke funnet (404)`);
+      return (
+        <Page className="min-w-full">
+          <Page.Block as="main" width="xl" gutters>
+            <div className='flex justify-center items-center min-h-full'>
+              <div className="p-8 bg-white rounded">
+                <Heading level='1' size='large' className="mb-4">
+                  Rekrutteringstreff ikke funnet
+                </Heading>
+                <p>
+                  Dette rekrutteringstreffet finnes ikke eller er ikke lenger tilgjengelig.
+                </p>
+              </div>
+            </div>
+          </Page.Block>
+        </Page>
+      );
+    }
+
+    // Andre feil
+    logger.error(`Feil ved henting av rekrutteringstreff ${rekrutteringstreffId}:`, error);
+    return (
+      <Page className="min-w-full">
+        <Page.Block as="main" width="xl" gutters>
+          <div className='flex justify-center items-center min-h-full'>
+            <div className="p-8 bg-white rounded">
+              <Heading level='1' size='large' className="mb-4">
+                Noe gikk galt
+              </Heading>
+              <p>
+                Vi klarte ikke å laste rekrutteringstreffet. Vennligst prøv igjen senere.
+              </p>
+            </div>
+          </div>
+        </Page.Block>
+      </Page>
+    );
+  };
+
   return (
       <div className='mb-8 flex items-center gap-10'>
-          <SWRLaster hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}>
+          <SWRLaster
+            hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}
+            egenFeilmelding={håndterFeil}
+          >
               {(rekrutteringstreff, enkeltRekrutteringstreffSvar) => {
                   if (!rekrutteringstreff) {
                       logger.warn(`Fant ikke data for rekrutteringstreff med id: ${rekrutteringstreffId}`);

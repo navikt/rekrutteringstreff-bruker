@@ -5,7 +5,8 @@ import { getAPIwithSchema } from '../fetcher';
 import useSWR from 'swr';
 import { z } from 'zod';
 import {
-  mockRekrutteringstreff, mockRekrutteringstreffAvlyst, mockRekrutteringstreffForskjelligFormattering,
+  mockRekrutteringstreff,
+  mockRekrutteringstreffAvlyst, mockRekrutteringstreffForskjelligFormattering,
   mockRekrutteringstreffFremITid, mockRekrutteringstreffIGang, mockRekrutteringstreffTilbakeITid,
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock";
 
@@ -52,19 +53,22 @@ export type InnleggDTO = z.infer<
 export const useEnkeltRekrutteringstreff = (
   rekrutteringstreffId: string,
 ) => {
-
-  try {
-    return useSWR(
-        rekrutteringstreffId ? enkeltRekrutteringstreffEndepunkt(rekrutteringstreffId) : null,
-        getAPIwithSchema(enkeltRekrutteringstreffSchema),
-    );
-  } catch (e) {
-    if (e instanceof Response && e.status === 401) {
-      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
-      window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
+  const result = useSWR(
+    rekrutteringstreffId ? enkeltRekrutteringstreffEndepunkt(rekrutteringstreffId) : null,
+    getAPIwithSchema(enkeltRekrutteringstreffSchema),
+    {
+      onError: (error) => {
+        // Håndter 401 ved å redirecte til login
+        if (error instanceof Response && error.status === 401) {
+          const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+          window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
+        }
+        // 404 og andre feil vil bli tilgjengelig via result.error
+      },
     }
-    throw e;
-  }
+  );
+
+  return result;
 }
 
 export const rekrutteringstreffMirage = (server: any) => {
@@ -76,5 +80,8 @@ export const rekrutteringstreffMirage = (server: any) => {
   server.get(enkeltRekrutteringstreffEndepunkt('7'), () =>  mockRekrutteringstreffTilbakeITid)
   server.get(enkeltRekrutteringstreffEndepunkt('8'), () =>  mockRekrutteringstreffAvlyst)
   server.get(enkeltRekrutteringstreffEndepunkt('9'), () =>  mockRekrutteringstreffForskjelligFormattering)
+  server.get(enkeltRekrutteringstreffEndepunkt('10'), () => {
+    return new Response(null, {status: 404});
+  })
   server.get(enkeltRekrutteringstreffEndepunkt('*'), () =>  mockRekrutteringstreff)
 };

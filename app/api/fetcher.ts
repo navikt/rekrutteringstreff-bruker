@@ -17,6 +17,10 @@ export const getAPIwithSchema = <T>(
   return async (url: string) => {
     const response = await fetch(url, { method: 'GET', credentials: 'include' });
 
+    if (response.status == 404) {
+        throw new Response(`Resource not found: ${response.statusText}`, {status: response.status});
+    }
+
     if (!response.ok &&  response.status == 401) {
       throw new Response(`Network response was not ok: ${response.statusText}`, {status: response.status});
     }
