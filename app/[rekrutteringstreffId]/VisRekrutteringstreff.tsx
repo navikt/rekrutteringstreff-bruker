@@ -30,7 +30,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
 
   const håndterFeil = (error: Error) => {
 
-    logger.warn("Feil ved henting av rekrutteringstreff:", error);
+    logger.warn("Feil ved henting av rekrutteringstreff:", JSON.stringify(error));
     if (error instanceof Response ) {
       logger.warn("Error.status:", error.status);
     }
