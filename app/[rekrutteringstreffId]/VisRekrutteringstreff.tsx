@@ -30,7 +30,6 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
   }, [track]);
 
   const håndterFeil = (error: Error) => {
-    // Sjekk om det er en 404-feil
     if (error instanceof Response && error.status === 404) {
       return (
            <Page className="min-w-1">
@@ -43,7 +42,6 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
       );
     }
 
-    // Andre feil
     return (
         <Page className="min-w-1">
             <Page.Block as="main" width="xl" gutters>

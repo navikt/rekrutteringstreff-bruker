@@ -15,11 +15,8 @@ export const getAPIwithSchema = <T>(
 ): ((url: string) => Promise<T>) => {
   return async (url: string) => {
     const response = await fetch(url, { method: 'GET', credentials: 'include' });
-    logger.info("getAPIwithSchema response.status: " + response.status);
 
     if (response.status === 404) {
-      logger.info("404 Not Found for URL: " + url);
-      // Ikke forsøk å lese body; la kalleren håndtere 404 basert på status
       throw new Response( JSON.stringify({ message: 'Rekrutteringstreff ikke funnet'}), {
         status: 404,
       });
@@ -31,7 +28,6 @@ export const getAPIwithSchema = <T>(
     }
 
     if (!response.ok) {
-      // Andre ikke-OK statuskoder
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }
 
