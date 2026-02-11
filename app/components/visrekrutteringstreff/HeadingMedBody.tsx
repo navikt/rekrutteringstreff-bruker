@@ -2,8 +2,8 @@ import * as React from 'react';
 import {BodyLong, Heading, VStack} from "@navikt/ds-react";
 
 export interface HeadingMedBodyProps {
-    heading: string | null;
-    children?: React.ReactNode;
+    heading: string;
+    children: React.ReactNode;
 }
 
 const HeadingMedBody: React.FC<HeadingMedBodyProps> = ({heading, children}) => {

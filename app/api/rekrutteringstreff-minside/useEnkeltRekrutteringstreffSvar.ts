@@ -12,6 +12,7 @@ import {
   mockBaseRekrutteringstreffSvarIkkeInvitert
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffSvarMock";
 import {logger} from "@navikt/next-logger";
+import {Response as MiragejsResponse} from "miragejs";
 
 const enkeltRekrutteringstreffSvarEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}/svar`;
@@ -63,5 +64,6 @@ export const rekrutteringstreffSvarMirage = (server: any) => {
   server.get(enkeltRekrutteringstreffSvarEndepunkt('3'), () =>  mockBaseRekrutteringstreffSvarHarSvartJa)
   server.get(enkeltRekrutteringstreffSvarEndepunkt('4'), () =>  mockBaseRekrutteringstreffSvarHarSvartNei)
   server.get(enkeltRekrutteringstreffSvarEndepunkt('5'), () =>  mockBaseRekrutteringstreffSvarIkkeInvitert)
+  server.get(enkeltRekrutteringstreffSvarEndepunkt('10'), () => { return new MiragejsResponse(404)});
   server.get(enkeltRekrutteringstreffSvarEndepunkt('*'), () =>  mockBaseRekrutteringstreffSvar)
 };
