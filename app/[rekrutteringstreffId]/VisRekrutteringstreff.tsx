@@ -29,13 +29,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
   }, [track]);
 
   const håndterFeil = (error: Error) => {
-
-    logger.warn("Feil ved henting av rekrutteringstreff:", JSON.stringify(error));
-    if (error instanceof Response ) {
-      logger.warn("Error.status:", error.status);
-    }
-
-      // Sjekk om det er en 404-feil
+    // Sjekk om det er en 404-feil
     if (error instanceof Response && error.status === 404) {
       logger.warn(`Rekrutteringstreff med id ${rekrutteringstreffId} ikke funnet (404)`);
       return (
@@ -57,7 +51,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
     }
 
     // Andre feil
-    logger.error(`Feil ved henting av rekrutteringstreff ${rekrutteringstreffId}:`, error);
+    logger.error(`Feil ved henting av rekrutteringstreff ${rekrutteringstreffId}:`, JSON.stringify(error));
     return (
       <Page className="min-w-full">
         <Page.Block as="main" width="xl" gutters>
