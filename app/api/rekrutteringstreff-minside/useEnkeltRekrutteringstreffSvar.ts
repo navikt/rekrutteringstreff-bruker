@@ -11,6 +11,8 @@ import {
   mockBaseRekrutteringstreffSvarHarSvartNei,
   mockBaseRekrutteringstreffSvarIkkeInvitert
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffSvarMock";
+import {logger} from "@navikt/next-logger";
+import {Response as MiragejsResponse} from "miragejs";
 
 const enkeltRekrutteringstreffSvarEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}/svar`;
@@ -30,19 +32,31 @@ export type EnkeltRekrutteringstreffSvarDTO = z.infer<
 export const useEnkeltRekrutteringstreffSvar = (
   rekrutteringstreffId: string,
 ) => {
-
-  try {
-    return useSWR(
-        rekrutteringstreffId ? enkeltRekrutteringstreffSvarEndepunkt(rekrutteringstreffId) : null,
-        getAPIwithSchema(enkeltRekrutteringstreffSvarSchema),
-    );
-  } catch (e) {
-    if (e instanceof Response && e.status === 401) {
-      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
-      window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
-    }
-    throw e;
-  }
+  return useSWR(
+      rekrutteringstreffId ? enkeltRekrutteringstreffSvarEndepunkt(rekrutteringstreffId) : null,
+      getAPIwithSchema(enkeltRekrutteringstreffSvarSchema),
+      {
+        onError: (error) => {
+          // Håndter 401 ved å redirecte til login
+          if (error instanceof Response && error.status == 401) {
+            const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+            window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
+          }
+          // 404 og andre feil vil bli tilgjengelig via result.error
+          logger.error("useEnkeltRekrutteringstreffSvar error: ", error)
+        },
+        shouldRetryOnError: (error) => {
+          if (error instanceof Response && (error.status === 404 || error.status === 401)) {
+            return false;
+          }
+          return true;
+        },
+        errorRetryCount: 3,
+        errorRetryInterval: 15000,
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true,
+      },
+  );
 }
 
 export const rekrutteringstreffSvarMirage = (server: any) => {
@@ -50,5 +64,6 @@ export const rekrutteringstreffSvarMirage = (server: any) => {
   server.get(enkeltRekrutteringstreffSvarEndepunkt('3'), () =>  mockBaseRekrutteringstreffSvarHarSvartJa)
   server.get(enkeltRekrutteringstreffSvarEndepunkt('4'), () =>  mockBaseRekrutteringstreffSvarHarSvartNei)
   server.get(enkeltRekrutteringstreffSvarEndepunkt('5'), () =>  mockBaseRekrutteringstreffSvarIkkeInvitert)
+  server.get(enkeltRekrutteringstreffSvarEndepunkt('10'), () => { return new MiragejsResponse(404)});
   server.get(enkeltRekrutteringstreffSvarEndepunkt('*'), () =>  mockBaseRekrutteringstreffSvar)
 };

@@ -5,9 +5,15 @@ import { getAPIwithSchema } from '../fetcher';
 import useSWR from 'swr';
 import { z } from 'zod';
 import {
-  mockRekrutteringstreff, mockRekrutteringstreffAvlyst, mockRekrutteringstreffForskjelligFormattering,
-  mockRekrutteringstreffFremITid, mockRekrutteringstreffIGang, mockRekrutteringstreffTilbakeITid,
-} from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock";
+  mockRekrutteringstreff,
+  mockRekrutteringstreffAvlyst,
+  mockRekrutteringstreffForskjelligFormattering,
+  mockRekrutteringstreffFremITid,
+  mockRekrutteringstreffIGang,
+  mockRekrutteringstreffTilbakeITid,
+} from '@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock';
+import {Response as MiragejsResponse} from "miragejs";
+import {logger} from "@navikt/next-logger";
 
 const enkeltRekrutteringstreffEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}`;
@@ -52,29 +58,45 @@ export type InnleggDTO = z.infer<
 export const useEnkeltRekrutteringstreff = (
   rekrutteringstreffId: string,
 ) => {
-
-  try {
-    return useSWR(
-        rekrutteringstreffId ? enkeltRekrutteringstreffEndepunkt(rekrutteringstreffId) : null,
-        getAPIwithSchema(enkeltRekrutteringstreffSchema),
-    );
-  } catch (e) {
-    if (e instanceof Response && e.status === 401) {
-      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
-      window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
+  const result = useSWR(
+    rekrutteringstreffId ? enkeltRekrutteringstreffEndepunkt(rekrutteringstreffId) : null,
+    getAPIwithSchema(enkeltRekrutteringstreffSchema),
+    {
+      onError: (error) => {
+        // Håndter 401 ved å redirecte til login
+        if (error instanceof Response && error.status == 401) {
+          const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+          window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
+        }
+        // 404 og andre feil vil bli tilgjengelig via result.error
+        logger.error("useEnkeltRekrutteringstreff error: ", error)
+      },
+      shouldRetryOnError: (error) => {
+        if (error instanceof Response && (error.status === 404 || error.status === 401)) {
+          return false;
+        }
+        // For andre feil kan SWR få lov til å retry etter en stund
+        return true;
+      },
+      errorRetryCount: 3,
+      errorRetryInterval: 15000,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
     }
-    throw e;
-  }
+  );
+
+  return result;
 }
 
 export const rekrutteringstreffMirage = (server: any) => {
-  server.get(enkeltRekrutteringstreffEndepunkt('2'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('3'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('4'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('5'), () =>  mockRekrutteringstreffFremITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('6'), () =>  mockRekrutteringstreffIGang)
-  server.get(enkeltRekrutteringstreffEndepunkt('7'), () =>  mockRekrutteringstreffTilbakeITid)
-  server.get(enkeltRekrutteringstreffEndepunkt('8'), () =>  mockRekrutteringstreffAvlyst)
-  server.get(enkeltRekrutteringstreffEndepunkt('9'), () =>  mockRekrutteringstreffForskjelligFormattering)
-  server.get(enkeltRekrutteringstreffEndepunkt('*'), () =>  mockRekrutteringstreff)
+  server.get(enkeltRekrutteringstreffEndepunkt('2'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('3'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('4'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('5'), () => mockRekrutteringstreffFremITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('6'), () => mockRekrutteringstreffIGang);
+  server.get(enkeltRekrutteringstreffEndepunkt('7'), () => mockRekrutteringstreffTilbakeITid);
+  server.get(enkeltRekrutteringstreffEndepunkt('8'), () => mockRekrutteringstreffAvlyst);
+  server.get(enkeltRekrutteringstreffEndepunkt('9'), () => mockRekrutteringstreffForskjelligFormattering);
+  server.get(enkeltRekrutteringstreffEndepunkt('10'), () => { return new MiragejsResponse(404)});
+  server.get(enkeltRekrutteringstreffEndepunkt('*'), () => mockRekrutteringstreff);
 };

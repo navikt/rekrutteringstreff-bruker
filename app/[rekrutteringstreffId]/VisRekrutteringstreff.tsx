@@ -13,6 +13,7 @@ import {UmamiEvent} from "@/app/util/umamiEvents";
 import {useEffect} from "react";
 import SWRLaster from "@/app/components/SWRLaster";
 import {useEnkeltRekrutteringstreff} from "@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff";
+import HeadingMedBody from "@/app/components/visrekrutteringstreff/HeadingMedBody";
 
 
 export interface VisRekrutteringstreffProps {
@@ -28,14 +29,37 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
     track(UmamiEvent.Rekrutteringstreff.vis_side_for_rektruteringstreff);
   }, [track]);
 
+  const håndterFeil = (error: Error) => {
+    if (error instanceof Response && error.status === 404) {
+      return (
+           <Page className="min-w-1">
+              <Page.Block as="main" width="xl" gutters>
+                  <HeadingMedBody heading="Rekrutteringstreff ikke funnet">
+                      Dette rekrutteringstreffet finnes ikke eller er ikke lenger tilgjengelig.
+                  </HeadingMedBody>
+              </Page.Block>
+          </Page>
+      );
+    }
+
+    return (
+        <Page className="min-w-1">
+            <Page.Block as="main" width="xl" gutters>
+                <HeadingMedBody heading="Noe gikk galt">
+                    Vi klarte ikke å laste rekrutteringstreffet. Vennligst prøv igjen senere.
+                </HeadingMedBody>
+            </Page.Block>
+        </Page>
+    );
+  };
+
   return (
       <div className='mb-8 flex items-center gap-10'>
-          <SWRLaster hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}>
+          <SWRLaster
+            hooks={[enkeltRekrutteringstreffHook, enkeltRekrutteringstreffSvarHook]}
+            egenFeilmelding={håndterFeil}
+          >
               {(rekrutteringstreff, enkeltRekrutteringstreffSvar) => {
-                  if (!rekrutteringstreff) {
-                      logger.warn(`Fant ikke data for rekrutteringstreff med id: ${rekrutteringstreffId}`);
-                      return <div>Ingen data funnet for rekrutteringstreff med ID: {rekrutteringstreffId}</div>;
-                  }
                   logger.info(`Viser rekrutteringstreff ${rekrutteringstreffId}`);
                   return (
                       <Page className="min-w-full">
@@ -59,10 +83,10 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({rekrutteri
                                                 fraTid={rekrutteringstreff.fraTid}
                                                 tilTid={rekrutteringstreff.tilTid}
                                                 status={rekrutteringstreff.status}
-                                                laster={enkeltRekrutteringstreffSvarHook.isLoading}
+                                                laster={enkeltRekrutteringstreffSvarHook?.isLoading || false}
                                                 rekrutteringstreffId={rekrutteringstreffId}
                                                 svarEndret={(svar) => {
-                                                    enkeltRekrutteringstreffSvarHook.mutate({
+                                                    enkeltRekrutteringstreffSvarHook?.mutate({
                                                         erInvitert: true,
                                                         erPåmeldt: svar,
                                                         harSvart: true
