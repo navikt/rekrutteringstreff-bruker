@@ -71,6 +71,17 @@ export const useEnkeltRekrutteringstreff = (
         // 404 og andre feil vil bli tilgjengelig via result.error
         logger.error("useEnkeltRekrutteringstreff error: ", JSON.stringify(error))
       },
+      shouldRetryOnError: (error) => {
+        if (error instanceof Response && (error.status === 404)) {
+          return false;
+        }
+        // For andre feil kan SWR få lov til å retry etter en stund
+        return true;
+      },
+      errorRetryCount: 3,
+      errorRetryInterval: 15000,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
     }
   );
 

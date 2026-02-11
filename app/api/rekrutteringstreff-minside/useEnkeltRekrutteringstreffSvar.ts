@@ -43,7 +43,17 @@ export const useEnkeltRekrutteringstreffSvar = (
           }
           // 404 og andre feil vil bli tilgjengelig via result.error
           logger.error("useEnkeltRekrutteringstreffSvar error: ", JSON.stringify(error))
-        }
+        },
+        shouldRetryOnError: (error) => {
+          if (error instanceof Response && error.status === 404) {
+            return false;
+          }
+          return true;
+        },
+        errorRetryCount: 3,
+        errorRetryInterval: 15000,
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true,
       },
   );
 }
