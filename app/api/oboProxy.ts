@@ -100,6 +100,15 @@ export const proxyWithOBO = async (
       );
     }
 
+    if (response.status == 404) {
+       return NextResponse.json(
+          { beskrivelse: 'Ikke funnet' },
+        {
+          status: 404,
+        },
+      );
+    }
+
     const contentType = response.headers.get('Content-Type');
     const responseText = await response.text();
 
