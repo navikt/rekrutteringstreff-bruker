@@ -17,7 +17,7 @@ export const getAPIwithSchema = <T>(
     const response = await fetch(url, { method: 'GET', credentials: 'include' });
 
     if (response.status === 404) {
-      throw new Response( JSON.stringify({ message: 'Rekrutteringstreff ikke funnet'}), {
+      throw new Response(JSON.stringify({ message: 'Ressurs ikke funnet' }), {
         status: 404,
       });
     }

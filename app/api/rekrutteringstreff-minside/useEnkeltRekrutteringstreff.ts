@@ -69,10 +69,10 @@ export const useEnkeltRekrutteringstreff = (
           window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
         }
         // 404 og andre feil vil bli tilgjengelig via result.error
-        logger.error("useEnkeltRekrutteringstreff error: ", JSON.stringify(error))
+        logger.error("useEnkeltRekrutteringstreff error: ", error)
       },
       shouldRetryOnError: (error) => {
-        if (error instanceof Response && (error.status === 404)) {
+        if (error instanceof Response && (error.status === 404 || error.status === 401)) {
           return false;
         }
         // For andre feil kan SWR få lov til å retry etter en stund
