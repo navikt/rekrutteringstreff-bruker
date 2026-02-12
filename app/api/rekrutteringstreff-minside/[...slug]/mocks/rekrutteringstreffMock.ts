@@ -84,12 +84,23 @@ const createMockRekrutteringstreffForskjelligFormattering = (): EnkeltRekrutteri
   }
 };
 
+const createMockRekrutteringstreffSvarfristUtløpt = (): EnkeltRekrutteringstreffDTO => {
+  const fraTid = faker.date.soon({days: 5});
+  const tilTid = faker.date.soon({refDate: fraTid, days: 3});
+  return {...createMockRekrutteringstreff(),
+    fraTid: fraTid.toISOString(),
+    tilTid: tilTid.toISOString(),
+    svarfrist: faker.date.recent({days: 1}).toISOString()
+  }
+};
+
 export const mockRekrutteringstreff = createMockRekrutteringstreff();
 export const mockRekrutteringstreffFremITid = createMockRekrutteringstreffFremITid();
 export const mockRekrutteringstreffTilbakeITid = createMockRekrutteringstreffTilbakeITid();
 export const mockRekrutteringstreffIGang = createMockRekrutteringstreffIGang();
 export const mockRekrutteringstreffAvlyst = createMockRekrutteringstreffAvlyst();
 export const mockRekrutteringstreffForskjelligFormattering = createMockRekrutteringstreffForskjelligFormattering();
+export const mockRekrutteringstreffSvarfristUtløpt = createMockRekrutteringstreffSvarfristUtløpt();
 
 
 

@@ -53,6 +53,14 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
         return <Boks fargeKode={"hvit"} className="mb-8">
             <div aria-hidden="true">⏱️️⏱️️⏱️️</div>
             <div className="font-bold mt-2 text-base">Treffet er i gang</div>
+            <div className="text-base">Nå er sjansen din. Prat med arbeidsgivere du synes er interessante for deg.</div>
+        </Boks>
+    }
+
+    if (!harSvart && erDatoPassert(svarfrist)) {
+        return <Boks fargeKode={"hvit"} className="mb-8">
+            <div aria-hidden="true">⏱️️⏱️️⏱️️</div>
+            <div className="font-bold mt-2 text-base">Svarfristen er utløpt</div>
         </Boks>
     }
 
@@ -113,7 +121,8 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
                         <div className="font-bold">
                             <PåmeldtChips erPåmeldt={erPåmeldt} />
                         </div>
-                        <div className="py-2">Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>
+                        {!erDatoPassert(svarfrist) && <div className="py-2">Du kan endre svaret ditt frem til {formatterDato(svarfrist)}</div>}
+                        {erDatoPassert(svarfrist) && <div className="py-2">Svarfristen er utløpt, men du kan fremdeles endre svaret ditt frem til treffet starter</div>}
                     </div>
                     <div className="align-middle ">
                         <Button variant="secondary"
