@@ -25,6 +25,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 [http://localhost:3000/rekrutteringstreff/8](http://localhost:3000/rekrutteringstreff/8) Treff som er avlyst
 [http://localhost:3000/rekrutteringstreff/9](http://localhost:3000/rekrutteringstreff/9) Treff med ulik formattering
 [http://localhost:3000/rekrutteringstreff/10](http://localhost:3000/rekrutteringstreff/10) Treff som ikke finnes
+[http://localhost:3000/rekrutteringstreff/11](http://localhost:3000/rekrutteringstreff/11) Treff hvor svarfirst er utløpt og hvor brukeren ikke har svart enda
+[http://localhost:3000/rekrutteringstreff/12](http://localhost:3000/rekrutteringstreff/12) Treff hvor svarfirst er utløpt og brukeren har svart
 
 
 ### 🎭 Playwright

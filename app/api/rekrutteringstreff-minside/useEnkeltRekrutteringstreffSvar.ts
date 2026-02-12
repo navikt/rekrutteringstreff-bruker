@@ -65,5 +65,7 @@ export const rekrutteringstreffSvarMirage = (server: any) => {
   server.get(enkeltRekrutteringstreffSvarEndepunkt('4'), () =>  mockBaseRekrutteringstreffSvarHarSvartNei)
   server.get(enkeltRekrutteringstreffSvarEndepunkt('5'), () =>  mockBaseRekrutteringstreffSvarIkkeInvitert)
   server.get(enkeltRekrutteringstreffSvarEndepunkt('10'), () => { return new MiragejsResponse(404)});
+  server.get(enkeltRekrutteringstreffSvarEndepunkt('11'), () =>  mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart)
+  server.get(enkeltRekrutteringstreffSvarEndepunkt('12'), () =>  mockBaseRekrutteringstreffSvarHarSvartJa)
   server.get(enkeltRekrutteringstreffSvarEndepunkt('*'), () =>  mockBaseRekrutteringstreffSvar)
 };

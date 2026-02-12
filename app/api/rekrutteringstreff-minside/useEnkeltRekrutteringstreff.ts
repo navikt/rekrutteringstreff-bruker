@@ -9,7 +9,7 @@ import {
   mockRekrutteringstreffAvlyst,
   mockRekrutteringstreffForskjelligFormattering,
   mockRekrutteringstreffFremITid,
-  mockRekrutteringstreffIGang,
+  mockRekrutteringstreffIGang, mockRekrutteringstreffSvarfristUtløpt,
   mockRekrutteringstreffTilbakeITid,
 } from '@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock';
 import {Response as MiragejsResponse} from "miragejs";
@@ -98,5 +98,7 @@ export const rekrutteringstreffMirage = (server: any) => {
   server.get(enkeltRekrutteringstreffEndepunkt('8'), () => mockRekrutteringstreffAvlyst);
   server.get(enkeltRekrutteringstreffEndepunkt('9'), () => mockRekrutteringstreffForskjelligFormattering);
   server.get(enkeltRekrutteringstreffEndepunkt('10'), () => { return new MiragejsResponse(404)});
+  server.get(enkeltRekrutteringstreffEndepunkt('11'), () => mockRekrutteringstreffSvarfristUtløpt);
+  server.get(enkeltRekrutteringstreffEndepunkt('12'), () => mockRekrutteringstreffSvarfristUtløpt);
   server.get(enkeltRekrutteringstreffEndepunkt('*'), () => mockRekrutteringstreff);
 };
