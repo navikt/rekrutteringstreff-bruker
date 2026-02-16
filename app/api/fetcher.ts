@@ -47,7 +47,7 @@ export const putApi = async (
   url: string,
   body: any,
 ): Promise<Response> => {
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -57,14 +57,4 @@ export const putApi = async (
       value instanceof Set ? [...value] : value,
     ),
   });
-
-  logger.info(`PUT response ok: ${response.ok} status: ${response.status}`);
-
-  if (!response.ok) {
-    logger.info('PUT response er ikke OK, kaster exception', response);
-    throw new Error(`Network response was not ok: ${response.statusText}`);
-  }
-
-  logger.info('PUT response:', response);
-  return response;
 };

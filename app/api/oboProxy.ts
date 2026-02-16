@@ -93,7 +93,6 @@ export const proxyWithOBO = async (
 
     if (!response.ok) {
       const { status, statusText, url, body, ok, headers } = response;
-
       logger.error(
         {
           headers,
@@ -115,8 +114,6 @@ export const proxyWithOBO = async (
           },
       );
     }
-
-
 
     const contentType = response.headers.get('Content-Type');
     const responseText = await response.text();
