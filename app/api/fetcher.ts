@@ -58,6 +58,10 @@ export const putApi = async (
     ),
   });
 
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+
   logger.info('PUT response:', response);
   return response;
 };
