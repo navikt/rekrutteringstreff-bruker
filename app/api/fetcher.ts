@@ -47,7 +47,7 @@ export const putApi = async (
   url: string,
   body: any,
 ): Promise<Response> => {
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -57,4 +57,6 @@ export const putApi = async (
       value instanceof Set ? [...value] : value,
     ),
   });
+  logger.info('PUT response:', response);
+  return response;
 };
