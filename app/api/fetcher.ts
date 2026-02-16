@@ -57,7 +57,6 @@ export const putApi = async (
       value instanceof Set ? [...value] : value,
     ),
   });
-
   logger.info('PUT response:', response);
   return response;
 };

@@ -82,9 +82,17 @@ export const proxyWithOBO = async (
 
     const response = await fetch(requestUrl, fetchOptions);
 
+    if (response.status == 404) {
+       return NextResponse.json(
+          { beskrivelse: 'Ikke funnet' },
+        {
+          status: 404,
+        },
+      );
+    }
+
     if (!response.ok) {
       const { status, statusText, url, body, ok, headers } = response;
-
       logger.error(
         {
           headers,
@@ -98,14 +106,12 @@ export const proxyWithOBO = async (
         },
         'Responsen er ikke OK i proxy',
       );
-    }
 
-    if (response.status == 404) {
-       return NextResponse.json(
-          { beskrivelse: 'Ikke funnet' },
-        {
-          status: 404,
-        },
+      return NextResponse.json(
+          {beskrivelse: 'Feil i proxy'},
+          {
+            status: response.status,
+          },
       );
     }
 

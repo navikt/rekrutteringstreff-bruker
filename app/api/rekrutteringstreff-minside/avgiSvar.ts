@@ -5,6 +5,7 @@ import {putApi} from '../fetcher';
 import {
     mockBaseRekrutteringstreffPostSvar
 } from "@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffSvarPostMock";
+import {logger} from "@navikt/next-logger";
 
 const avgiSvarEndepunkt = (rekrutteringstreffId: string) =>
   `${RekrutteringstreffMinSide.internUrl}/rekrutteringstreff/${rekrutteringstreffId}/svar`;
@@ -12,7 +13,9 @@ const avgiSvarEndepunkt = (rekrutteringstreffId: string) =>
 export const avgiSvar = async (
     rekrutteringstreffId: string, erPåmeldt: boolean
 ): Promise<Response> => {
-    return await putApi(avgiSvarEndepunkt(rekrutteringstreffId), {erPåmeldt});
+    const response = await putApi(avgiSvarEndepunkt(rekrutteringstreffId), {erPåmeldt});
+    logger.info(`avgiSvarEndepunkt - Svar avgitt for rekrutteringstreffId: ${rekrutteringstreffId} erPåmeldt: ${erPåmeldt} status: ${response.status}`);
+    return response;
 }
 
 export const avgiSvarMirage = (server: any) => {
