@@ -58,9 +58,12 @@ export const putApi = async (
     ),
   });
 
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
-    }
+  logger.info(`PUT response ok: ${response.ok} status: ${response.status}`);
+
+  if (!response.ok) {
+    logger.info('PUT response er ikke OK, kaster exception', response);
+    throw new Error(`Network response was not ok: ${response.statusText}`);
+  }
 
   logger.info('PUT response:', response);
   return response;
