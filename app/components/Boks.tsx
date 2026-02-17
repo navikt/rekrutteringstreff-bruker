@@ -11,8 +11,8 @@ export interface BoksProps {
   children?: React.ReactNode | undefined;
   className?: string;
   fargeKode?: 'grå' | 'blå' | 'hvit';
-  borderColor?: Exclude<AkselRootBorderToken, "focus"> | AkselColoredBorderToken;
-  borderWidth?: "0" | "1" | "2" | "3";
+  borderColor?: React.ComponentProps<typeof Box>["borderColor"];
+  borderWidth?:  React.ComponentProps<typeof Box>["borderWidth"];
 }
 
 const Boks: React.FC<BoksProps> = ({
