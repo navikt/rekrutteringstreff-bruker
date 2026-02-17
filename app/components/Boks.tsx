@@ -1,6 +1,5 @@
 import * as React from 'react';
 import type {
-  AkselColoredBorderToken,
   AkselColoredStatelessBackgroundToken,
   AkselDynamicStatelessBackgroundToken,
   AkselRootBackgroundToken, AkselRootBorderToken
@@ -11,7 +10,8 @@ export interface BoksProps {
   children?: React.ReactNode | undefined;
   className?: string;
   fargeKode?: 'grå' | 'blå' | 'hvit';
-  borderColor?: Exclude<AkselRootBorderToken, "focus"> | AkselColoredBorderToken;
+  borderColor?: React.ComponentProps<typeof Box>["borderColor"];
+  borderWidth?:  React.ComponentProps<typeof Box>["borderWidth"];
 }
 
 const Boks: React.FC<BoksProps> = ({
@@ -19,6 +19,7 @@ const Boks: React.FC<BoksProps> = ({
   className,
   fargeKode,
   borderColor,
+  borderWidth
 }) => {
   const bakrunnsfarge = (fargeKode?: string): AkselRootBackgroundToken | AkselColoredStatelessBackgroundToken | AkselDynamicStatelessBackgroundToken => {
     switch (fargeKode) {
@@ -41,7 +42,7 @@ const Boks: React.FC<BoksProps> = ({
       background={bakrunnsfarge(fargeKode)}
       borderRadius="8"
       borderColor={borderColor || borderColorFraFargeKode}
-      borderWidth={fargeKode === 'blå' || fargeKode === 'hvit' ? "1" : "0"}
+      borderWidth={borderWidth ?? (fargeKode === 'blå' || fargeKode === 'hvit' ? "1" : "0")}
       className={"mb-5 " + className}
     >
       {children}
