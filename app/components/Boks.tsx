@@ -43,7 +43,7 @@ const Boks: React.FC<BoksProps> = ({
       background={bakrunnsfarge(fargeKode)}
       borderRadius="8"
       borderColor={borderColor || borderColorFraFargeKode}
-      borderWidth={borderWidth ?? (fargeKode === 'blå' || fargeKode === 'hvit' ? "1" :  "0")}
+      borderWidth={borderWidth ?? (fargeKode === 'blå' || fargeKode === 'hvit' ? "1" : "0")}
       className={"mb-5 " + className}
     >
       {children}
