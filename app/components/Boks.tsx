@@ -12,6 +12,7 @@ export interface BoksProps {
   className?: string;
   fargeKode?: 'grå' | 'blå' | 'hvit';
   borderColor?: Exclude<AkselRootBorderToken, "focus"> | AkselColoredBorderToken;
+  borderWidth?: "0" | "1" | "2" | "3";
 }
 
 const Boks: React.FC<BoksProps> = ({
@@ -19,6 +20,7 @@ const Boks: React.FC<BoksProps> = ({
   className,
   fargeKode,
   borderColor,
+  borderWidth
 }) => {
   const bakrunnsfarge = (fargeKode?: string): AkselRootBackgroundToken | AkselColoredStatelessBackgroundToken | AkselDynamicStatelessBackgroundToken => {
     switch (fargeKode) {
@@ -41,7 +43,7 @@ const Boks: React.FC<BoksProps> = ({
       background={bakrunnsfarge(fargeKode)}
       borderRadius="8"
       borderColor={borderColor || borderColorFraFargeKode}
-      borderWidth={fargeKode === 'blå' || fargeKode === 'hvit' ? "1" : "0"}
+      borderWidth={borderWidth ?? (fargeKode === 'blå' || fargeKode === 'hvit' ? "1" :  "0")}
       className={"mb-5 " + className}
     >
       {children}
