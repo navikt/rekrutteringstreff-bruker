@@ -35,7 +35,7 @@ const Svarboks: React.FC<SvarboksProps> = ({erInvitert, harSvart, erPåmeldt, sv
     }
 
     if (status === "AVLYST") {
-        return <Boks fargeKode="hvit" borderColor="danger-strong" borderWidth="3" className="mb-8">
+        return <Boks fargeKode="hvit" borderColor="danger-strong" borderWidth="2" className="mb-8">
             <div aria-hidden="true"><XMarkOctagonIcon title="Avlyst ikon" fontSize="1.7rem" color="var(--a-text-danger)" /></div>
             <div className="font-bold mt-2 text-base">Arrangement avlyst</div>
             <div className="text-base">Vi beklager ulempene dette medfører, og vil informere dersom treffet settes opp på nytt.</div>

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import type {
-  AkselColoredBorderToken,
   AkselColoredStatelessBackgroundToken,
   AkselDynamicStatelessBackgroundToken,
   AkselRootBackgroundToken, AkselRootBorderToken
