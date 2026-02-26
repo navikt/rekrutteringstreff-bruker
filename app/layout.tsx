@@ -1,5 +1,5 @@
 import './globals.css';
-import MirageInitializer from '@/app/components/MirageInitializer';
+import MSWInitializer from '@/app/components/MSWInitializer';
 import LoggerProvider from '@/app/providers/LoggerProvider';
 import { UmamiProvider } from '@/app/providers/UmamiContext';
 import { isLocal } from '@/app/util';
@@ -47,7 +47,7 @@ export default async function RootLayout({
             <BrukLokalMock>
               <main
                 className='flex-grow flex flex-col contentContainer'
-                id="maincontent"
+                id='maincontent'
                 style={{ scrollbarGutter: 'stable' }}
               >
                 {children}
@@ -67,7 +67,7 @@ export default async function RootLayout({
 
 const BrukLokalMock = ({ children }: { children: React.ReactNode }) => {
   if (isLocal) {
-    return <MirageInitializer>{children}</MirageInitializer>;
+    return <MSWInitializer>{children}</MSWInitializer>;
   }
   return children;
 };
