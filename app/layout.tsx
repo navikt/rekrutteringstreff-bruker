@@ -1,5 +1,6 @@
 import './globals.css';
 import MSWInitializer from '@/app/components/MSWInitializer';
+import PageWrapper from '@/app/components/PageWrapper';
 import LoggerProvider from '@/app/providers/LoggerProvider';
 import { UmamiProvider } from '@/app/providers/UmamiContext';
 import { isLocal } from '@/app/util';
@@ -33,32 +34,29 @@ export default async function RootLayout({
   });
 
   return (
-    <html lang='no' className='h-full'>
+    <html lang='no'>
       <head>
         <Decorator.HeadAssets />
       </head>
       <body style={{ scrollbarGutter: 'stable' }}>
-        <div data-pa11y-ignore='decorator-header'>
-          {' '}
-          <Decorator.Header />{' '}
-        </div>
-        <UmamiProvider>
-          <LoggerProvider>
-            <BrukLokalMock>
-              <main
-                className='flex-grow flex flex-col contentContainer'
-                id='maincontent'
-                style={{ scrollbarGutter: 'stable' }}
-              >
-                {children}
-              </main>
-            </BrukLokalMock>
-          </LoggerProvider>
-        </UmamiProvider>
-        <div data-pa11y-ignore='decorator-footer'>
-          {' '}
-          <Decorator.Footer />
-        </div>
+        <PageWrapper
+          footer={
+            <div data-pa11y-ignore='decorator-footer'>
+              <Decorator.Footer />
+            </div>
+          }
+        >
+          <div data-pa11y-ignore='decorator-header'>
+            <Decorator.Header />
+          </div>
+          <UmamiProvider>
+            <LoggerProvider>
+              <BrukLokalMock>
+                <main id='maincontent'>{children}</main>
+              </BrukLokalMock>
+            </LoggerProvider>
+          </UmamiProvider>
+        </PageWrapper>
         <Decorator.Scripts loader={Script} />
       </body>
     </html>
