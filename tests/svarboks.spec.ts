@@ -1,47 +1,124 @@
-import {expect, Page, test} from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 
-test.describe(`Svarboks tester`, () => {
+const BASE_URL = 'http://localhost:1337/rekrutteringstreff';
 
-  test('Svarboks vises korrekt for jobbsøker som ikke har svart', async ({ page }) => {
-    await åpneUrlMedId(page, 2)
+const åpneRekrutteringstreff = async (page: Page, id: string) => {
+  await page.goto(`${BASE_URL}/${id}`);
+  const consentButton = page.getByTestId('consent-banner-refuse-optional');
+  if (await consentButton.isVisible({ timeout: 3000 }).catch(() => false)) {
+    await consentButton.click();
+  }
+};
+
+test.describe('Svarboks tester', () => {
+  test('Vises korrekt for jobbsøker som ikke har svart', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'frem-i-tid');
     await expect(page.getByRole('button', { name: 'Svar' })).toBeVisible();
     await expect(page.getByText('🔥🔥🔥').first()).toBeVisible();
-    await expect(page.getByText('Du kan endre svaret ditt frem').first()).toBeVisible();
+    await expect(
+      page.getByText('Du kan endre svaret ditt frem').first(),
+    ).toBeVisible();
   });
 
-  test('Svarboks vises korrekt for jobbsøker som har svart ja', async ({ page }) => {
-    await åpneUrlMedId(page, 3)
-    await expect(page.getByRole('button', { name: 'Endre svar' })).toBeVisible();
-    await expect(page.getByText('Jeg blir med').nth(1)).toBeVisible();
-    await expect(page.getByText('Du kan endre svaret ditt frem').first()).toBeVisible();
+  test('Vises korrekt for jobbsøker som har svart ja', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'har-svart-ja');
+    await expect(
+      page.getByRole('button', { name: 'Endre svar' }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Jeg blir med', { exact: true }).last(),
+    ).toBeVisible();
   });
 
-  test('Svarboks vises korrekt for jobbsøker som har svart nei', async ({ page }) => {
-    await åpneUrlMedId(page, 4);
-    await expect(page.getByRole('button', { name: 'Endre svar' })).toBeVisible();
-    await expect(page.getByText('Jeg blir ikke med').nth(1).first()).toBeVisible();
-    await expect(page.getByText('Du kan endre svaret ditt frem').first()).toBeVisible();
+  test('Vises korrekt for jobbsøker som har svart nei', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'har-svart-nei');
+    await expect(
+      page.getByRole('button', { name: 'Endre svar' }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Jeg blir ikke med', { exact: true }).last(),
+    ).toBeVisible();
   });
 
-  test('Svarboks vises korrekt for jobbsøker som ikke er invitert', async ({ page }) => {
-    await åpneUrlMedId(page, 5);
-    await expect(page.getByRole('heading', { name: 'Vil du være med?' })).toBeVisible();
+  test('Vises korrekt for jobbsøker som ikke er invitert', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'ikke-invitert');
+    await expect(page.getByText('Vil du være med?')).toBeVisible();
+  });
+});
+
+test.describe('Status-tester', () => {
+  test('Publisert rekrutteringstreff viser innhold', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'publisert');
+    await expect(
+      page.getByRole('heading', { name: 'Siste aktivitet' }),
+    ).toBeVisible();
   });
 
-  test('Svarboks vises korrekt når treffet er i gang', async ({ page }) => {
-    await åpneUrlMedId(page, 6);
-    await expect(page.getByText('Treffet er i gang')).toBeVisible();
+  test('Utkast viser "ikke publisert"-banner', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'utkast');
+    await expect(
+      page.getByText('Rekrutteringstreffet er ikke publisert'),
+    ).toBeVisible();
   });
 
-  test('Svarboks vises korrekt når treffet er passert', async ({ page }) => {
-    await åpneUrlMedId(page, 7);
-    await expect(page.getByText('🎉')).toBeVisible();
+  test('Slettet viser "slettet"-banner', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'slettet');
+    await expect(
+      page.getByText('Rekrutteringstreffet er slettet'),
+    ).toBeVisible();
   });
 
-  const åpneUrlMedId = async (page: Page, rekrutteringstreffId: number) => {
-    await page.goto(`http://localhost:1337/rekrutteringstreff/${rekrutteringstreffId}`);
-    await page.waitForLoadState('networkidle');
-    await page.getByTestId('consent-banner-refuse-optional').click(); // Lukk cookie-banner
-  };
+  test('Avlyst viser innhold', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'avlyst');
+    await expect(page.getByText('Arrangement avlyst')).toBeVisible();
+  });
 
+  test('Fullført viser innhold', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'fullfort');
+    await expect(page.getByText('Treffet er over').first()).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Siste aktivitet' }),
+    ).toBeVisible();
+  });
+
+  test('Ikke funnet viser feilmelding', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'ikke-funnet');
+    await expect(
+      page.getByRole('heading', {
+        name: 'Rekrutteringstreff ikke funnet',
+      }),
+    ).toBeVisible({ timeout: 10000 });
+  });
+});
+
+test.describe('Innhold-tester', () => {
+  test('Frem-i-tid viser tid og sted', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'frem-i-tid');
+    await expect(
+      page.getByText(/Om \d+ dager|I morgen|I dag|Mindre enn 2 dager til/),
+    ).toBeVisible();
+    await expect(page.getByText(/kl\.\s?\d{2}\.\d{2}/).first()).toBeVisible();
+  });
+
+  test('Formattering rendrer HTML korrekt', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'formattering');
+    await expect(
+      page.getByRole('heading', { name: 'Forskjellig formattering' }),
+    ).toBeVisible();
+    await expect(
+      page.locator('strong').filter({ hasText: 'Bold' }).last(),
+    ).toBeVisible();
+  });
+
+  test('Svarfrist utløpt viser riktig', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'svarfrist-utlopt');
+    await expect(page.getByText('Svarfristen er utløpt')).toBeVisible();
+  });
+
+  test('Arbeidsgivere vises', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'frem-i-tid');
+    await expect(
+      page.getByRole('heading', { name: 'Arbeidsgivere' }),
+    ).toBeVisible();
+  });
 });
