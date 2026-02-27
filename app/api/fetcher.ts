@@ -39,6 +39,7 @@ export const getAPIwithSchema = <T>(
       jsonData = await response.json();
     } catch (e) {
       // Body var ikke gyldig JSON
+      logger.error(`GET response feilet for ${url}: ${e}`);
       throw new Error('Non-JSON content received');
     }
 
