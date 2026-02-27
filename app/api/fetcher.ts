@@ -3,6 +3,7 @@ import { logger } from '@navikt/next-logger';
 
 const validerSchema = <T>(schema: ZodSchema<T>, data: any) => {
   const result = schema.safeParse(data);
+  logger.info('Validering av schema fullført. Resultat:', result);
   if (result.success) {
     return result.data;
   } else {
