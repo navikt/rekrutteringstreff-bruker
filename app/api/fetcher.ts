@@ -41,7 +41,7 @@ export const getAPIwithSchema = <T>(
       throw new Error('Non-JSON content received');
     }
 
-    logger.info(`GET response data for ${url}: ${jsonData}`);
+    logger.info(`GET response data for ${url}`, jsonData);
     return validerSchema(schema, jsonData);
   };
 };
