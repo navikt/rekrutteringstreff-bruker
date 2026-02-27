@@ -6,6 +6,7 @@ const validerSchema = <T>(schema: ZodSchema<T>, data: any) => {
   if (result.success) {
     return result.data;
   } else {
+    logger.error('Schema validering feilet:', result.error);
     throw Error('Validation failed');
   }
 };
