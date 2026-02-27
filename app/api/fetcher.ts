@@ -33,9 +33,6 @@ export const getAPIwithSchema = <T>(
 
     let jsonData: unknown;
     try {
-      const text = await response.text();
-      logger.info(`GET response text for ${url}: ${text}`);
-
       jsonData = await response.json();
     } catch (e) {
       // Body var ikke gyldig JSON
