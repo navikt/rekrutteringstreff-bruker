@@ -12,12 +12,8 @@ export default function LoginHandler({ children }: LoginHandlerProps) {
   const [isChecking, setIsChecking] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const sessionUrl =
-    process.env.NEXT_PUBLIC_SESSION_URL ||
-    'https://login.ekstern.dev.nav.no/oauth2/session';
-  const loginUrl =
-    process.env.NEXT_PUBLIC_LOGIN_URL ||
-    'https://login.ekstern.dev.nav.no/oauth2/login';
+  const sessionUrl = process.env.NEXT_PUBLIC_SESSION_URL!!;
+  const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL!!;
 
   useEffect(() => {
     if (isLocal) {
@@ -37,7 +33,6 @@ export default function LoginHandler({ children }: LoginHandlerProps) {
         if (response.status === 401) {
           // Ikke pålogget – redirect til login
           const rekrutteringstreffId = window.location.pathname.split('/').at(-1);
-          console.log(`RekrutteringstreffId: ${rekrutteringstreffId}`);
           window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}&level=Level3`;
           return;
         }
