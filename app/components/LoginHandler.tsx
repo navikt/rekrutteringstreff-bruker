@@ -12,6 +12,9 @@ export default function LoginHandler({ children }: LoginHandlerProps) {
   const [isChecking, setIsChecking] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  console.log("NEXT_PUBLIC_SESSION_URL", process.env.NEXT_PUBLIC_SESSION_URL);
+  console.log("NEXT_PUBLIC_LOGIN_URL", process.env.NEXT_PUBLIC_LOGIN_URL);
+
   const sessionUrl = process.env.NEXT_PUBLIC_SESSION_URL!!;
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL!!;
 
