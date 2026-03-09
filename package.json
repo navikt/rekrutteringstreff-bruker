@@ -48,7 +48,7 @@
     "lint": "next lint",
     "start": "next start",
     "test": "pnpm exec playwright test --reporter=html",
-    "test-build": "NEXT_PUBLIC_DEVELOPER=local next build",
+    "test-build": "NEXT_PUBLIC_DEVELOPER=local NEXT_PUBLIC_SESSION_URL=local NEXT_PUBLIC_LOGIN_URL=local next build",
     "test-dev": "next dev -p 1337"
   },
   "version": "0.1.0",
