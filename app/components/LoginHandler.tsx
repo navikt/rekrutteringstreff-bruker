@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import {isLocal} from "@/app/util";
 import Sidelaster from "@/app/components/Sidelaster";
+import {getServerEnv} from "@/app/util/env";
 
 interface LoginHandlerProps {
   children: React.ReactNode;
@@ -12,11 +13,12 @@ export default function LoginHandler({ children }: LoginHandlerProps) {
   const [isChecking, setIsChecking] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  console.log("NEXT_PUBLIC_SESSION_URL", process.env.NEXT_PUBLIC_SESSION_URL);
-  console.log("NEXT_PUBLIC_LOGIN_URL", process.env.NEXT_PUBLIC_LOGIN_URL);
+  const serverEnv = getServerEnv()
 
-  const sessionUrl = process.env.NEXT_PUBLIC_SESSION_URL!!;
-  const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL!!;
+  const sessionUrl = serverEnv.SESSION_URL;
+  const loginUrl = serverEnv.LOGIN_URL;
+
+  console.log("LOGIN_URL", loginUrl);
 
   useEffect(() => {
     if (isLocal) {
