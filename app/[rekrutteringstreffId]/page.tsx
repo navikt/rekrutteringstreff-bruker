@@ -13,7 +13,7 @@ export default async function RekrutteringstreffPage({
     return <div>Ingen rekrutteringstreffId oppgitt.</div>;
   }
 
-  const serverEnv = getServerEnv()
+  const serverEnv = getServerEnv();
 
   return (
       <LoginHandler sessionUrl={serverEnv.SESSION_URL} loginUrl={serverEnv.LOGIN_URL}>
