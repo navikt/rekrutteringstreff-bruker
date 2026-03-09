@@ -14,11 +14,8 @@ export default function LoginHandler({ children }: LoginHandlerProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const serverEnv = getServerEnv()
-
   const sessionUrl = serverEnv.SESSION_URL;
   const loginUrl = serverEnv.LOGIN_URL;
-
-  console.log("LOGIN_URL", loginUrl);
 
   useEffect(() => {
     if (isLocal) {
