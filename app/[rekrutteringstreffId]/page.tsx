@@ -1,5 +1,6 @@
 import VisRekrutteringstreff from './VisRekrutteringstreff';
 import LoginHandler from "@/app/components/LoginHandler";
+import {getServerEnv} from "@/app/util/env";
 
 export default async function RekrutteringstreffPage({
   params,
@@ -12,8 +13,10 @@ export default async function RekrutteringstreffPage({
     return <div>Ingen rekrutteringstreffId oppgitt.</div>;
   }
 
+  const serverEnv = getServerEnv();
+
   return (
-      <LoginHandler>
+      <LoginHandler sessionUrl={serverEnv.SESSION_URL} loginUrl={serverEnv.LOGIN_URL}>
           <VisRekrutteringstreff rekrutteringstreffId={rekrutteringstreffId} />
       </LoginHandler>
   );
