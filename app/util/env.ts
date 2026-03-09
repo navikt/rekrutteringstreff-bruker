@@ -3,11 +3,11 @@ export function getServerEnv(): {
     LOGIN_URL: string,
 } {
     if (process.env.NEXT_PUBLIC_SESSION_URL == null) {
-        throw new Error("Miljøvariabel NEXT_PUBLIC_SESSION_URL er ikke statt");
+        throw new Error("Miljøvariabelen NEXT_PUBLIC_SESSION_URL er ikke satt");
     }
 
     if (process.env.NEXT_PUBLIC_LOGIN_URL == null) {
-        throw new Error("Miljøvariabel NEXT_PUBLIC_LOGIN_URL er ikke statt");
+        throw new Error("Miljøvariabelen NEXT_PUBLIC_LOGIN_URL er ikke satt");
     }
 
     return {
