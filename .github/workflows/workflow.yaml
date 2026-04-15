@@ -6,14 +6,14 @@ on:
 jobs:
   build-and-deploy:
     name: Next
-    uses: navikt/toi-github-actions-workflows/.github/workflows/build-and-deploy-nextjs.yaml@v10
+    uses: navikt/toi-github-actions-workflows/.github/workflows/build-and-deploy-nextjs.yaml@v12
     with:
       a11y-command: 'pnpm a11y'
       playwright-command: 'pnpm test'
       playwright-github-report: true
       dev-vars-path: '.nais/dev-gcp.json'
       prod-vars-path: '.nais/prod-gcp.json'
-      deploy-dev-branch: 'feilsoking-login'
+      deploy-dev-branch: 'oppgrader-next'
     secrets: inherit
     permissions:
       contents: write
