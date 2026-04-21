@@ -19,6 +19,7 @@ const mocks = [
   { id: 'har-svart-ja', beskrivelse: 'Har svart ja (frem i tid)' },
   { id: 'har-svart-nei', beskrivelse: 'Har svart nei (frem i tid)' },
   { id: 'ikke-invitert', beskrivelse: 'Ikke invitert (frem i tid)' },
+  { id: 'uten-svarfrist', beskrivelse: 'Svarfrist mangler' },
 ];
 
 export default function MockOversikt() {

@@ -2,13 +2,17 @@ import Boks from '@/app/components/Boks';
 import BoksMedTittelOgInnhold from '@/app/components/BoksMedTittelOgInnhold';
 import SvarModal from '@/app/components/svar/SvarModal';
 import PåmeldtChips from '@/app/components/visrekrutteringstreff/PåmeldtChips';
+import { RekrutteringstreffStatus } from '@/app/types';
 import {
   erDatoPassert,
   erMellomDatoer,
   formatterDato,
   svarfristSomTekst,
 } from '@/app/util';
-import { XMarkOctagonIcon } from '@navikt/aksel-icons';
+import {
+  ExclamationmarkTriangleIcon,
+  XMarkOctagonIcon,
+} from '@navikt/aksel-icons';
 import { Button, HStack, Loader } from '@navikt/ds-react';
 import * as React from 'react';
 import { useState } from 'react';
@@ -48,7 +52,21 @@ const Svarboks: React.FC<SvarboksProps> = ({
     );
   }
 
-  if (status === 'AVLYST') {
+  if (svarfrist === null) {
+    return (
+      <Boks fargeKode={'hvit'} className='mb-8'>
+        <ExclamationmarkTriangleIcon aria-hidden='true' fontSize='1.5rem' />
+        <p className='font-bold mt-2 text-base'>Manglende svarfrist</p>
+        <p className='text-base'>
+          Vi finner ikke informasjon om treffets svarfrist. Hør med veilederen
+          din i dialogen om hen kan sjekke når den er, eller om hen kan svare på
+          dine vegne.
+        </p>
+      </Boks>
+    );
+  }
+
+  if (status === RekrutteringstreffStatus.AVLYST) {
     return (
       <Boks
         fargeKode='hvit'
@@ -119,12 +137,7 @@ const Svarboks: React.FC<SvarboksProps> = ({
     );
   }
 
-  const harSvartSomBooleanEllerNull = () => {
-    if (!harSvart) {
-      return null;
-    }
-    return erPåmeldt;
-  };
+  const harSvartSomBooleanEllerNull = harSvart ? erPåmeldt : null;
 
   const svarModalElement = (
     <SvarModal
@@ -133,7 +146,7 @@ const Svarboks: React.FC<SvarboksProps> = ({
       svarEndret={(svar: boolean) => svarEndret(svar)}
       svarfrist={svarfrist}
       rekrutteringstreffId={rekrutteringstreffId}
-      gjeldendeSvar={harSvartSomBooleanEllerNull()}
+      gjeldendeSvar={harSvartSomBooleanEllerNull}
     />
   );
 

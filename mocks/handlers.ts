@@ -10,6 +10,7 @@ import {
   mockRekrutteringstreffSvarfristUtløpt,
   mockRekrutteringstreffTilbakeITid,
   mockRekrutteringstreffUtkast,
+  mockRekrutteringstreffUtenSvarfrist,
 } from '@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock';
 import {
   mockBaseRekrutteringstreffSvar,
@@ -50,6 +51,9 @@ export const handlers = [
   ),
   http.get(rekrutteringstreffUrl('svarfrist-utlopt'), () =>
     HttpResponse.json(mockRekrutteringstreffSvarfristUtløpt),
+  ),
+  http.get(rekrutteringstreffUrl('uten-svarfrist'), () =>
+    HttpResponse.json(mockRekrutteringstreffUtenSvarfrist),
   ),
   http.get(rekrutteringstreffUrl('utkast'), () =>
     HttpResponse.json(mockRekrutteringstreffUtkast),
