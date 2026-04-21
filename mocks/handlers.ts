@@ -88,7 +88,7 @@ export const handlers = [
     HttpResponse.json(mockBaseRekrutteringstreffSvarHarSvartNei),
   ),
   http.get(svarUrl('avlyst'), () =>
-    HttpResponse.json(mockBaseRekrutteringstreffSvarIkkeInvitert),
+    HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
   ),
   http.get(
     svarUrl('ikke-funnet'),
