@@ -143,7 +143,7 @@ const createMockRekrutteringstreffSlettet =
 
 const createMockRekrutteringstreffUtenSvarfrist =
   (): EnkeltRekrutteringstreffDTO => ({
-    ...createMockRekrutteringstreff(),
+    ...createMockRekrutteringstreffFremITid(),
     svarfrist: null,
   });
 

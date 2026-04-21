@@ -97,6 +97,9 @@ export const handlers = [
   http.get(svarUrl('svarfrist-utlopt'), () =>
     HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
   ),
+  http.get(svarUrl('uten-svarfrist'), () =>
+    HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
+  ),
   http.get(svarUrl('har-svart-ja'), () =>
     HttpResponse.json(mockBaseRekrutteringstreffSvarHarSvartJa),
   ),
