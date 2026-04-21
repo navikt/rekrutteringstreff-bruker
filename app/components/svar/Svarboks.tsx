@@ -52,17 +52,19 @@ const Svarboks: React.FC<SvarboksProps> = ({
     );
   }
 
-  if (svarfrist === null) {
+  if (!erInvitert) {
     return (
-      <Boks fargeKode={'hvit'} className='mb-8'>
-        <ExclamationmarkTriangleIcon aria-hidden='true' fontSize='1.5rem' />
-        <p className='font-bold mt-2 text-base'>Manglende svarfrist</p>
+      <BoksMedTittelOgInnhold
+        fargeKode={'blå'}
+        className='mb-8'
+        tittel='Vil du være med?'
+      >
         <p className='text-base'>
-          Vi finner ikke informasjon om treffets svarfrist. Hør med veilederen
-          din i dialogen om hen kan sjekke når den er, eller om hen kan svare på
-          dine vegne.
+          Du har ikke mottatt invitasjon til dette rekrutteringstreffet. Dersom
+          du er interessert kan du kontakte veilederen din i dialogen og be hen
+          sjekke om du kan få en invitasjon.
         </p>
-      </Boks>
+      </BoksMedTittelOgInnhold>
     );
   }
 
@@ -99,6 +101,20 @@ const Svarboks: React.FC<SvarboksProps> = ({
     );
   }
 
+  if (svarfrist === null) {
+    return (
+      <Boks fargeKode={'hvit'} className='mb-8'>
+        <ExclamationmarkTriangleIcon aria-hidden='true' fontSize='1.5rem' />
+        <p className='font-bold mt-2 text-base'>Manglende svarfrist</p>
+        <p className='text-base'>
+          Vi finner ikke informasjon om treffets svarfrist. Hør med veilederen
+          din i dialogen om hen kan sjekke når den er, eller om hen kan svare på
+          dine vegne.
+        </p>
+      </Boks>
+    );
+  }
+
   if (erMellomDatoer(fraTid, tilTid)) {
     return (
       <Boks fargeKode={'hvit'} className='mb-8'>
@@ -118,22 +134,6 @@ const Svarboks: React.FC<SvarboksProps> = ({
         <div aria-hidden='true'>⏱️️⏱️️⏱️️</div>
         <p className='font-bold mt-2 text-base'>Svarfristen er utløpt</p>
       </Boks>
-    );
-  }
-
-  if (!erInvitert) {
-    return (
-      <BoksMedTittelOgInnhold
-        fargeKode={'blå'}
-        className='mb-8'
-        tittel='Vil du være med?'
-      >
-        <p className='text-base'>
-          Du har ikke mottatt invitasjon til dette rekrutteringstreffet. Dersom
-          du er interessert kan du kontakte veilederen din i dialogen og be hen
-          sjekke om du kan få en invitasjon.
-        </p>
-      </BoksMedTittelOgInnhold>
     );
   }
 
