@@ -141,6 +141,12 @@ const createMockRekrutteringstreffSlettet =
     status: RekrutteringstreffStatus.SLETTET,
   });
 
+const createMockRekrutteringstreffUtenSvarfrist =
+  (): EnkeltRekrutteringstreffDTO => ({
+    ...createMockRekrutteringstreffFremITid(),
+    svarfrist: null,
+  });
+
 export const mockRekrutteringstreff = createMockRekrutteringstreff();
 export const mockRekrutteringstreffFremITid =
   createMockRekrutteringstreffFremITid();
@@ -161,3 +167,5 @@ export const mockRekrutteringstreffFullført =
   createMockRekrutteringstreffFullført();
 export const mockRekrutteringstreffSlettet =
   createMockRekrutteringstreffSlettet();
+export const mockRekrutteringstreffUtenSvarfrist =
+  createMockRekrutteringstreffUtenSvarfrist();

@@ -115,6 +115,11 @@ test.describe('Innhold-tester', () => {
     await expect(page.getByText('Svarfristen er utløpt')).toBeVisible();
   });
 
+  test('Manglende svarfrist viser riktig beskjed', async ({ page }) => {
+    await åpneRekrutteringstreff(page, 'uten-svarfrist');
+    await expect(page.getByText('Manglende svarfrist')).toBeVisible();
+  });
+
   test('Arbeidsgivere vises', async ({ page }) => {
     await åpneRekrutteringstreff(page, 'frem-i-tid');
     await expect(

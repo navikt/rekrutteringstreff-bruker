@@ -10,6 +10,7 @@ import {
   mockRekrutteringstreffSvarfristUtløpt,
   mockRekrutteringstreffTilbakeITid,
   mockRekrutteringstreffUtkast,
+  mockRekrutteringstreffUtenSvarfrist,
 } from '@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock';
 import {
   mockBaseRekrutteringstreffSvar,
@@ -51,6 +52,9 @@ export const handlers = [
   http.get(rekrutteringstreffUrl('svarfrist-utlopt'), () =>
     HttpResponse.json(mockRekrutteringstreffSvarfristUtløpt),
   ),
+  http.get(rekrutteringstreffUrl('uten-svarfrist'), () =>
+    HttpResponse.json(mockRekrutteringstreffUtenSvarfrist),
+  ),
   http.get(rekrutteringstreffUrl('utkast'), () =>
     HttpResponse.json(mockRekrutteringstreffUtkast),
   ),
@@ -84,13 +88,16 @@ export const handlers = [
     HttpResponse.json(mockBaseRekrutteringstreffSvarHarSvartNei),
   ),
   http.get(svarUrl('avlyst'), () =>
-    HttpResponse.json(mockBaseRekrutteringstreffSvarIkkeInvitert),
+    HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
   ),
   http.get(
     svarUrl('ikke-funnet'),
     () => new HttpResponse(null, { status: 404 }),
   ),
   http.get(svarUrl('svarfrist-utlopt'), () =>
+    HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
+  ),
+  http.get(svarUrl('uten-svarfrist'), () =>
     HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
   ),
   http.get(svarUrl('har-svart-ja'), () =>
