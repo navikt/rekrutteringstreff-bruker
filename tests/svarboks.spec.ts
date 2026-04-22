@@ -97,7 +97,7 @@ test.describe('Innhold-tester', () => {
     await expect(
       page.getByText(/Om \d+ dager|I morgen|I dag|Mindre enn 2 dager til/),
     ).toBeVisible();
-    await expect(page.getByText(/kl\.\s?\d{2}\.\d{2}/).first()).toBeVisible();
+    await expect(page.getByText(/kl\.\s?\d{2}:\d{2}/).first()).toBeVisible();
   });
 
   test('Formattering rendrer HTML korrekt', async ({ page }) => {
