@@ -1,6 +1,6 @@
-import {format as formatDateFns} from "date-fns/format";
-import {nb} from "date-fns/locale";
-import {differenceInDays, isToday, isTomorrow, parseISO} from "date-fns";
+import { differenceInDays, isToday, isTomorrow, parseISO } from 'date-fns';
+import { format as formatDateFns } from 'date-fns/format';
+import { nb } from 'date-fns/locale';
 
 export const isLocal = process.env.NEXT_PUBLIC_DEVELOPER === 'local';
 const onPremCLuster = () => {
@@ -18,65 +18,68 @@ export const getCluster = (onPrem?: boolean) => {
 };
 
 export function capitalizeFirstLetter(val: string) {
-    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
 
-export function formatterDato(date: string | null): string  {
-    if (!date) {
-        return '';
-    }
-    return formatDateFns(date, "EEEE d. MMMM yyyy 'kl.' HH.mm", {locale: nb,});
+export function formatterDato(date: string | null): string {
+  if (!date) {
+    return '';
+  }
+  return formatDateFns(date, "EEEE dd. MMMM yyyy 'kl.' HH:mm", { locale: nb });
 }
 
-export function formatterKlokkeslett(date: string | null): string  {
-    if (!date) {
-        return '';
-    }
-    return formatDateFns(date, "HH.mm", {locale: nb,});
+export function formatterKlokkeslett(date: string | null): string {
+  if (!date) {
+    return '';
+  }
+  return formatDateFns(date, 'HH:mm', { locale: nb });
 }
 
 export function antallDagerTilDato(dato: string | null): string {
-    if (!dato) {
-        return '';
-    }
-    const isoDato = parseISO(dato);
-    return differenceInDays(isoDato, new Date()) + '';
+  if (!dato) {
+    return '';
+  }
+  const isoDato = parseISO(dato);
+  return differenceInDays(isoDato, new Date()) + '';
 }
 
-export function erMellomDatoer(fraDato: string | null, tilDato: string | null): boolean {
-    if (!fraDato || !tilDato) {
-        return false;
-    }
-    const fra = parseISO(fraDato);
-    const til = parseISO(tilDato);
-    const iDag = new Date();
-    return iDag >= fra && iDag <= til;
+export function erMellomDatoer(
+  fraDato: string | null,
+  tilDato: string | null,
+): boolean {
+  if (!fraDato || !tilDato) {
+    return false;
+  }
+  const fra = parseISO(fraDato);
+  const til = parseISO(tilDato);
+  const iDag = new Date();
+  return iDag >= fra && iDag <= til;
 }
 
 export function erDatoPassert(datoSomStreng: string | null): boolean {
-    if (!datoSomStreng) {
-        return false;
-    }
-    return parseISO(datoSomStreng) <= new Date();
+  if (!datoSomStreng) {
+    return false;
+  }
+  return parseISO(datoSomStreng) <= new Date();
 }
 
 export const svarfristSomTekst = (svarfrist: string | null) => {
-    if (erDatoPassert(svarfrist)) {
-        return "Svarfrist er utløpt";
-    }
+  if (erDatoPassert(svarfrist)) {
+    return 'Svarfrist er utløpt';
+  }
 
-    if (svarfrist && isToday(parseISO(svarfrist))) {
-        return "Svarfristen utløper i dag";
-    }
+  if (svarfrist && isToday(parseISO(svarfrist))) {
+    return 'Svarfristen utløper i dag';
+  }
 
-    if (svarfrist && isTomorrow(parseISO(svarfrist))) {
-        return "Svarfristen utløper i morgen";
-    }
+  if (svarfrist && isTomorrow(parseISO(svarfrist))) {
+    return 'Svarfristen utløper i morgen';
+  }
 
-    const dagerTilDato = antallDagerTilDato(svarfrist);
-    if (dagerTilDato === "1") {
-        return "Svarfristen utløper om mindre enn 2 dager";
-    }
+  const dagerTilDato = antallDagerTilDato(svarfrist);
+  if (dagerTilDato === '1') {
+    return 'Svarfristen utløper om mindre enn 2 dager';
+  }
 
-    return `Svarfristen utløper om ${dagerTilDato} dager`;
-}
+  return `Svarfristen utløper om ${dagerTilDato} dager`;
+};
