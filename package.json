@@ -28,7 +28,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "eslint": "^9.39.2",
-    "eslint-config-next": "16.2.3",
+    "eslint-config-next": "16.2.6",
     "msw": "^2.12.10",
     "nav-faker": "^3.2.4",
     "pa11y": "^9.0.1",
