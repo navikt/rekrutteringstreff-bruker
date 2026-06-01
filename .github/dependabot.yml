@@ -4,16 +4,66 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    versioning-strategy: "lockfile-only"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Oslo"
+    cooldown:
+      default-days: 3
+    versioning-strategy: "auto"
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
       - "pnpm"
-    ignore:
-      # Optional: Add packages to ignore here if needed
-      # - dependency-name: "example-package"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
     registries:
-      # If you use private registries, define them here
-      # npm-registry:
-      #   type: npm-registry
-      #   url: https://registry.npmjs.org
+      - navikt-npm
+    groups:
+      # Group patch updates
+      patch-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+      # Group NAV packages
+      nav-packages:
+        patterns:
+          - "@navikt/*"
+      # Group dev dependencies
+      dev-dependencies:
+        dependency-type: "development"
+    ignore:
+      # Ignore major version updates for Node.js LTS
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]
+      # Add other packages to ignore if needed
+      # - dependency-name: "example-package"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Oslo"
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+# Define the registry
+registries:
+  navikt-npm:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{ secrets.READER_TOKEN }}
