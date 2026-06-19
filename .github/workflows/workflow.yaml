@@ -13,7 +13,7 @@ jobs:
       playwright-github-report: true
       dev-vars-path: '.nais/dev-gcp.json'
       prod-vars-path: '.nais/prod-gcp.json'
-      deploy-dev-branch: 'supplychain'
+      deploy-dev-branch: 'tekstendring-pamelding'
     secrets: inherit
     permissions:
       contents: write

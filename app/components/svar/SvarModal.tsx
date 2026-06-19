@@ -98,7 +98,7 @@ const SvarModal: React.FC<SvarModalProps> = ({
           />
           <IkonOgTekst
             ikon={<ArrowsCirclepathIcon />}
-            tekst={`Du kan endre svaret ditt frem til svarfristen. Det gjør ikke noe om du ombestemmer deg.`}
+            tekst={`Du kan endre svaret ditt frem til svarfristen.`}
           />
           <RadioGroup
             legend='Kommer du på rekrutteringstreffet?'
