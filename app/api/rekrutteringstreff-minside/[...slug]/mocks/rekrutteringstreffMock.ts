@@ -1,4 +1,7 @@
-import { EnkeltRekrutteringstreffDTO } from '@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
+import {
+  EnkeltRekrutteringstreffDTO,
+  RekrutteringstreffKategori,
+} from '@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
 import { RekrutteringstreffStatus } from '@/app/types';
 import { faker } from '@faker-js/faker/locale/nb_NO';
 
@@ -19,6 +22,7 @@ const createMockRekrutteringstreff = (): EnkeltRekrutteringstreffDTO => {
     postnummer: faker.location.zipCode(),
     poststed: faker.location.city(),
     status: RekrutteringstreffStatus.PUBLISERT,
+    kategori: RekrutteringstreffKategori.REKRUTTERINGSTREFF,
     innlegg: Array.from(
       { length: faker.number.int({ min: 1, max: 4 }) },
       () => ({
