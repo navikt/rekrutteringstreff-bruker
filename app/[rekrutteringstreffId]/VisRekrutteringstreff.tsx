@@ -1,6 +1,9 @@
 'use client';
 
-import { useEnkeltRekrutteringstreff } from '@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
+import {
+  RekrutteringstreffKategori,
+  useEnkeltRekrutteringstreff,
+} from '@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreff';
 import { useEnkeltRekrutteringstreffSvar } from '@/app/api/rekrutteringstreff-minside/useEnkeltRekrutteringstreffSvar';
 import SWRLaster from '@/app/components/SWRLaster';
 import RekrutteringstreffStatusBanner from '@/app/components/status-melding/RekrutteringstreffStatusBanner';
@@ -127,19 +130,25 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                       value='innlegg'
                       label={`Siste aktivitet (${rekrutteringstreff.innlegg.length})`}
                     />
-                    <Tabs.Tab
-                      value='arbeidsgivere'
-                      label={`Arbeidsgivere (${rekrutteringstreff.arbeidsgivere.length})`}
-                    />
+                    {rekrutteringstreff.kategori !==
+                      RekrutteringstreffKategori.WORKOP && (
+                      <Tabs.Tab
+                        value='arbeidsgivere'
+                        label={`Arbeidsgivere (${rekrutteringstreff.arbeidsgivere.length})`}
+                      />
+                    )}
                   </Tabs.List>
                   <Tabs.Panel value='innlegg'>
                     <InnleggListe innlegg={rekrutteringstreff.innlegg} />
                   </Tabs.Panel>
-                  <Tabs.Panel value='arbeidsgivere'>
-                    <ArbeidsgiverListe
-                      arbeidsgivere={rekrutteringstreff.arbeidsgivere}
-                    />
-                  </Tabs.Panel>
+                  {rekrutteringstreff.kategori !==
+                    RekrutteringstreffKategori.WORKOP && (
+                    <Tabs.Panel value='arbeidsgivere'>
+                      <ArbeidsgiverListe
+                        arbeidsgivere={rekrutteringstreff.arbeidsgivere}
+                      />
+                    </Tabs.Panel>
+                  )}
                 </Tabs>
               </Show>
 
@@ -151,14 +160,17 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                     </Heading>
                     <InnleggListe innlegg={rekrutteringstreff.innlegg} />
                   </div>
-                  <div>
-                    <Heading size='xsmall' className='mb-4'>
-                      Arbeidsgivere
-                    </Heading>
-                    <ArbeidsgiverListe
-                      arbeidsgivere={rekrutteringstreff.arbeidsgivere}
-                    />
-                  </div>
+                  {rekrutteringstreff.kategori !==
+                    RekrutteringstreffKategori.WORKOP && (
+                    <div>
+                      <Heading size='xsmall' className='mb-4'>
+                        Arbeidsgivere
+                      </Heading>
+                      <ArbeidsgiverListe
+                        arbeidsgivere={rekrutteringstreff.arbeidsgivere}
+                      />
+                    </div>
+                  )}
                 </HGrid>
               </Show>
             </Page.Block>
