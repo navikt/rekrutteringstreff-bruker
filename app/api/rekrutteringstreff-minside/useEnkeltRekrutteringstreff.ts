@@ -19,6 +19,11 @@ const InnleggSchema = z.object({
   htmlContent: z.string(),
 });
 
+export const RekrutteringstreffKategori = {
+  REKRUTTERINGSTREFF: 'REKRUTTERINGSTREFF',
+  WORKOP: 'WORKOP',
+} as const;
+
 const enkeltRekrutteringstreffSchema = z.object({
   id: z.string(),
   tittel: z.string(),
@@ -30,6 +35,7 @@ const enkeltRekrutteringstreffSchema = z.object({
   postnummer: z.string().nullable(),
   poststed: z.string().nullable(),
   status: z.string(),
+  kategori: z.enum(RekrutteringstreffKategori),
   innlegg: z.array(InnleggSchema),
   arbeidsgivere: z.array(ArbeidsgiverSchema),
 });
