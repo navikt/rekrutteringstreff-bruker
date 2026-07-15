@@ -24,6 +24,13 @@ export const RekrutteringstreffKategori = {
   WORKOP: 'WORKOP',
 } as const;
 
+type Kategori =
+  (typeof RekrutteringstreffKategori)[keyof typeof RekrutteringstreffKategori];
+
+export const RekrutteringstreffKategoriEnum = z.enum(
+  Object.values(RekrutteringstreffKategori) as [Kategori, ...Kategori[]],
+);
+
 const enkeltRekrutteringstreffSchema = z.object({
   id: z.string(),
   tittel: z.string(),
@@ -35,7 +42,7 @@ const enkeltRekrutteringstreffSchema = z.object({
   postnummer: z.string().nullable(),
   poststed: z.string().nullable(),
   status: z.string(),
-  kategori: z.enum(RekrutteringstreffKategori),
+  kategori: RekrutteringstreffKategoriEnum,
   innlegg: z.array(InnleggSchema),
   arbeidsgivere: z.array(ArbeidsgiverSchema),
 });
