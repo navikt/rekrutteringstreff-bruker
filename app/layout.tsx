@@ -18,8 +18,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const env = process.env.NAIS_CLUSTER_NAME === 'prod-gcp' ? 'prod' : 'dev';
+
   const Decorator = await fetchDecoratorReact({
-    env: 'prod',
+    env: env,
     params: {
       utilsBackground: 'white',
       context: 'privatperson',

@@ -1,7 +1,7 @@
 import { isLocal } from '../util';
 import { Iroute } from './api-routes';
 import { logger } from '@navikt/next-logger';
-import {getToken, requestTokenxOboToken, TokenResult} from '@navikt/oasis';
+import {getToken, requestTokenxOboToken, TokenResult, validateToken} from '@navikt/oasis';
 import { NextResponse } from 'next/server';
 
 export const proxyWithOBO = async (
@@ -25,6 +25,17 @@ export const proxyWithOBO = async (
       { beskrivelse: 'Kunne ikke hente token' },
       { status: 401 },
     );
+  }
+
+  if (!isLocal) {
+    const validering = await validateToken(token);
+
+    if (!validering.ok) {
+      return NextResponse.json(
+          { beskrivelse: 'Token er ikke gyldig' },
+          { status: 401 }
+      );
+    }
   }
 
   let obo: TokenResult;
