@@ -40,6 +40,7 @@
     "typescript": "^5.9.3"
   },
   "name": "rekrutteringstreff-bruker",
+  "packageManager": "pnpm@12.4.1",
   "private": true,
   "scripts": {
     "a11y": "PUPPETEER_EXECUTABLE_PATH=$(node -e \"console.log(require('@playwright/test').chromium.executablePath())\") pa11y-ci",
@@ -56,11 +57,5 @@
     "workerDirectory": [
       "public"
     ]
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.2.14",
-      "@types/react-dom": "19.2.3"
-    }
   }
 }
