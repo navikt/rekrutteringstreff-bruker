@@ -35,7 +35,7 @@ export const useEnkeltRekrutteringstreffSvar = (
           window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
         }
         // 404 og andre feil vil bli tilgjengelig via result.error
-        logger.error('useEnkeltRekrutteringstreffSvar error: ', error);
+        logger.error(error, 'useEnkeltRekrutteringstreffSvar error: ');
       },
       shouldRetryOnError: (error) => {
         if (

@@ -44,7 +44,7 @@ export const proxyWithOBO = async (
       ? ({ ok: true, token: 'DEV' } as TokenResult)
       : await requestTokenxOboToken(token, proxy.audience);
   } catch (error) {
-    logger.error('Feil ved henting av OBO-token:', error);
+    logger.error(error, 'Feil ved henting av OBO-token:');
     return NextResponse.json(
       { beskrivelse: 'Kunne ikke hente OBO-token' },
       { status: 500 },
@@ -52,14 +52,14 @@ export const proxyWithOBO = async (
   }
 
   if (!obo.ok) {
-    logger.error('Ugyldig OBO-token mottatt:', obo.error);
+    logger.error(obo.error, 'Ugyldig OBO-token mottatt:');
     return NextResponse.json(
       { beskrivelse: 'Ugyldig OBO-token mottatt' },
       { status: 500 },
     );
   }
   if (!obo.token) {
-    logger.error('Ingen OBO-token mottatt:', obo);
+    logger.error(obo, 'Ingen OBO-token mottatt:');
     return NextResponse.json(
       { beskrivelse: 'Ingen OBO-token mottatt' },
       { status: 500 },
