@@ -3,7 +3,9 @@ allowBuilds:
   puppeteer: false
   sharp: false
   unrs-resolver: false
-minimumReleaseAge: 4320  # minutter (3 dager)
+packages:
+  - '.'
+minimumReleaseAge: 4320 # minutter (3 dager)
 minimumReleaseAgeExclude:
   - '@navikt/*'
 ignoreScripts: true
