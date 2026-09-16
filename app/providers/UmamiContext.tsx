@@ -21,7 +21,7 @@ export const UmamiProvider = ({ children }: UmamiProviderProps) => {
   const track = (event: UmamiEventObject, eventData?: Record<string, any>) => {
     if (analyticsInstance) {
       logger.info(event, 'Logger Umami event');
-      analyticsInstance(event.navn, {
+      analyticsInstance.custom(event.navn, {
           ...eventData,
           domene: event.domene,
       });

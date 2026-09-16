@@ -40,8 +40,8 @@ const SvarModal: React.FC<SvarModalProps> = ({
       const result = await avgiSvar(rekrutteringstreffId, svar);
 
       logger.info(
-        `Result ved sending av svar for rekrutteringstreff ${rekrutteringstreffId} statuskode: ${result.status}`,
         result,
+        `Result ved sending av svar for rekrutteringstreff ${rekrutteringstreffId} statuskode: ${result.status}`,
       );
       if (result.ok) {
         logger.info(
@@ -59,8 +59,8 @@ const SvarModal: React.FC<SvarModalProps> = ({
       }
     } catch (error) {
       logger.error(
-        `Feil ved sending av svar for rekrutteringstreff ${rekrutteringstreffId}`,
         error,
+        `Feil ved sending av svar for rekrutteringstreff ${rekrutteringstreffId}`,
       );
       setVisFeilmelding(true);
     }
