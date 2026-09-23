@@ -16,6 +16,7 @@ jobs:
       deploy-dev-branch: 'sept-update'
     secrets: inherit
     permissions:
+      actions: write
       contents: write
       id-token: write
       security-events: write
