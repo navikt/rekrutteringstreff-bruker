@@ -2,6 +2,8 @@ name: Bygg og Deploy Rekrutteringstreff-bruker
 on:
   push:
   workflow_dispatch: # Legger til mulighet for manuell kjøring
+  schedule:
+    - cron: '0 6 * * *'
 
 jobs:
   build-and-deploy:
