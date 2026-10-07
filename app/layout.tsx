@@ -4,14 +4,28 @@ import PageWrapper from '@/app/components/PageWrapper';
 import LoggerProvider from '@/app/providers/LoggerProvider';
 import { UmamiProvider } from '@/app/providers/UmamiContext';
 import { isLocal } from '@/app/util';
+import { versionFromImage } from '@nais/apm';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { connection } from 'next/server';
 
-export const metadata: Metadata = {
-  title: 'Rekrutteringstreff',
-  description: 'Rekrutteringstreff',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  await connection();
+  return {
+    title: 'Rekrutteringstreff',
+    description: 'Rekrutteringstreff',
+    other: {
+      'nais-app': process.env.NAIS_APP_NAME ?? 'rekrutteringstreff-bruker',
+      'nais-team': 'toi',
+      'nais-cluster': process.env.NAIS_CLUSTER_NAME ?? 'local',
+      'nais-version': versionFromImage(process.env.NAIS_APP_IMAGE) ?? 'local',
+      ...(process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL && {
+        'nais-telemetry-url': process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
+      }),
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
