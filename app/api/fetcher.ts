@@ -1,5 +1,6 @@
-import { ZodSchema } from 'zod';
+import { rapporterApiFeil } from '@/app/util/apm';
 import { logger } from '@navikt/next-logger';
+import { ZodSchema } from 'zod';
 
 const validerSchema = <T>(schema: ZodSchema<T>, data: any) => {
   const result = schema.safeParse(data);
@@ -14,7 +15,10 @@ export const getAPIwithSchema = <T>(
   schema: ZodSchema<T>,
 ): ((url: string) => Promise<T>) => {
   return async (url: string) => {
-    const response = await fetch(url, { method: 'GET', credentials: 'include' });
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    });
 
     if (response.status === 404) {
       throw new Response(JSON.stringify({ message: 'Ressurs ikke funnet' }), {
@@ -22,9 +26,12 @@ export const getAPIwithSchema = <T>(
       });
     }
     if (!response.ok && response.status === 401) {
-      throw new Response(`Network response was not ok: ${response.statusText}`, {
-        status: response.status,
-      });
+      throw new Response(
+        `Network response was not ok: ${response.statusText}`,
+        {
+          status: response.status,
+        },
+      );
     }
 
     if (!response.ok) {
@@ -43,10 +50,7 @@ export const getAPIwithSchema = <T>(
   };
 };
 
-export const putApi = async (
-  url: string,
-  body: any,
-): Promise<Response> => {
+export const putApi = async (url: string, body: any): Promise<Response> => {
   const response = await fetch(url, {
     method: 'PUT',
     credentials: 'include',
@@ -58,5 +62,6 @@ export const putApi = async (
     ),
   });
   logger.info(response, 'PUT response:');
+  if (!response.ok) rapporterApiFeil(response.status, response.url);
   return response;
 };
