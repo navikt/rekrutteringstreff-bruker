@@ -2,6 +2,8 @@
 const nextConfig = {
   output: 'standalone',
   basePath: '/rekrutteringstreff',
+  assetPrefix: process.env.CDN_ASSET_PREFIX,
+  crossOrigin: 'anonymous',
   transpilePackages: ['@navikt/ds-react', '@navikt/ds-css'],
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
