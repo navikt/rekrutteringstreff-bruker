@@ -15,7 +15,7 @@ jobs:
       playwright-github-report: true
       dev-vars-path: '.nais/dev-gcp.json'
       prod-vars-path: '.nais/prod-gcp.json'
-      deploy-dev-branch: 'oppdater_nav_dekorator'
+      deploy-dev-branch: 'cdn'
     secrets: inherit
     permissions:
       actions: write
