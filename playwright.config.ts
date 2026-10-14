@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const PLAYWRIGHT_PORT = process.env.PLAYWRIGHT_PORT || '1337';
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -18,9 +20,8 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: 1,
-  /* Opt out of parallel tests on CI. */
-  workers: 1,
+  retries: process.env.CI ? 1 : 0,
+  workers: process.env.CI ? '100%' : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     [
@@ -39,7 +40,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     screenshot: {
-      mode: 'on',
+      mode: 'only-on-failure',
       fullPage: true,
     },
   },
@@ -58,25 +59,29 @@ export default defineConfig({
       },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        viewport: { width: 1440, height: 1080 },
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        viewport: { width: 1440, height: 1080 },
+      },
+    },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    {
+      name: 'chromium-mobile',
+      use: { ...devices['Pixel 7'] },
+    },
+    {
+      name: 'webkit-mobile',
+      use: { ...devices['iPhone 13'] },
+    },
 
     /* Test against branded browsers. */
     // {
@@ -89,10 +94,17 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  webServer: process.env.CI
+    ? undefined
+    : {
+        command: `pnpm exec next dev -p ${PLAYWRIGHT_PORT}`,
+        env: {
+          NEXT_PUBLIC_DEVELOPER: 'local',
+          NEXT_PUBLIC_SESSION_URL: 'local',
+          NEXT_PUBLIC_LOGIN_URL: 'local',
+        },
+        url: `http://localhost:${PLAYWRIGHT_PORT}/rekrutteringstreff/frem-i-tid`,
+        reuseExistingServer: true,
+        timeout: 120 * 1000,
+      },
 });

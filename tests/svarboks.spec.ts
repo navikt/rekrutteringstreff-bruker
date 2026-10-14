@@ -1,6 +1,7 @@
 import { expect, Page, test } from '@playwright/test';
 
-const BASE_URL = 'http://localhost:1337/rekrutteringstreff';
+const PORT = process.env.PLAYWRIGHT_PORT || '1337';
+const BASE_URL = `http://localhost:${PORT}/rekrutteringstreff`;
 
 const åpneRekrutteringstreff = async (page: Page, id: string) => {
   await page.goto(`${BASE_URL}/${id}`);
@@ -47,10 +48,15 @@ test.describe('Svarboks tester', () => {
 });
 
 test.describe('Status-tester', () => {
-  test('Publisert rekrutteringstreff viser innhold', async ({ page }) => {
+  test('Publisert rekrutteringstreff viser innhold', async ({
+    page,
+    isMobile,
+  }) => {
     await åpneRekrutteringstreff(page, 'publisert');
     await expect(
-      page.getByRole('heading', { name: 'Siste aktivitet' }),
+      isMobile
+        ? page.getByRole('tab', { name: /Siste aktivitet/ })
+        : page.getByRole('heading', { name: 'Siste aktivitet' }),
     ).toBeVisible();
   });
 
@@ -73,11 +79,13 @@ test.describe('Status-tester', () => {
     await expect(page.getByText('Arrangement avlyst')).toBeVisible();
   });
 
-  test('Fullført viser innhold', async ({ page }) => {
+  test('Fullført viser innhold', async ({ page, isMobile }) => {
     await åpneRekrutteringstreff(page, 'fullfort');
     await expect(page.getByText('Treffet er over').first()).toBeVisible();
     await expect(
-      page.getByRole('heading', { name: 'Siste aktivitet' }),
+      isMobile
+        ? page.getByRole('tab', { name: /Siste aktivitet/ })
+        : page.getByRole('heading', { name: 'Siste aktivitet' }),
     ).toBeVisible();
   });
 
@@ -106,7 +114,7 @@ test.describe('Innhold-tester', () => {
       page.getByRole('heading', { name: 'Forskjellig formattering' }),
     ).toBeVisible();
     await expect(
-      page.locator('strong').filter({ hasText: 'Bold' }).last(),
+      page.locator('strong').filter({ hasText: 'Bold', visible: true }),
     ).toBeVisible();
   });
 
@@ -120,10 +128,38 @@ test.describe('Innhold-tester', () => {
     await expect(page.getByText('Manglende svarfrist')).toBeVisible();
   });
 
-  test('Arbeidsgivere vises', async ({ page }) => {
+  test('Arbeidsgivere vises', async ({ page, isMobile }) => {
     await åpneRekrutteringstreff(page, 'frem-i-tid');
+    if (isMobile) {
+      await page.getByRole('tab', { name: /Arbeidsgivere/ }).click();
+      await expect(
+        page.getByRole('tabpanel', { name: /Arbeidsgivere/ }),
+      ).toBeVisible();
+    } else {
+      await expect(
+        page.getByRole('heading', { name: 'Arbeidsgivere' }),
+      ).toBeVisible();
+    }
+  });
+
+  test('Mobilvisning viser innhold uten horisontal scrolling', async ({
+    page,
+    isMobile,
+    viewport,
+  }) => {
+    test.skip(!isMobile, 'Gjelder mobilvisning');
+    if (!viewport) {
+      throw new Error('Mobiltesten krever en konfigurert skjermstørrelse');
+    }
+    await åpneRekrutteringstreff(page, 'frem-i-tid');
+    await expect(page.getByRole('button', { name: 'Svar' })).toBeVisible();
+    await page.getByRole('tab', { name: /Arbeidsgivere/ }).click();
     await expect(
-      page.getByRole('heading', { name: 'Arbeidsgivere' }),
+      page.getByRole('tabpanel', { name: /Arbeidsgivere/ }),
     ).toBeVisible();
+    const innholdsbredde = await page.evaluate(
+      () => document.documentElement.scrollWidth,
+    );
+    expect(innholdsbredde).toBeLessThanOrEqual(viewport.width);
   });
 });

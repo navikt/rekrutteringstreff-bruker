@@ -31,18 +31,27 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ### 🎭 Playwright
 
+Testene kjøres i Chromium, Firefox og WebKit (Safari-motoren), både lokalt og i CI.
+Mobilvisning testes også med Pixel 7 (Chromium) og iPhone 13 (WebKit).
+CI kjører med fire shards og 100 % workers per shard.
+Dette er emulering av skjermstørrelse, touch og nettleser, ikke fysiske enheter.
+
 ```bash
 # Generer tester
-pnpm exec playwright install (kun første gang)
+pnpm exec playwright install chromium firefox webkit # kun første gang
 pnpm exec playwright codegen
 
 # Kjør tester
-pnpm test-dev (starter dev server)
 pnpm test
 
 # Åpne UI-modus
 pnpm test --ui
 ```
+
+For å kjøre bare én nettleser: `pnpm run test --project=webkit`.
+For mobilvisning: `pnpm run test --project=chromium-mobile`.
+Playwright starter mockserveren automatisk lokalt. `PLAYWRIGHT_PORT` kan overstyre
+standardporten 1337. CI bruker eksisterende testbygg og standalone-server.
 
 Testresultater: [navikt.github.io/rekrutteringstreff-bruker/playwright-report](https://navikt.github.io/rekrutteringstreff-bruker/playwright-report)
 
