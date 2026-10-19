@@ -57,12 +57,12 @@ export default async function RootLayout({
       <body style={{ scrollbarGutter: 'stable' }}>
         <PageWrapper
           footer={
-            <div data-pa11y-ignore='decorator-footer'>
+            <div data-axe-ignore>
               <Decorator.Footer />
             </div>
           }
         >
-          <div data-pa11y-ignore='decorator-header'>
+          <div data-axe-ignore>
             <Decorator.Header />
           </div>
           <UmamiProvider>
