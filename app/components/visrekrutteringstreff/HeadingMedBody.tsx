@@ -12,14 +12,14 @@ const HeadingMedBody: React.FC<HeadingMedBodyProps> = ({heading, children}) => {
       <VStack
         gap="space-32"
         align='start'
+        className='p-4 sm:p-8'
         style={{
-          padding: '2rem',
           margin: '0 0 2rem 0',
           backgroundColor: 'white',
           borderRadius: '4px',
         }}
       >
-        <Heading level='1' size='xlarge'>
+        <Heading level='1' size='xlarge' className='break-words'>
             {heading}
         </Heading>
         <BodyLong>
