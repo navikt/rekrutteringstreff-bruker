@@ -39,6 +39,6 @@ for (const [side, erKlar] of Object.entries(sider)) {
       await expect(erKlar(page)).toBeVisible();
     });
 
-    tilgjengelighetstest(test, { reflow: true });
+    tilgjengelighetstest(test, { utvidet: true, reflow: true });
   });
 }
