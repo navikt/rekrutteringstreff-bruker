@@ -23,6 +23,24 @@ spec:
   ingresses:
     - {{ NEXT_PUBLIC_BASE_URL }}
   port: 3000
+  startup:
+    path: /rekrutteringstreff/api/isready
+    initialDelay: 5
+    periodSeconds: 2
+    failureThreshold: 30
+    timeout: 1
+  readiness:
+    path: /rekrutteringstreff/api/isready
+    initialDelay: 0
+    periodSeconds: 5
+    failureThreshold: 3
+    timeout: 1
+  liveness:
+    path: /rekrutteringstreff/api/isalive
+    initialDelay: 0
+    periodSeconds: 10
+    failureThreshold: 3
+    timeout: 1
   resources:
     limits:
       memory: 768Mi
