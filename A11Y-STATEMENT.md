@@ -25,7 +25,9 @@ De automatiske testene finner mange brudd, men de kan ikke bekrefte at et krav e
 - svarfrist: utløpt, mangler
 - formatert beskrivelse
 
-Testene kjører i `chromium` og `chromium-mobile` og stopper deploy hvis de feiler. Testen avviser samtykkebanneret for informasjonskapsler før siden sjekkes.
+Testen «Svarmodal» i samme fil åpner svarmodalen på et treff jobbsøkeren ikke har svart på, og kjører axe på modalen.
+
+Testene kjører i `chromium` og `chromium-mobile` og stopper deploy hvis de feiler. De avviser samtykkebanneret for informasjonskapsler før siden sjekkes.
 
 Dekoratøren er merket med `data-axe-ignore` i `app/layout.tsx` og blir ikke sjekket. Den eies av et annet team.
 
@@ -51,7 +53,7 @@ Hver kjøring legger ved `fokusrekkefølge.txt` i rapporten. Den er nyttig når 
 ### Dette testes ikke automatisk
 
 - Dekoratøren og samtykkebanneret
-- Svarmodalen og beskjeden etter at svaret er sendt
+- Beskjeden etter at svaret er sendt, og utvidede sjekker i svarmodalen
 - Feilmeldingen når svaret ikke blir lagret
 - Om tekster, alternativtekster og overskrifter gir mening
 
@@ -68,7 +70,7 @@ Kjører du `pnpm dev` samtidig, setter du `PLAYWRIGHT_PORT` til en ledig port.
 
 Legg til stien og en locator som viser at siden er ferdig lastet, i objektet `sider` i `tests/tilgjengelighet.spec.ts`.
 
-Kjør axe på tilstander som åpnes etter at siden er lastet, for eksempel svarmodalen. Testen åpner et treff jobbsøkeren ikke har svart på, og avviser samtykkebanneret. Taggen `@a11y` gjør at `pnpm run test:a11y` tar den med:
+Kjør axe på tilstander som åpnes etter at siden er lastet. Eksempelet under viser svarmodalen. Testen åpner et treff jobbsøkeren ikke har svart på, og avviser samtykkebanneret. Taggen `@a11y` gjør at `pnpm run test:a11y` tar den med:
 
 ```ts
 import { sjekkTilgjengelighet } from '@navikt/toi-next-frontend/a11y';

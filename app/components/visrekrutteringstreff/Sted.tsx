@@ -11,7 +11,7 @@ export interface StedProps {
 const Sted: React.FC<StedProps> = ({gateadresse, postnummer, poststed}) => {
   return (
       <IkonMedInnhold
-          ikon={<LocationPinIcon title="Location pin icon" fontSize="1.5rem" />}>
+          ikon={<LocationPinIcon aria-hidden fontSize="1.5rem" />}>
           <div className="font-bold">{gateadresse}</div>
           <div>{postnummer} {poststed}</div>
       </IkonMedInnhold>

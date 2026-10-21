@@ -64,7 +64,7 @@ const Tid: React.FC<TidProps> = ({ fraTid, tilTid }) => {
   }
 
   return (
-    <IkonMedInnhold ikon={<ClockIcon title='Clock icon' fontSize='1.5rem' />}>
+    <IkonMedInnhold ikon={<ClockIcon aria-hidden fontSize='1.5rem' />}>
       <div className='font-bold'>{tekstligBeskrivelse(fraTid, tilTid)}</div>
       {fraOgTilDato(fraTid, tilTid)}
     </IkonMedInnhold>
