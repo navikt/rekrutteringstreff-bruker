@@ -15,6 +15,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Test cases
+
 [http://localhost:3000/rekrutteringstreff/1](http://localhost:3000/rekrutteringstreff/1) Alt er random
 [http://localhost:3000/rekrutteringstreff/2](http://localhost:3000/rekrutteringstreff/2) Treff frem i tid hvor jobbsøker ikke har svart
 [http://localhost:3000/rekrutteringstreff/3](http://localhost:3000/rekrutteringstreff/3) Treff frem i tid hvor jobbsøker har svart ja
@@ -27,7 +28,6 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 [http://localhost:3000/rekrutteringstreff/10](http://localhost:3000/rekrutteringstreff/10) Treff som ikke finnes
 [http://localhost:3000/rekrutteringstreff/11](http://localhost:3000/rekrutteringstreff/11) Treff hvor svarfrist er utløpt og hvor brukeren ikke har svart enda
 [http://localhost:3000/rekrutteringstreff/12](http://localhost:3000/rekrutteringstreff/12) Treff hvor svarfrist er utløpt og brukeren har svart
-
 
 ### 🎭 Playwright
 
@@ -54,6 +54,10 @@ Playwright starter mockserveren automatisk lokalt. `PLAYWRIGHT_PORT` kan oversty
 standardporten 1337. CI bruker eksisterende testbygg og standalone-server.
 
 Testresultater: [navikt.github.io/rekrutteringstreff-bruker/playwright-report](https://navikt.github.io/rekrutteringstreff-bruker/playwright-report)
+
+### ♿ Tilgjengelighet
+
+[A11Y-STATEMENT.md](./A11Y-STATEMENT.md) viser hva tilgjengelighetstestene sjekker automatisk, og hvordan du tester hvert WCAG-kriterium i tilgjengelighetserklæringen manuelt.
 
 ## Learn More
 
