@@ -1,4 +1,7 @@
-import { tilgjengelighetstest } from '@navikt/toi-next-frontend/a11y';
+import {
+  sjekkTilgjengelighet,
+  tilgjengelighetstest,
+} from '@navikt/toi-next-frontend/a11y';
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 const PORT = process.env.PLAYWRIGHT_PORT || '1337';
@@ -42,3 +45,25 @@ for (const [side, erKlar] of Object.entries(sider)) {
     tilgjengelighetstest(test, { utvidet: true, reflow: true });
   });
 }
+
+test.describe('Svarmodal', () => {
+  test(
+    'Tilgjengelighet (WCAG 2.1 A/AA)',
+    { tag: '@a11y' },
+    async ({ page, browserName }, testInfo) => {
+      test.skip(browserName !== 'chromium', 'axe kjøres bare i Chromium');
+      await page.goto(`${BASE_URL}/frem-i-tid`);
+      const consentButton = page.getByTestId('consent-banner-refuse-optional');
+      if (await consentButton.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await consentButton.click();
+      }
+      await page.getByRole('button', { name: 'Svar', exact: true }).click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      await sjekkTilgjengelighet(
+        page,
+        { inkluder: ['dialog[open]'] },
+        testInfo,
+      );
+    },
+  );
+});
