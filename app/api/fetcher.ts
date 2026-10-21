@@ -2,6 +2,23 @@ import { rapporterApiFeil } from '@/app/util/apm';
 import { logger } from '@navikt/next-logger';
 import { ZodSchema } from 'zod';
 
+export class ApiFeil extends Error {
+  readonly status: number;
+  readonly url: string;
+
+  constructor(status: number, url: string, statusText?: string) {
+    super(
+      `API-kall feilet med status ${status}${statusText ? ` (${statusText})` : ''}: ${url}`,
+    );
+    this.name = 'ApiFeil';
+    this.status = status;
+    this.url = url;
+  }
+}
+
+export const erForventetApiFeil = (error: unknown): error is ApiFeil =>
+  error instanceof ApiFeil && (error.status === 401 || error.status === 404);
+
 const validerSchema = <T>(schema: ZodSchema<T>, data: any) => {
   const result = schema.safeParse(data);
   if (result.success) {
@@ -20,22 +37,8 @@ export const getAPIwithSchema = <T>(
       credentials: 'include',
     });
 
-    if (response.status === 404) {
-      throw new Response(JSON.stringify({ message: 'Ressurs ikke funnet' }), {
-        status: 404,
-      });
-    }
-    if (!response.ok && response.status === 401) {
-      throw new Response(
-        `Network response was not ok: ${response.statusText}`,
-        {
-          status: response.status,
-        },
-      );
-    }
-
     if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
+      throw new ApiFeil(response.status, url, response.statusText);
     }
 
     let jsonData: unknown;
