@@ -64,6 +64,21 @@ Disse testene utfører en handling på siden og sjekker resultatet. De er tagget
 | `sjekkDialog` på svarmodalen (`tests/tilgjengelighet.spec.ts`) | 2.1.1, 2.1.2, 2.4.3, 4.1.2 | Åpner dialogen med Enter og sjekker at den har navn, og at fokus flyttes inn og blir i dialogen. Kjører axe på dialogen, lukker med Esc og sjekker at fokus går tilbake til knappen.                                    |
 | «Feil ved lagring av svar» (`tests/tilgjengelighet.spec.ts`)   | 3.3.1, 4.1.3               | Åpner mock-treffet `lagring-feiler`, der lagringen gir HTTP 500, velger et svar og trykker «Send». Sjekker at feilmeldingen vises som tekst i dialogen og har `role='alert'`, og kjører axe på siden med feilmeldingen. |
 
+### Aria-snapshots
+
+`tests/ariaSnapshot.spec.ts` sammenligner tilgjengelighetstreet med `toMatchAriaSnapshot`. Testene viser roller, navn og tilstander slik skjermlesere får dem, og feiler hvis de endres. De er tagget `@a11y` og kjøres bare i `chromium`.
+
+| Snapshot                                     | Kriterier           | Hva sjekkes                                                                                                             |
+| -------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Toppen av treffsiden                         | 1.3.1               | Tittelen er en overskrift på nivå 1, og tid og sted står under den.                                                     |
+| Svarmodalen før og etter at et svar er valgt | 1.3.1, 4.1.2        | Dialogen har navn og overskrift, svarvalgene ligger i en gruppe med navn, og «Send» er deaktivert til et svar er valgt. |
+| Feil ved lagring av svar                     | 3.3.1, 4.1.2, 4.1.3 | Svaret er fortsatt valgt, og feilmeldingen har rollen `alert`.                                                          |
+| Treff ikke funnet                            | 1.3.1               | Hovedlandemerket inneholder en overskrift på nivå 1 og en forklaring.                                                   |
+
+Mockdataene lages med faker, så titler, datoer og adresser endrer seg mellom kjøringer. De er byttet ut med regex eller utelatt. Snapshotene matcher delvis: elementer som ikke står i snapshotet, blir ikke sjekket.
+
+Endrer du med vilje noe som et snapshot viser, oppdaterer du snapshotet med `pnpm exec playwright test tests/ariaSnapshot.spec.ts --project=chromium --update-snapshots --update-source-method=overwrite`. Bytt deretter ut tilfeldige verdier med regex igjen.
+
 ### Dette testes ikke automatisk
 
 - Dekoratøren og samtykkebanneret
@@ -76,6 +91,7 @@ Disse testene utfører en handling på siden og sjekker resultatet. De er tagget
 ```sh
 pnpm run test:a11y                                                     # alle tilgjengelighetstester
 pnpm exec playwright test --grep @a11y-utvidet --project='chromium*'   # bare utvidede sjekker
+pnpm exec playwright test tests/ariaSnapshot.spec.ts --project=chromium  # bare aria-snapshots
 ```
 
 Kjører du `pnpm dev` samtidig, setter du `PLAYWRIGHT_PORT` til en ledig port.
@@ -188,8 +204,8 @@ Test hele flyten som jobbsøker i dev:
 
 ### 4 Robust
 
-| Kriterium                | Testes automatisk                                                                                                                                                                                                               | Slik tester du manuelt                                                                                                                                                                |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 4.1.1 Parsing            | Ingen                                                                                                                                                                                                                           | W3C regner kriteriet som alltid oppfylt for HTML, og det er fjernet i WCAG 2.2. Svar «Ja».                                                                                            |
-| 4.1.2 Navn, rolle, verdi | axe: `button-name`, `link-name`, `label`, `nested-interactive`, `aria-allowed-attr`, `aria-hidden-focus`, `aria-input-field-name`, `aria-valid-attr-value` og flere `aria-*`-regler, `sjekkDialog` sjekker at dialogen har navn | Gå gjennom kontrollene med VoiceOver. Hver kontroll skal leses med navn, rolle og tilstand, for eksempel hvilket svar som er valgt.                                                   |
-| 4.1.3 Statusbeskjeder    | «Feil ved lagring av svar»: feilmeldingen har `role='alert'`. Beskjeden etter at svaret er lagret, testes ikke                                                                                                                  | Når svaret er lagret eller lagringen feiler, skal VoiceOver lese opp beskjeden. Hvis fokus ikke flyttes til beskjeden, trenger den `role='status'`, `role='alert'` eller `aria-live`. |
+| Kriterium                | Testes automatisk                                                                                                                                                                                                                                                                                                         | Slik tester du manuelt                                                                                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4.1.1 Parsing            | Ingen                                                                                                                                                                                                                                                                                                                     | W3C regner kriteriet som alltid oppfylt for HTML, og det er fjernet i WCAG 2.2. Svar «Ja».                                                                                            |
+| 4.1.2 Navn, rolle, verdi | axe: `button-name`, `link-name`, `label`, `nested-interactive`, `aria-allowed-attr`, `aria-hidden-focus`, `aria-input-field-name`, `aria-valid-attr-value` og flere `aria-*`-regler, `sjekkDialog` sjekker at dialogen har navn. Aria-snapshots av svarmodalen sjekker navn, rolle og tilstand på svarvalgene og knappene | Gå gjennom kontrollene med VoiceOver. Hver kontroll skal leses med navn, rolle og tilstand, for eksempel hvilket svar som er valgt.                                                   |
+| 4.1.3 Statusbeskjeder    | «Feil ved lagring av svar»: feilmeldingen har `role='alert'`. Beskjeden etter at svaret er lagret, testes ikke                                                                                                                                                                                                            | Når svaret er lagret eller lagringen feiler, skal VoiceOver lese opp beskjeden. Hvis fokus ikke flyttes til beskjeden, trenger den `role='status'`, `role='alert'` eller `aria-live`. |
