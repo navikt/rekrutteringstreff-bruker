@@ -12,7 +12,7 @@ export default function MockOversikt() {
 
   return (
     <Page className='min-w-1'>
-      <Page.Block as='main' width='xl' gutters>
+      <Page.Block width='xl' gutters>
         <Heading size='large' className='mb-6'>
           Mock-oversikt
         </Heading>
