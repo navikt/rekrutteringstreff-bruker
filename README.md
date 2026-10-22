@@ -57,7 +57,7 @@ Testresultater: [navikt.github.io/rekrutteringstreff-bruker/playwright-report](h
 
 ### ♿ Tilgjengelighet
 
-[A11Y-STATEMENT.md](./A11Y-STATEMENT.md) viser hva tilgjengelighetstestene sjekker automatisk, og hvordan du tester hvert WCAG-kriterium i tilgjengelighetserklæringen manuelt.
+Guiden for tilgjengelighet ligger på [Trello-kortet](https://trello.com/c/6FnnKQgF). Den viser hva tilgjengelighetstestene sjekker automatisk, og hvordan du tester hvert WCAG-kriterium i tilgjengelighetserklæringen manuelt. `pnpm run test:a11y` kjører tilgjengelighetstestene.
 
 ## Learn More
 
