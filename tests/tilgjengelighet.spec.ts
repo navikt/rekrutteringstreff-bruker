@@ -1,5 +1,5 @@
 import {
-  sjekkTilgjengelighet,
+  sjekkDialog,
   tilgjengelighetstest,
 } from '@navikt/toi-next-frontend/a11y';
 import { expect, test, type Locator, type Page } from '@playwright/test';
@@ -50,19 +50,16 @@ test.describe('Svarmodal', () => {
   test(
     'Tilgjengelighet (WCAG 2.1 A/AA)',
     { tag: '@a11y' },
-    async ({ page, browserName }, testInfo) => {
+    async ({ page, browserName }) => {
       test.skip(browserName !== 'chromium', 'axe kjøres bare i Chromium');
       await page.goto(`${BASE_URL}/frem-i-tid`);
       const consentButton = page.getByTestId('consent-banner-refuse-optional');
       if (await consentButton.isVisible({ timeout: 3000 }).catch(() => false)) {
         await consentButton.click();
       }
-      await page.getByRole('button', { name: 'Svar', exact: true }).click();
-      await expect(page.getByRole('dialog')).toBeVisible();
-      await sjekkTilgjengelighet(
+      await sjekkDialog(
         page,
-        { inkluder: ['dialog[open]'] },
-        testInfo,
+        page.getByRole('button', { name: 'Svar', exact: true }),
       );
     },
   );
