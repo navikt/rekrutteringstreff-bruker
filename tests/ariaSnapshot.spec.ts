@@ -41,6 +41,18 @@ test.describe('Aria-snapshots', { tag: '@a11y' }, () => {
     `);
   });
 
+  test('Overskriftene på treffsiden', async ({ page }) => {
+    await åpne(page, 'frem-i-tid');
+    await expect(page.getByRole('main')).toMatchAriaSnapshot(`
+      - main:
+        - heading [level=1]
+        - heading "Siste aktivitet" [level=2]
+        - heading [level=3]
+        - heading "Arbeidsgivere" [level=2]
+        - heading [level=3]
+    `);
+  });
+
   test('Svarmodalen før og etter at et svar er valgt', async ({ page }) => {
     await åpne(page, 'frem-i-tid');
     const dialog = await åpneSvarmodal(page);

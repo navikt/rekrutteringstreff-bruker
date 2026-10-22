@@ -6,6 +6,7 @@ export interface BoksMedTittelOgInnholdProps {
   children?: React.ReactNode | undefined;
   ikon?: React.ReactNode | undefined;
   tittel: string;
+  tittelNivå?: '2' | '3';
   className?: string;
   fargeKode?: 'grå' | 'blå' | 'hvit';
 }
@@ -14,6 +15,7 @@ const BoksMedTittelOgInnhold: React.FC<BoksMedTittelOgInnholdProps> = ({
   children,
   ikon,
   tittel,
+  tittelNivå = '2',
   className,
   fargeKode,
 }) => {
@@ -26,7 +28,9 @@ const BoksMedTittelOgInnhold: React.FC<BoksMedTittelOgInnholdProps> = ({
                 {ikon}
               </div>
           )}
-          <Heading size='xsmall'>{tittel}</Heading>
+          <Heading level={tittelNivå} size='xsmall'>
+            {tittel}
+          </Heading>
         </div>
         <div className="text-base">
           {children}
