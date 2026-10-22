@@ -1,7 +1,9 @@
+import { anbefalt as toiA11y } from '@navikt/toi-next-frontend/eslint';
 import nextConfig from 'eslint-config-next';
 
 const eslintConfig = [
   ...nextConfig,
+  toiA11y,
   {
     ignores: ['node_modules/**', '.next/**', 'playwright-report/**', 'test-results/**'],
   },
