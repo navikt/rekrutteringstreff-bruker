@@ -1,5 +1,6 @@
 'use client';
 
+import { ApiFeil } from '@/app/api/fetcher';
 import {
   RekrutteringstreffKategori,
   useEnkeltRekrutteringstreff,
@@ -44,7 +45,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
   }, [track]);
 
   const håndterFeil = (error: Error) => {
-    if (error instanceof Response && error.status === 404) {
+    if (error instanceof ApiFeil && error.status === 404) {
       return <RekrutteringstreffIkkeFunnet />;
     }
 
