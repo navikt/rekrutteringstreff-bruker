@@ -3,5 +3,4 @@ interface Window {
     track: (event: string, data?: Record<string, any>) => void;
     identify: (userData: Record<string, any>) => void;
   };
-  msw?: typeof import('./mocks/browser').mswForTester;
 }

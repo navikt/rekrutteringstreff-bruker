@@ -14,6 +14,7 @@ export const mockRekrutteringstreff = [
   { id: 'har-svart-nei', beskrivelse: 'Har svart nei (frem i tid)' },
   { id: 'ikke-invitert', beskrivelse: 'Ikke invitert (frem i tid)' },
   { id: 'uten-svarfrist', beskrivelse: 'Svarfrist mangler' },
+  { id: 'lagring-feiler', beskrivelse: 'Lagring av svar feiler (500)' },
 ];
 
 export const mockIder = mockRekrutteringstreff.map(({ id }) => id);

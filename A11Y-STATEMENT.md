@@ -55,10 +55,10 @@ Hver kjøring legger ved `fokusrekkefølge.txt` i rapporten. Den er nyttig når 
 
 Disse testene utfører en handling på siden og sjekker resultatet. De er tagget `@a11y` og kjøres sammen med de andre tilgjengelighetstestene.
 
-| Test                                                           | Kriterier                  | Hva sjekkes                                                                                                                                                                                                    |
-| -------------------------------------------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sjekkDialog` på svarmodalen (`tests/tilgjengelighet.spec.ts`) | 2.1.1, 2.1.2, 2.4.3, 4.1.2 | Åpner dialogen med Enter og sjekker at den har navn, og at fokus flyttes inn og blir i dialogen. Kjører axe på dialogen, lukker med Esc og sjekker at fokus går tilbake til knappen.                           |
-| «Feil ved lagring av svar» (`tests/tilgjengelighet.spec.ts`)   | 3.3.1, 4.1.3               | Velger et svar, lar lagringen feile med nettverksfeil og med HTTP 500, og trykker «Send». Sjekker at feilmeldingen vises som tekst i dialogen og har `role='alert'`, og kjører axe på siden med feilmeldingen. |
+| Test                                                           | Kriterier                  | Hva sjekkes                                                                                                                                                                                                             |
+| -------------------------------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sjekkDialog` på svarmodalen (`tests/tilgjengelighet.spec.ts`) | 2.1.1, 2.1.2, 2.4.3, 4.1.2 | Åpner dialogen med Enter og sjekker at den har navn, og at fokus flyttes inn og blir i dialogen. Kjører axe på dialogen, lukker med Esc og sjekker at fokus går tilbake til knappen.                                    |
+| «Feil ved lagring av svar» (`tests/tilgjengelighet.spec.ts`)   | 3.3.1, 4.1.3               | Åpner mock-treffet `lagring-feiler`, der lagringen gir HTTP 500, velger et svar og trykker «Send». Sjekker at feilmeldingen vises som tekst i dialogen og har `role='alert'`, og kjører axe på siden med feilmeldingen. |
 
 ### Dette testes ikke automatisk
 
@@ -80,7 +80,7 @@ Kjører du `pnpm dev` samtidig, setter du `PLAYWRIGHT_PORT` til en ledig port.
 
 Legg til stien og en locator som viser at siden er ferdig lastet, i objektet `sider` i `tests/tilgjengelighet.spec.ts`.
 
-MSW besvarer API-kallene i en service worker, så `page.route` ser dem ikke. Vil du la et kall feile, overstyrer du handleren med `window.msw` (se «Feil ved lagring av svar»).
+MSW besvarer API-kallene i en service worker, så `page.route` ser dem ikke. Vil du la et kall feile, legger du til en mock-ID i `app/mocks/mockRekrutteringstreff.ts` og en handler som gir feil i `mocks/handlers.ts`, slik `lagring-feiler` gjør.
 
 Test dialoger, skjemaer og hjelpetekster med `sjekkDialog`, `sjekkSkjemafeil` og `sjekkPekerfølsomtInnhold`. Bruk `sjekkTilgjengelighet` for andre tilstander som åpnes etter at siden er lastet. Eksempelet under åpner et treff jobbsøkeren ikke har svart på, og avviser samtykkebanneret. Taggen `@a11y` gjør at `pnpm run test:a11y` tar testen med:
 

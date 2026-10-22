@@ -66,59 +66,33 @@ test.describe('Svarmodal', () => {
   );
 });
 
-// «Send» er deaktivert til et svar er valgt, så lagringen feiler først etter at
-// jobbsøkeren har valgt. MSW besvarer kallet i service workeren, og page.route
-// ser det ikke. Derfor overstyres handleren i MSW i stedet.
-const lagringsfeil = {
-  nettverksfeil: 'nettverksfeil',
-  serverfeil: 'serverfeil',
-} as const;
+// «Send» er deaktivert til et svar er valgt, så feilen kan bare vises etter at
+// jobbsøkeren har valgt. Mock-treffet «lagring-feiler» svarer 500 på lagringen.
+test.describe('Feil ved lagring av svar', () => {
+  test(
+    'Feilen vises og annonseres (WCAG 3.3.1 og 4.1.3)',
+    { tag: '@a11y' },
+    async ({ page, browserName }, testInfo) => {
+      test.skip(browserName !== 'chromium', 'axe kjøres bare i Chromium');
+      await page.goto(`${BASE_URL}/lagring-feiler`);
+      const consentButton = page.getByTestId('consent-banner-refuse-optional');
+      if (await consentButton.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await consentButton.click();
+      }
+      await page.getByRole('button', { name: 'Svar', exact: true }).click();
+      const dialog = page.getByRole('dialog', {
+        name: 'Svar på om du vil komme',
+      });
+      await dialog.getByRole('radio', { name: 'Ja, jeg kommer' }).check();
+      await dialog.getByRole('button', { name: 'Send' }).click();
 
-for (const feil of Object.values(lagringsfeil)) {
-  test.describe(`Feil ved lagring av svar (${feil})`, () => {
-    test(
-      'Feilen vises og annonseres (WCAG 3.3.1 og 4.1.3)',
-      { tag: '@a11y' },
-      async ({ page, browserName }, testInfo) => {
-        test.skip(browserName !== 'chromium', 'axe kjøres bare i Chromium');
-        await page.goto(`${BASE_URL}/frem-i-tid`);
-        const consentButton = page.getByTestId(
-          'consent-banner-refuse-optional',
-        );
-        if (
-          await consentButton.isVisible({ timeout: 3000 }).catch(() => false)
-        ) {
-          await consentButton.click();
-        }
-        await page.getByRole('button', { name: 'Svar', exact: true }).click();
-        const dialog = page.getByRole('dialog', {
-          name: 'Svar på om du vil komme',
-        });
-        await dialog.getByRole('radio', { name: 'Ja, jeg kommer' }).check();
-
-        await page.evaluate((feil) => {
-          const msw = window.msw;
-          if (!msw) {
-            throw new Error('MSW er ikke startet');
-          }
-          msw.worker.use(
-            msw.http.put('*/rekrutteringstreff/:id/svar', () =>
-              feil === 'nettverksfeil'
-                ? msw.HttpResponse.error()
-                : new msw.HttpResponse(null, { status: 500 }),
-            ),
-          );
-        }, feil);
-        await dialog.getByRole('button', { name: 'Send' }).click();
-
-        const feilmelding = dialog.getByRole('alert');
-        await expect(feilmelding).toBeVisible();
-        await expect(feilmelding).toHaveText(
-          'Noe gikk galt ved sending av svar, vennligst prøv igjen senere.',
-        );
-        await expect(dialog).toBeVisible();
-        await sjekkTilgjengelighet(page, {}, testInfo);
-      },
-    );
-  });
-}
+      const feilmelding = dialog.getByRole('alert');
+      await expect(feilmelding).toBeVisible();
+      await expect(feilmelding).toHaveText(
+        'Noe gikk galt ved sending av svar, vennligst prøv igjen senere.',
+      );
+      await expect(dialog).toBeVisible();
+      await sjekkTilgjengelighet(page, {}, testInfo);
+    },
+  );
+});
