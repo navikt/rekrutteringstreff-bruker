@@ -55,7 +55,10 @@ export type ArbeidsgiverDTO = z.infer<typeof ArbeidsgiverSchema>;
 
 export type InnleggDTO = z.infer<typeof InnleggSchema>;
 
-export const useEnkeltRekrutteringstreff = (rekrutteringstreffId: string) => {
+export const useEnkeltRekrutteringstreff = (
+  rekrutteringstreffId: string,
+  loginUrl: string,
+) => {
   const result = useSWR(
     rekrutteringstreffId
       ? enkeltRekrutteringstreffEndepunkt(rekrutteringstreffId)
@@ -65,7 +68,6 @@ export const useEnkeltRekrutteringstreff = (rekrutteringstreffId: string) => {
       onError: (error) => {
         // Håndter 401 ved å redirecte til login
         if (error instanceof Response && error.status == 401) {
-          const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
           window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
         }
         // 404 og andre feil vil bli tilgjengelig via result.error
