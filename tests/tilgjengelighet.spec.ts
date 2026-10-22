@@ -1,5 +1,6 @@
 import {
   sjekkDialog,
+  sjekkTilgjengelighet,
   tilgjengelighetstest,
 } from '@navikt/toi-next-frontend/a11y';
 import { expect, test, type Locator, type Page } from '@playwright/test';
@@ -71,6 +72,37 @@ test.describe('Svarmodal', () => {
         page,
         page.getByRole('button', { name: 'Svar', exact: true }),
       );
+    },
+  );
+});
+
+// «Send» er deaktivert til et svar er valgt, så feilen kan bare vises etter at
+// jobbsøkeren har valgt. Mock-treffet «lagring-feiler» svarer 500 på lagringen.
+test.describe('Feil ved lagring av svar', () => {
+  test(
+    'Feilen vises og annonseres (WCAG 3.3.1 og 4.1.3)',
+    { tag: '@a11y' },
+    async ({ page, browserName }, testInfo) => {
+      test.skip(browserName !== 'chromium', 'axe kjøres bare i Chromium');
+      await page.goto(`${BASE_URL}/lagring-feiler`);
+      const consentButton = page.getByTestId('consent-banner-refuse-optional');
+      if (await consentButton.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await consentButton.click();
+      }
+      await page.getByRole('button', { name: 'Svar', exact: true }).click();
+      const dialog = page.getByRole('dialog', {
+        name: 'Svar på om du vil komme',
+      });
+      await dialog.getByRole('radio', { name: 'Ja, jeg kommer' }).check();
+      await dialog.getByRole('button', { name: 'Send' }).click();
+
+      const feilmelding = dialog.getByRole('alert');
+      await expect(feilmelding).toBeVisible();
+      await expect(feilmelding).toHaveText(
+        'Noe gikk galt ved sending av svar, vennligst prøv igjen senere.',
+      );
+      await expect(dialog).toBeVisible();
+      await sjekkTilgjengelighet(page, {}, testInfo);
     },
   );
 });

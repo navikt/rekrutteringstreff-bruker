@@ -76,6 +76,9 @@ export const handlers = [
   http.get(rekrutteringstreffUrl('ikke-invitert'), () =>
     HttpResponse.json(mockRekrutteringstreffFremITid),
   ),
+  http.get(rekrutteringstreffUrl('lagring-feiler'), () =>
+    HttpResponse.json(mockRekrutteringstreffFremITid),
+  ),
 
   // Svar - spesifikke IDer
   http.get(svarUrl('frem-i-tid'), () =>
@@ -118,6 +121,9 @@ export const handlers = [
   http.get(svarUrl('formattering'), () =>
     HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
   ),
+  http.get(svarUrl('lagring-feiler'), () =>
+    HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
+  ),
 
   // Wildcard - alle andre IDer
   http.get(`${baseUrl}/rekrutteringstreff/:id`, () =>
@@ -128,6 +134,10 @@ export const handlers = [
   ),
 
   // PUT svar
+  http.put(
+    svarUrl('lagring-feiler'),
+    () => new HttpResponse(null, { status: 500 }),
+  ),
   http.put(`${baseUrl}/rekrutteringstreff/:id/svar`, () =>
     HttpResponse.json(mockBaseRekrutteringstreffPostSvar),
   ),
