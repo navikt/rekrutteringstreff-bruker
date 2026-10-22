@@ -4,6 +4,7 @@ import PageWrapper from '@/app/components/PageWrapper';
 import LoggerProvider from '@/app/providers/LoggerProvider';
 import { UmamiProvider } from '@/app/providers/UmamiContext';
 import { isLocal } from '@/app/util';
+import { APPNAVN } from '@/app/util/sidetittel';
 import { versionFromImage } from '@nais/apm';
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 import type { Metadata } from 'next';
@@ -13,7 +14,7 @@ import { connection } from 'next/server';
 export async function generateMetadata(): Promise<Metadata> {
   await connection();
   return {
-    title: 'Rekrutteringstreff',
+    title: APPNAVN,
     description: 'Rekrutteringstreff',
     other: {
       'nais-app': process.env.NAIS_APP_NAME ?? 'rekrutteringstreff-bruker',
