@@ -12,13 +12,14 @@ export default function MSWInitializer({
 
   useEffect(() => {
     async function init() {
-      const { worker } = await import('../../mocks/browser');
+      const { worker, mswForTester } = await import('../../mocks/browser');
       await worker.start({
         onUnhandledRequest: 'bypass',
         serviceWorker: {
           url: '/rekrutteringstreff/mockServiceWorker.js',
         },
       });
+      window.msw = mswForTester;
       setIsReady(true);
     }
     init();
