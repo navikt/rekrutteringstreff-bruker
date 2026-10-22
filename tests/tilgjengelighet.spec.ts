@@ -44,6 +44,16 @@ for (const [side, erKlar] of Object.entries(sider)) {
     });
 
     tilgjengelighetstest(test, { utvidet: true, reflow: true });
+
+    // axe sjekker bare landemerker med best-practice-regler, som ikke kjøres.
+    test(
+      'Har ett hovedlandemerke (WCAG 1.3.1)',
+      { tag: '@a11y' },
+      async ({ page }) => {
+        await expect(page.getByRole('main')).toHaveCount(1);
+        await expect(page.locator('main main')).toHaveCount(0);
+      },
+    );
   });
 }
 

@@ -50,7 +50,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
     }
 
     return (
-      <Page.Block as='main' width='xl' gutters>
+      <Page.Block width='xl' gutters>
         <HeadingMedBody heading='Noe gikk galt'>
           Vi klarte ikke å laste rekrutteringstreffet. Vennligst prøv igjen
           senere.
@@ -78,7 +78,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
           }
 
           return (
-            <Page.Block as='main' width='xl' gutters>
+            <Page.Block width='xl' gutters>
               <HGrid columns={{ xs: '1', lg: '65% 35%' }} gap='space-0'>
                 <div>
                   <Heading size='medium' className='mb-6 mr-4'>
