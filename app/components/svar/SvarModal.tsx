@@ -85,19 +85,19 @@ const SvarModal: React.FC<SvarModalProps> = ({
       <Modal.Body>
         <VStack gap='space-24'>
           <IkonOgTekst
-            ikon={<HandHeartIcon />}
+            ikon={<HandHeartIcon aria-hidden />}
             tekst={`Vi ønsker å gi deg sjansen til å utforske jobbmuligheter på en enkel og uformell måte.`}
           />
           <IkonOgTekst
-            ikon={<HeartIcon />}
+            ikon={<HeartIcon aria-hidden />}
             tekst={`Det er frivillig å delta.`}
           />
           <IkonOgTekst
-            ikon={<PersonGroupIcon />}
+            ikon={<PersonGroupIcon aria-hidden />}
             tekst={`Hvis du ikke vil eller kan, setter vi stor pris på om du sier ifra slik at noen andre får sjansen.`}
           />
           <IkonOgTekst
-            ikon={<ArrowsCirclepathIcon />}
+            ikon={<ArrowsCirclepathIcon aria-hidden />}
             tekst={`Du kan endre svaret ditt frem til svarfristen.`}
           />
           <RadioGroup

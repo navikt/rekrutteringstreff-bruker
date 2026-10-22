@@ -12,6 +12,7 @@ import Svarboks from '@/app/components/svar/Svarboks';
 import ArbeidsgiverListe from '@/app/components/visrekrutteringstreff/ArbeidsgiverListe';
 import HeadingMedBody from '@/app/components/visrekrutteringstreff/HeadingMedBody';
 import InnleggListe from '@/app/components/visrekrutteringstreff/InnleggListe';
+import RekrutteringstreffIkkeFunnet from '@/app/components/visrekrutteringstreff/RekrutteringstreffIkkeFunnet';
 import Sted from '@/app/components/visrekrutteringstreff/Sted';
 import Tid from '@/app/components/visrekrutteringstreff/Tid';
 import { useUmami } from '@/app/providers/UmamiContext';
@@ -22,15 +23,21 @@ import { useEffect } from 'react';
 
 export interface VisRekrutteringstreffProps {
   rekrutteringstreffId: string;
+  loginUrl: string;
 }
 
 const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
   rekrutteringstreffId,
+  loginUrl,
 }) => {
-  const enkeltRekrutteringstreffHook =
-    useEnkeltRekrutteringstreff(rekrutteringstreffId);
-  const enkeltRekrutteringstreffSvarHook =
-    useEnkeltRekrutteringstreffSvar(rekrutteringstreffId);
+  const enkeltRekrutteringstreffHook = useEnkeltRekrutteringstreff(
+    rekrutteringstreffId,
+    loginUrl,
+  );
+  const enkeltRekrutteringstreffSvarHook = useEnkeltRekrutteringstreffSvar(
+    rekrutteringstreffId,
+    loginUrl,
+  );
   const { track } = useUmami();
 
   useEffect(() => {
@@ -39,14 +46,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
 
   const håndterFeil = (error: Error) => {
     if (error instanceof ApiFeil && error.status === 404) {
-      return (
-        <Page.Block as='main' width='xl' gutters>
-          <HeadingMedBody heading='Rekrutteringstreff ikke funnet'>
-            Dette rekrutteringstreffet finnes ikke eller er ikke lenger
-            tilgjengelig.
-          </HeadingMedBody>
-        </Page.Block>
-      );
+      return <RekrutteringstreffIkkeFunnet />;
     }
 
     return (

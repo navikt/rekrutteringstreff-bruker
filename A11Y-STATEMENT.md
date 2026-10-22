@@ -25,7 +25,9 @@ De automatiske testene finner mange brudd, men de kan ikke bekrefte at et krav e
 - svarfrist: utløpt, mangler
 - formatert beskrivelse
 
-Testene kjører i `chromium` og `chromium-mobile` og stopper deploy hvis de feiler. Testen avviser samtykkebanneret for informasjonskapsler før siden sjekkes.
+Testen «Svarmodal» i samme fil åpner svarmodalen på et treff jobbsøkeren ikke har svart på, og sjekker den med `sjekkDialog`. Se «Sjekker for interaksjoner».
+
+Testene kjører i `chromium` og `chromium-mobile` og stopper deploy hvis de feiler. De avviser samtykkebanneret for informasjonskapsler før siden sjekkes.
 
 Dekoratøren er merket med `data-axe-ignore` i `app/layout.tsx` og blir ikke sjekket. Den eies av et annet team.
 
@@ -39,19 +41,29 @@ Den samme testen sjekker reflow (1.4.10): vinduet settes til 320 × 256 px, og t
 
 Testen «Tilgjengelighet – utvidede sjekker» kjører i nettleseren på de samme sidene:
 
-| Sjekk             | Kriterier                  | Slik virker den                                                                                                                              |
-| ----------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tekstforstørrelse | 1.4.4                      | Dobler rot-skriftstørrelsen og feiler hvis tekst blir kuttet av.                                                                             |
-| Tekstavstand      | 1.4.12                     | Legger på WCAG-tekstavstanden og feiler hvis tekst blir kuttet av.                                                                           |
-| Visningsretning   | 1.3.4                      | Laster siden i stående og liggende format og sjekker at innholdet vises i begge.                                                             |
-| Tastatur          | 2.1.1, 2.1.2, 2.4.7, 3.2.1 | Tabber gjennom hele siden. Feiler hvis klikkbare elementer ikke kan nås, fokus står fast, fokus ikke vises eller fokus alene åpner noe nytt. |
+| Sjekk                 | Kriterier                  | Slik virker den                                                                                                                              |
+| --------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tekstforstørrelse     | 1.4.4                      | Dobler rot-skriftstørrelsen og feiler hvis tekst blir kuttet av.                                                                             |
+| Tekstavstand          | 1.4.12                     | Legger på WCAG-tekstavstanden og feiler hvis tekst blir kuttet av.                                                                           |
+| Visningsretning       | 1.3.4                      | Laster siden i stående og liggende format og sjekker at innholdet vises i begge.                                                             |
+| Tastatur              | 2.1.1, 2.1.2, 2.4.7, 3.2.1 | Tabber gjennom hele siden. Feiler hvis klikkbare elementer ikke kan nås, fokus står fast, fokus ikke vises eller fokus alene åpner noe nytt. |
+| Hopp til hovedinnhold | 2.4.1                      | Tabber til første lenke og sjekker at den peker til et mål som finnes, og at neste Tab etter Enter går til hovedinnholdet eller videre.      |
 
 Hver kjøring legger ved `fokusrekkefølge.txt` i rapporten. Den er nyttig når du sjekker 2.4.3.
+
+### Sjekker for interaksjoner
+
+Disse testene utfører en handling på siden og sjekker resultatet. De er tagget `@a11y` og kjøres sammen med de andre tilgjengelighetstestene.
+
+| Test                                                           | Kriterier                  | Hva sjekkes                                                                                                                                                                          |
+| -------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `sjekkDialog` på svarmodalen (`tests/tilgjengelighet.spec.ts`) | 2.1.1, 2.1.2, 2.4.3, 4.1.2 | Åpner dialogen med Enter og sjekker at den har navn, og at fokus flyttes inn og blir i dialogen. Kjører axe på dialogen, lukker med Esc og sjekker at fokus går tilbake til knappen. |
 
 ### Dette testes ikke automatisk
 
 - Dekoratøren og samtykkebanneret
-- Svarmodalen og beskjeden etter at svaret er sendt
+- Beskjeden etter at svaret er sendt
+- Tekststørrelse, tekstavstand og reflow i svarmodalen
 - Feilmeldingen når svaret ikke blir lagret
 - Om tekster, alternativtekster og overskrifter gir mening
 
@@ -68,28 +80,26 @@ Kjører du `pnpm dev` samtidig, setter du `PLAYWRIGHT_PORT` til en ledig port.
 
 Legg til stien og en locator som viser at siden er ferdig lastet, i objektet `sider` i `tests/tilgjengelighet.spec.ts`.
 
-Kjør axe på tilstander som åpnes etter at siden er lastet, for eksempel svarmodalen. Testen åpner et treff jobbsøkeren ikke har svart på, og avviser samtykkebanneret. Taggen `@a11y` gjør at `pnpm run test:a11y` tar den med:
+Test dialoger, skjemaer og hjelpetekster med `sjekkDialog`, `sjekkSkjemafeil` og `sjekkPekerfølsomtInnhold`. Bruk `sjekkTilgjengelighet` for andre tilstander som åpnes etter at siden er lastet. Eksempelet under åpner et treff jobbsøkeren ikke har svart på, og avviser samtykkebanneret. Taggen `@a11y` gjør at `pnpm run test:a11y` tar testen med:
 
 ```ts
-import { sjekkTilgjengelighet } from '@navikt/toi-next-frontend/a11y';
+import { sjekkDialog } from '@navikt/toi-next-frontend/a11y';
 import { test } from '@playwright/test';
 
 const PORT = process.env.PLAYWRIGHT_PORT || '1337';
 const BASE_URL = `http://localhost:${PORT}/rekrutteringstreff`;
 
-test(
-  'svarmodalen er tilgjengelig',
-  { tag: '@a11y' },
-  async ({ page }, testInfo) => {
-    await page.goto(`${BASE_URL}/frem-i-tid`);
-    const samtykke = page.getByTestId('consent-banner-refuse-optional');
-    if (await samtykke.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await samtykke.click();
-    }
-    await page.getByRole('button', { name: 'Svar', exact: true }).click();
-    await sjekkTilgjengelighet(page, { inkluder: ['dialog[open]'] }, testInfo);
-  },
-);
+test('svarmodalen er tilgjengelig', { tag: '@a11y' }, async ({ page }) => {
+  await page.goto(`${BASE_URL}/frem-i-tid`);
+  const samtykke = page.getByTestId('consent-banner-refuse-optional');
+  if (await samtykke.isVisible({ timeout: 3000 }).catch(() => false)) {
+    await samtykke.click();
+  }
+  await sjekkDialog(
+    page,
+    page.getByRole('button', { name: 'Svar', exact: true }),
+  );
+});
 ```
 
 ## Verktøy for manuell testing
@@ -138,14 +148,14 @@ Test hele flyten som jobbsøker i dev:
 | Kriterium                                 | Testes automatisk                                                                      | Slik tester du manuelt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ----------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2.1.1 Tastatur                            | Utvidet sjekk: tastatur, axe: `scrollable-region-focusable`, `frame-focusable-content` | Svar på et treff og endre svaret med bare tastatur.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 2.1.2 Ingen tastaturfelle                 | Utvidet sjekk: tastatur                                                                | Åpne svarmodalen. Du skal komme ut igjen med Esc eller «Avbryt».                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| 2.1.2 Ingen tastaturfelle                 | Utvidet sjekk: tastatur, `sjekkDialog` på svarmodalen                                  | Åpne svarmodalen. Du skal komme ut igjen med Esc eller «Avbryt».                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | 2.1.4 Hurtigtaster som består av ett tegn | Ingen                                                                                  | Ikke aktuelt så lenge appen ikke har hurtigtaster.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | 2.2.1 Justerbar hastighet                 | axe: `meta-refresh`                                                                    | Finn ut hvor lenge innloggingen varer. Er grensen kortere enn 20 timer, skal brukeren få varsel minst 20 sekunder før den går ut og kunne forlenge den med en enkel handling. Dekoratøren har et slikt varsel. Sjekk at det vises, leses av VoiceOver og kan brukes med tastatur. Svarfristen for treffet er en frist i virkeligheten og er unntatt.                                                                                                                                                     |
 | 2.2.2 Pause, stopp, skjul                 | axe: `blink`, `marquee`                                                                | Innhold som beveger seg, blinker eller ruller, starter automatisk, varer mer enn 5 sekunder og vises sammen med annet innhold, skal kunne pauses, stoppes eller skjules. Innhold som oppdateres automatisk og vises sammen med annet innhold, skal kunne pauses, stoppes, skjules eller få justert hvor ofte det oppdateres, uansett hvor lenge det varer. Unntaket gjelder bare når bevegelsen eller oppdateringen er nødvendig, for eksempel en lasteindikator mens brukeren ikke kan gjøre noe annet. |
 | 2.3.1 Terskelverdi på maksimalt tre glimt | Ingen                                                                                  | Ikke aktuelt så lenge ingenting blinker.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| 2.4.1 Hoppe over blokker                  | axe: `bypass`                                                                          | Trykk Tab på en ny side. Dekoratørens «Hopp til hovedinnhold» skal flytte fokus til `<main id='maincontent'>` i `app/layout.tsx`.                                                                                                                                                                                                                                                                                                                                                                        |
+| 2.4.1 Hoppe over blokker                  | axe: `bypass`, utvidet sjekk: hopp til hovedinnhold                                    | Trykk Tab på en ny side. Dekoratørens «Hopp til hovedinnhold» skal flytte fokus til `<main id='maincontent'>` i `app/layout.tsx`.                                                                                                                                                                                                                                                                                                                                                                        |
 | 2.4.2 Sidetitler                          | axe: `document-title` sjekker bare at tittelen finnes                                  | Tittelen i fanen skal beskrive siden. Forsiden og treffsiden bør ha hver sin tittel. Titlene settes med `metadata` eller `generateMetadata`. Navnet på jobbsøkeren skal ikke stå i tittelen.                                                                                                                                                                                                                                                                                                             |
-| 2.4.3 Fokusrekkefølge                     | Delvis: vedlegget `fokusrekkefølge.txt`                                                | Tab gjennom sidene. Rekkefølgen skal følge det visuelle. Når svarmodalen åpnes, skal fokus flyttes inn i den. Når den lukkes, skal fokus gå tilbake til knappen som åpnet den.                                                                                                                                                                                                                                                                                                                           |
+| 2.4.3 Fokusrekkefølge                     | Delvis: `sjekkDialog` på svarmodalen og vedlegget `fokusrekkefølge.txt`                | Tab gjennom sidene. Rekkefølgen skal følge det visuelle. Når svarmodalen åpnes, skal fokus flyttes inn i den. Når den lukkes, skal fokus gå tilbake til knappen som åpnet den.                                                                                                                                                                                                                                                                                                                           |
 | 2.4.4 Formål med lenke (i kontekst)       | axe: `link-name`                                                                       | Åpne lenkelisten i VoiceOver-rotoren. Hver lenke, sammen med setningen den står i, skal forklare hvor den går.                                                                                                                                                                                                                                                                                                                                                                                           |
 | 2.4.5 Flere måter                         | Ingen                                                                                  | Brødsmulestien lenker bare til forsiden, og forsiden lenker ikke videre til treff. Følg to faktiske veier til samme treff, for eksempel varselet jobbsøkeren får og en annen inngang. Finnes bare én vei, vurder om siden er et steg i en prosess, og beskriv vurderingen i erklæringen.                                                                                                                                                                                                                 |
 | 2.4.6 Overskrifter og ledetekster         | Ingen                                                                                  | Les overskriftene og ledetekstene for seg. De skal beskrive innholdet og svarvalgene uten resten av siden.                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -172,8 +182,8 @@ Test hele flyten som jobbsøker i dev:
 
 ### 4 Robust
 
-| Kriterium                | Testes automatisk                                                                                                                                                                   | Slik tester du manuelt                                                                                                                                                                |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 4.1.1 Parsing            | Ingen                                                                                                                                                                               | W3C regner kriteriet som alltid oppfylt for HTML, og det er fjernet i WCAG 2.2. Svar «Ja».                                                                                            |
-| 4.1.2 Navn, rolle, verdi | axe: `button-name`, `link-name`, `label`, `nested-interactive`, `aria-allowed-attr`, `aria-hidden-focus`, `aria-input-field-name`, `aria-valid-attr-value` og flere `aria-*`-regler | Gå gjennom kontrollene med VoiceOver. Hver kontroll skal leses med navn, rolle og tilstand, for eksempel hvilket svar som er valgt.                                                   |
-| 4.1.3 Statusbeskjeder    | Ingen                                                                                                                                                                               | Når svaret er lagret eller lagringen feiler, skal VoiceOver lese opp beskjeden. Hvis fokus ikke flyttes til beskjeden, trenger den `role='status'`, `role='alert'` eller `aria-live`. |
+| Kriterium                | Testes automatisk                                                                                                                                                                                                               | Slik tester du manuelt                                                                                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4.1.1 Parsing            | Ingen                                                                                                                                                                                                                           | W3C regner kriteriet som alltid oppfylt for HTML, og det er fjernet i WCAG 2.2. Svar «Ja».                                                                                            |
+| 4.1.2 Navn, rolle, verdi | axe: `button-name`, `link-name`, `label`, `nested-interactive`, `aria-allowed-attr`, `aria-hidden-focus`, `aria-input-field-name`, `aria-valid-attr-value` og flere `aria-*`-regler, `sjekkDialog` sjekker at dialogen har navn | Gå gjennom kontrollene med VoiceOver. Hver kontroll skal leses med navn, rolle og tilstand, for eksempel hvilket svar som er valgt.                                                   |
+| 4.1.3 Statusbeskjeder    | Ingen                                                                                                                                                                                                                           | Når svaret er lagret eller lagringen feiler, skal VoiceOver lese opp beskjeden. Hvis fokus ikke flyttes til beskjeden, trenger den `role='status'`, `role='alert'` eller `aria-live`. |

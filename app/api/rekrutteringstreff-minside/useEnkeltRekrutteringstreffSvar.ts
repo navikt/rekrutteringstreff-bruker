@@ -22,6 +22,7 @@ export type EnkeltRekrutteringstreffSvarDTO = z.infer<
 
 export const useEnkeltRekrutteringstreffSvar = (
   rekrutteringstreffId: string,
+  loginUrl: string,
 ) => {
   return useSWR(
     rekrutteringstreffId
@@ -32,7 +33,6 @@ export const useEnkeltRekrutteringstreffSvar = (
       onError: (error) => {
         // Håndter 401 ved å redirecte til login
         if (error instanceof ApiFeil && error.status === 401) {
-          const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
           window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
         }
         // 404 og andre feil vil bli tilgjengelig via result.error
