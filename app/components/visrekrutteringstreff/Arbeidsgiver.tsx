@@ -8,7 +8,7 @@ export interface ArbeidsgiverProps {
 
 const Arbeidsgiver: React.FC<ArbeidsgiverProps> = ({arbeidsgiver}) => {
   return (
-       <BoksMedTittelOgInnhold tittel={arbeidsgiver.navn}>
+       <BoksMedTittelOgInnhold tittel={arbeidsgiver.navn} tittelNivå='3'>
            Org.nr: {arbeidsgiver.organisasjonsnummer}
        </BoksMedTittelOgInnhold>
   );

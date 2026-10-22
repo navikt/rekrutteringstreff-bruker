@@ -54,6 +54,27 @@ for (const [side, erKlar] of Object.entries(sider)) {
         await expect(page.locator('main main')).toHaveCount(0);
       },
     );
+
+    test(
+      'Har én h1 og ingen hopp i overskriftsnivåene (WCAG 1.3.1)',
+      { tag: '@a11y' },
+      async ({ page }) => {
+        const overskrifter = page.getByRole('main').getByRole('heading');
+        await expect(overskrifter.first()).toBeAttached();
+        const nivåer = await overskrifter.evaluateAll((elementer) =>
+          elementer.map((element) =>
+            Number(
+              element.getAttribute('aria-level') ?? element.tagName.slice(1),
+            ),
+          ),
+        );
+        expect(nivåer.filter((nivå) => nivå === 1)).toHaveLength(1);
+        expect(nivåer[0]).toBe(1);
+        nivåer.forEach((nivå, i) => {
+          if (i > 0) expect(nivå).toBeLessThanOrEqual(nivåer[i - 1] + 1);
+        });
+      },
+    );
   });
 }
 

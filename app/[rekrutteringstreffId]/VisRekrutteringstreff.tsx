@@ -81,7 +81,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
             <Page.Block width='xl' gutters>
               <HGrid columns={{ xs: '1', lg: '65% 35%' }} gap='space-0'>
                 <div>
-                  <Heading size='medium' className='mb-6 mr-4'>
+                  <Heading level='1' size='medium' className='mb-6 mr-4'>
                     {rekrutteringstreff.tittel}
                   </Heading>
                   <HGrid
@@ -140,11 +140,17 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                     )}
                   </Tabs.List>
                   <Tabs.Panel value='innlegg'>
+                    <Heading level='2' size='xsmall' className='sr-only'>
+                      Siste aktivitet
+                    </Heading>
                     <InnleggListe innlegg={rekrutteringstreff.innlegg} />
                   </Tabs.Panel>
                   {rekrutteringstreff.kategori !==
                     RekrutteringstreffKategori.WORKOP && (
                     <Tabs.Panel value='arbeidsgivere'>
+                      <Heading level='2' size='xsmall' className='sr-only'>
+                        Arbeidsgivere
+                      </Heading>
                       <ArbeidsgiverListe
                         arbeidsgivere={rekrutteringstreff.arbeidsgivere}
                       />
@@ -156,7 +162,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
               <Show above='lg'>
                 <HGrid columns={'65% 35%'}>
                   <div className='pr-8'>
-                    <Heading size='xsmall' className='mb-4'>
+                    <Heading level='2' size='xsmall' className='mb-4'>
                       Siste aktivitet
                     </Heading>
                     <InnleggListe innlegg={rekrutteringstreff.innlegg} />
@@ -164,7 +170,7 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                   {rekrutteringstreff.kategori !==
                     RekrutteringstreffKategori.WORKOP && (
                     <div>
-                      <Heading size='xsmall' className='mb-4'>
+                      <Heading level='2' size='xsmall' className='mb-4'>
                         Arbeidsgivere
                       </Heading>
                       <ArbeidsgiverListe

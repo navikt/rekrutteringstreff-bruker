@@ -12,7 +12,7 @@ export interface InnleggProps {
 
 const Innlegg: React.FC<InnleggProps> = ({ innlegg }) => {
   return (
-    <BoksMedTittelOgInnhold tittel={innlegg.tittel}>
+    <BoksMedTittelOgInnhold tittel={innlegg.tittel} tittelNivå='3'>
       <div
         className='[&_ul]:list-disc [&_ul]:pl-6'
         dangerouslySetInnerHTML={{

@@ -1,5 +1,5 @@
 import { RekrutteringstreffStatus } from '@/app/types';
-import { LocalAlert } from '@navikt/ds-react';
+import { Heading, LocalAlert } from '@navikt/ds-react';
 
 export interface RekrutteringstreffStatusBannerProps {
   status: string;
@@ -11,6 +11,9 @@ export default function RekrutteringstreffStatusBanner({
   if (status === RekrutteringstreffStatus.SLETTET) {
     return (
       <div className='flex flex-grow items-center justify-center'>
+        <Heading level='1' size='xsmall' className='sr-only'>
+          Rekrutteringstreff
+        </Heading>
         <LocalAlert status='error'>
           <LocalAlert.Header>
             <LocalAlert.Title>Rekrutteringstreffet er slettet</LocalAlert.Title>
@@ -24,6 +27,9 @@ export default function RekrutteringstreffStatusBanner({
   } else if (status === RekrutteringstreffStatus.UTKAST) {
     return (
       <div className='flex flex-grow items-center justify-center'>
+        <Heading level='1' size='xsmall' className='sr-only'>
+          Rekrutteringstreff
+        </Heading>
         <LocalAlert status='warning'>
           <LocalAlert.Header>
             <LocalAlert.Title>
