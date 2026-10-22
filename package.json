@@ -12,7 +12,7 @@
     "@navikt/toi-next-frontend": "0.13.1",
     "date-fns": "^4.4.0",
     "dompurify": "3.4.15",
-    "next": "16.3.8",
+    "next": "16.4.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "swr": "^2.5.1",
