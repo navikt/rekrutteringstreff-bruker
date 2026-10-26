@@ -38,7 +38,7 @@
     "prettier-plugin-sort-json": "^4.2.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "name": "rekrutteringstreff-bruker",
   "packageManager": "pnpm@12.4.1",
