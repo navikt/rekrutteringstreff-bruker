@@ -17,7 +17,7 @@ jobs:
       playwright-shards: 4
       dev-vars-path: '.nais/dev-gcp.json'
       prod-vars-path: '.nais/prod-gcp.json'
-      deploy-dev-branch: 'cdn'
+      deploy-dev-branch: 'oppgrader-avhengigheter'
     secrets: inherit
     permissions:
       actions: write
