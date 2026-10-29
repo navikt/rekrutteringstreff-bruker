@@ -125,7 +125,7 @@ export const handlers = [
     HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
   ),
 
-  // Wildcard - alle andre IDer
+  // Wildcard - alle andre IDer, inkludert 'tilfeldig', gir tilfeldige data
   http.get(`${baseUrl}/rekrutteringstreff/:id`, () =>
     HttpResponse.json(mockRekrutteringstreff),
   ),

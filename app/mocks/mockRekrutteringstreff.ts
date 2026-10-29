@@ -1,4 +1,5 @@
 export const mockRekrutteringstreff = [
+  { id: 'tilfeldig', beskrivelse: 'Tilfeldige data' },
   { id: 'frem-i-tid', beskrivelse: 'Publisert, frem i tid' },
   { id: 'i-gang', beskrivelse: 'Pågående nå' },
   { id: 'tilbake-i-tid', beskrivelse: 'Ferdig (tilbake i tid)' },

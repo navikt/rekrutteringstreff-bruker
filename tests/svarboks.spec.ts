@@ -19,6 +19,9 @@ test.describe('Svarboks tester', () => {
     await expect(
       page.getByText('Du kan endre svaret ditt frem').first(),
     ).toBeVisible();
+    await expect(
+      page.getByText('Dette er kun informasjon om treffet'),
+    ).toHaveCount(0);
   });
 
   test('Vises korrekt for jobbsøker som har svart ja', async ({ page }) => {
@@ -44,6 +47,9 @@ test.describe('Svarboks tester', () => {
   test('Vises korrekt for jobbsøker som ikke er invitert', async ({ page }) => {
     await åpneRekrutteringstreff(page, 'ikke-invitert');
     await expect(page.getByText('Vil du være med?')).toBeVisible();
+    await expect(
+      page.getByText('Dette er kun informasjon om treffet'),
+    ).toBeVisible();
   });
 });
 
