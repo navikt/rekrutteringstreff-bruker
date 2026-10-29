@@ -1,4 +1,7 @@
 {
+  "browserslist": [
+    "extends @navikt/browserslist-config-public"
+  ],
   "dependencies": {
     "@nais/apm": "0.7.3",
     "@navikt/aksel-icons": "^8.16.2",
@@ -22,6 +25,7 @@
     "@axe-core/playwright": "^4.14.0",
     "@eslint/eslintrc": "^3.3.7",
     "@faker-js/faker": "^10.6.0",
+    "@navikt/browserslist-config-public": "0.3.0",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
