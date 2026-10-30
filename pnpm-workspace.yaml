@@ -10,5 +10,13 @@ minimumReleaseAgeExclude:
   - '@navikt/*'
 ignoreScripts: true
 blockExoticSubdeps: true
+# GitHub Packages mangler peerDependenciesMeta som finnes i pakkens package.json.
+packageExtensions:
+  '@navikt/browserslist-config-public@0.3.0':
+    peerDependenciesMeta:
+      astro:
+        optional: true
+      vite:
+        optional: true
 registries:
   '@navikt': https://npm.pkg.github.com

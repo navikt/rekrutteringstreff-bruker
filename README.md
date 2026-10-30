@@ -14,6 +14,29 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Nettleserstøtte
+
+Appen bruker [`@navikt/browserslist-config-public`](https://github.com/navikt/browserslist-config#readme)
+via `browserslist` i `package.json`, slik pakkens dokumentasjon beskriver for Next.js.
+Next.js leser konfigurasjonen og sender de oppløste målene til Turbopack i både
+utvikling og produksjonsbygg. Ingen ekstra innstilling i
+`next.config.ts` er nødvendig.
+
+Versjon 0.3.0 setter mål fra Chrome og Edge 108, Firefox 121, Safari og iOS Safari 16,
+Opera 94 og Samsung Internet 21. Konfigurasjonen styrer kompilering av syntaks,
+men legger ikke til polyfills for manglende JavaScript- eller nettleser-API-er.
+Slike API-er må vurderes og eventuelt håndteres separat.
+
+Dette er ikke en garanti for at hele appen fungerer på alle minimumsversjonene.
+[Next.js støtter offisielt Chrome og Edge 111, Firefox 111 og Safari 16.4 eller nyere](https://nextjs.org/docs/architecture/supported-browsers).
+[Tailwind CSS 4 krever Chrome 111, Safari 16.4 og Firefox 128](https://tailwindcss.com/docs/compatibility#browser-support).
+Tailwinds PostCSS-plugin bruker egne CSS-mål og leser ikke Browserslist-oppsettet.
+Next.js' nettlesermål opphever ikke disse kravene. Vi endrer ikke CSS-verktøyet
+som del av denne konfigurasjonen.
+
+Playwright-testene dekker de installerte versjonene av Chromium, Firefox og WebKit,
+ikke de oppgitte minimumsversjonene eller alle nettleser-API-er.
+
 ## Test cases
 
 [http://localhost:3000/rekrutteringstreff/1](http://localhost:3000/rekrutteringstreff/1) Alt er random
