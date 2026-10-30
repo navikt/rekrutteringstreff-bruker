@@ -8,7 +8,7 @@ First, run the development server:
 pnpm dev
 ```
 
-Open [http://localhost:3000/rekrutteringstreff/1](http://localhost:3000/rekrutteringstreff/1) with your browser to see the result.
+Open [http://localhost:3000/rekrutteringstreff/frem-i-tid](http://localhost:3000/rekrutteringstreff/frem-i-tid) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
@@ -39,18 +39,23 @@ ikke de oppgitte minimumsversjonene eller alle nettleser-API-er.
 
 ## Test cases
 
-[http://localhost:3000/rekrutteringstreff/1](http://localhost:3000/rekrutteringstreff/1) Alt er random
-[http://localhost:3000/rekrutteringstreff/2](http://localhost:3000/rekrutteringstreff/2) Treff frem i tid hvor jobbsøker ikke har svart
-[http://localhost:3000/rekrutteringstreff/3](http://localhost:3000/rekrutteringstreff/3) Treff frem i tid hvor jobbsøker har svart ja
-[http://localhost:3000/rekrutteringstreff/4](http://localhost:3000/rekrutteringstreff/4) Treff frem i tid hvor jobbsøker har svart nei
-[http://localhost:3000/rekrutteringstreff/5](http://localhost:3000/rekrutteringstreff/5) Treff frem i tid hvor jobbsøker ikke er invitert
-[http://localhost:3000/rekrutteringstreff/6](http://localhost:3000/rekrutteringstreff/6) Treff som er i gang
-[http://localhost:3000/rekrutteringstreff/7](http://localhost:3000/rekrutteringstreff/7) Treff som er passert
-[http://localhost:3000/rekrutteringstreff/8](http://localhost:3000/rekrutteringstreff/8) Treff som er avlyst
-[http://localhost:3000/rekrutteringstreff/9](http://localhost:3000/rekrutteringstreff/9) Treff med ulik formattering
-[http://localhost:3000/rekrutteringstreff/10](http://localhost:3000/rekrutteringstreff/10) Treff som ikke finnes
-[http://localhost:3000/rekrutteringstreff/11](http://localhost:3000/rekrutteringstreff/11) Treff hvor svarfrist er utløpt og hvor brukeren ikke har svart enda
-[http://localhost:3000/rekrutteringstreff/12](http://localhost:3000/rekrutteringstreff/12) Treff hvor svarfrist er utløpt og brukeren har svart
+- [http://localhost:3000/rekrutteringstreff/tilfeldig](http://localhost:3000/rekrutteringstreff/tilfeldig) Treff med tilfeldige data
+- [http://localhost:3000/rekrutteringstreff/frem-i-tid](http://localhost:3000/rekrutteringstreff/frem-i-tid) Treff frem i tid hvor jobbsøker er invitert og ikke har svart
+- [http://localhost:3000/rekrutteringstreff/har-svart-ja](http://localhost:3000/rekrutteringstreff/har-svart-ja) Treff frem i tid hvor jobbsøker har svart ja
+- [http://localhost:3000/rekrutteringstreff/har-svart-nei](http://localhost:3000/rekrutteringstreff/har-svart-nei) Treff frem i tid hvor jobbsøker har svart nei
+- [http://localhost:3000/rekrutteringstreff/ikke-invitert](http://localhost:3000/rekrutteringstreff/ikke-invitert) Treff frem i tid hvor jobbsøker ikke er invitert
+- [http://localhost:3000/rekrutteringstreff/i-gang](http://localhost:3000/rekrutteringstreff/i-gang) Treff som er i gang
+- [http://localhost:3000/rekrutteringstreff/tilbake-i-tid](http://localhost:3000/rekrutteringstreff/tilbake-i-tid) Treff som er passert
+- [http://localhost:3000/rekrutteringstreff/avlyst](http://localhost:3000/rekrutteringstreff/avlyst) Treff som er avlyst
+- [http://localhost:3000/rekrutteringstreff/formattering](http://localhost:3000/rekrutteringstreff/formattering) Treff med ulik formattering
+- [http://localhost:3000/rekrutteringstreff/ikke-funnet](http://localhost:3000/rekrutteringstreff/ikke-funnet) Treff som ikke finnes
+- [http://localhost:3000/rekrutteringstreff/svarfrist-utlopt](http://localhost:3000/rekrutteringstreff/svarfrist-utlopt) Treff hvor svarfrist er utløpt og brukeren ikke har svart
+- [http://localhost:3000/rekrutteringstreff/uten-svarfrist](http://localhost:3000/rekrutteringstreff/uten-svarfrist) Treff som mangler svarfrist
+- [http://localhost:3000/rekrutteringstreff/utkast](http://localhost:3000/rekrutteringstreff/utkast) Treff med status utkast
+- [http://localhost:3000/rekrutteringstreff/publisert](http://localhost:3000/rekrutteringstreff/publisert) Treff med status publisert
+- [http://localhost:3000/rekrutteringstreff/fullfort](http://localhost:3000/rekrutteringstreff/fullfort) Treff med status fullført
+- [http://localhost:3000/rekrutteringstreff/slettet](http://localhost:3000/rekrutteringstreff/slettet) Treff med status slettet
+- [http://localhost:3000/rekrutteringstreff/lagring-feiler](http://localhost:3000/rekrutteringstreff/lagring-feiler) Treff hvor lagring av svar feiler (500)
 
 ### 🎭 Playwright
 

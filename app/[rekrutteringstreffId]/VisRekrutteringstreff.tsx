@@ -18,7 +18,8 @@ import Tid from '@/app/components/visrekrutteringstreff/Tid';
 import { useUmami } from '@/app/providers/UmamiContext';
 import { RekrutteringstreffStatus } from '@/app/types';
 import { UmamiEvent } from '@/app/util/umamiEvents';
-import { Heading, HGrid, Page, Show, Tabs } from '@navikt/ds-react';
+import { InformationSquareIcon } from '@navikt/aksel-icons';
+import { Heading, HGrid, InfoCard, Page, Show, Tabs } from '@navikt/ds-react';
 import { useEffect } from 'react';
 
 export interface VisRekrutteringstreffProps {
@@ -99,6 +100,17 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                       poststed={rekrutteringstreff.poststed}
                     />
                   </HGrid>
+                  {!enkeltRekrutteringstreffSvar.erInvitert && (
+                    <InfoCard data-color='warning' className='mb-14 mt-8 lg:mr-8'>
+                      <InfoCard.Message
+                        icon={<InformationSquareIcon aria-hidden />}
+                        className='py-(--ax-space-24)'
+                      >
+                        Dette er kun informasjon om treffet, og ikke en
+                        invitasjon.
+                      </InfoCard.Message>
+                    </InfoCard>
+                  )}
                 </div>
                 <div>
                   <Svarboks
