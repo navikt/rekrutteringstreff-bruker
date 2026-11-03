@@ -1,9 +1,8 @@
 'use client';
 
 import { RekrutteringstreffMinSide } from '../api-routes';
-import { ApiFeil, erForventetApiFeil, getAPIwithSchema } from '../fetcher';
-import { rapporterApiFeil } from '@/app/util/apm';
-import { logger } from '@navikt/next-logger';
+import { erForventetApiFeil, getAPIwithSchema } from '../fetcher';
+import { opprettSWRFeilhåndtering } from '@/app/util/swrFeilhåndtering';
 import useSWR from 'swr';
 import { z } from 'zod';
 
@@ -66,23 +65,10 @@ export const useEnkeltRekrutteringstreff = (
       : null,
     getAPIwithSchema(enkeltRekrutteringstreffSchema),
     {
-      onError: (error) => {
-        // Håndter 401 ved å redirecte til login
-        if (error instanceof ApiFeil && error.status === 401) {
-          window.location.href = `${loginUrl}?redirect=${window.location.origin}/rekrutteringstreff/${rekrutteringstreffId}`;
-        }
-        // 404 og andre feil vil bli tilgjengelig via result.error
-        if (erForventetApiFeil(error)) return;
-        if (error instanceof ApiFeil) {
-          rapporterApiFeil(error.status, error.url);
-          logger.error(
-            { err: error, status: error.status, url: error.url },
-            'useEnkeltRekrutteringstreff error: ',
-          );
-          return;
-        }
-        logger.error(error, 'useEnkeltRekrutteringstreff error: ');
-      },
+      ...opprettSWRFeilhåndtering({
+        funksjon: 'useEnkeltRekrutteringstreff',
+        loginUrl,
+      }),
       shouldRetryOnError: (error) => {
         if (erForventetApiFeil(error)) {
           return false;
