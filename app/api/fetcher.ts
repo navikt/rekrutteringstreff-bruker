@@ -17,7 +17,8 @@ export class ApiFeil extends Error {
 }
 
 export const erForventetApiFeil = (error: unknown): error is ApiFeil =>
-  error instanceof ApiFeil && (error.status === 401 || error.status === 404);
+  error instanceof ApiFeil &&
+  (error.status === 401 || error.status === 404 || error.status === 410);
 
 const validerSchema = <T>(schema: ZodSchema<T>, data: any) => {
   const result = schema.safeParse(data);

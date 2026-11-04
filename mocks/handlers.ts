@@ -49,6 +49,10 @@ export const handlers = [
     rekrutteringstreffUrl('ikke-funnet'),
     () => new HttpResponse(null, { status: 404 }),
   ),
+  http.get(
+    rekrutteringstreffUrl('ikke-tilgjengelig'),
+    () => new HttpResponse(null, { status: 410 }),
+  ),
   http.get(rekrutteringstreffUrl('svarfrist-utlopt'), () =>
     HttpResponse.json(mockRekrutteringstreffSvarfristUtløpt),
   ),
