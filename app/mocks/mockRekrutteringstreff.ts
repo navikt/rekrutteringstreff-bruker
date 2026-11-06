@@ -6,6 +6,7 @@ export const mockRekrutteringstreff = [
   { id: 'avlyst', beskrivelse: 'Avlyst' },
   { id: 'formattering', beskrivelse: 'Forskjellig HTML-formattering' },
   { id: 'ikke-funnet', beskrivelse: '404 – ikke funnet' },
+  { id: 'ikke-tilgjengelig', beskrivelse: '410 – ikke tilgjengelig' },
   { id: 'svarfrist-utlopt', beskrivelse: 'Svarfrist utløpt' },
   { id: 'utkast', beskrivelse: 'Status: UTKAST' },
   { id: 'publisert', beskrivelse: 'Status: PUBLISERT' },

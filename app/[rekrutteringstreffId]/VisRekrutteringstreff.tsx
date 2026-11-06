@@ -46,7 +46,10 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
   }, [track]);
 
   const håndterFeil = (error: Error) => {
-    if (error instanceof ApiFeil && error.status === 404) {
+    if (
+      error instanceof ApiFeil &&
+      (error.status === 404 || error.status === 410)
+    ) {
       return <RekrutteringstreffIkkeFunnet />;
     }
 
@@ -101,7 +104,10 @@ const VisRekrutteringstreff: React.FC<VisRekrutteringstreffProps> = ({
                     />
                   </HGrid>
                   {!enkeltRekrutteringstreffSvar.erInvitert && (
-                    <InfoCard data-color='warning' className='mb-14 mt-8 lg:mr-8'>
+                    <InfoCard
+                      data-color='warning'
+                      className='mb-14 mt-8 lg:mr-8'
+                    >
                       <InfoCard.Message
                         icon={<InformationSquareIcon aria-hidden />}
                         className='py-(--ax-space-24)'
