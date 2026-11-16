@@ -25,7 +25,7 @@
     "@axe-core/playwright": "^4.14.0",
     "@eslint/eslintrc": "^3.3.7",
     "@faker-js/faker": "^10.6.0",
-    "@navikt/browserslist-config-public": "0.3.0",
+    "@navikt/browserslist-config-public": "1.0.1",
     "@playwright/test": "1.65.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
@@ -42,7 +42,7 @@
     "prettier-plugin-sort-json": "^4.2.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "name": "rekrutteringstreff-bruker",
   "packageManager": "pnpm@12.4.1",
