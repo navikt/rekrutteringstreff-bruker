@@ -85,6 +85,14 @@ test.describe('Status-tester', () => {
     await expect(page.getByText('Arrangement avlyst')).toBeVisible();
   });
 
+  test('Avlyst viser avlyst-melding for jobbsøker som ikke er invitert', async ({
+    page,
+  }) => {
+    await åpneRekrutteringstreff(page, 'avlyst-ikke-invitert');
+    await expect(page.getByText('Arrangement avlyst')).toBeVisible();
+    await expect(page.getByText('Vil du være med?')).toHaveCount(0);
+  });
+
   test('Fullført viser innhold', async ({ page, isMobile }) => {
     await åpneRekrutteringstreff(page, 'fullfort');
     await expect(page.getByText('Treffet er over').first()).toBeVisible();
