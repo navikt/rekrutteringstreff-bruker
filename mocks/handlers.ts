@@ -9,8 +9,8 @@ import {
   mockRekrutteringstreffSlettet,
   mockRekrutteringstreffSvarfristUtløpt,
   mockRekrutteringstreffTilbakeITid,
-  mockRekrutteringstreffUtkast,
   mockRekrutteringstreffUtenSvarfrist,
+  mockRekrutteringstreffUtkast,
 } from '@/app/api/rekrutteringstreff-minside/[...slug]/mocks/rekrutteringstreffMock';
 import {
   mockBaseRekrutteringstreffSvar,
@@ -40,6 +40,9 @@ export const handlers = [
     HttpResponse.json(mockRekrutteringstreffTilbakeITid),
   ),
   http.get(rekrutteringstreffUrl('avlyst'), () =>
+    HttpResponse.json(mockRekrutteringstreffAvlyst),
+  ),
+  http.get(rekrutteringstreffUrl('avlyst-ikke-invitert'), () =>
     HttpResponse.json(mockRekrutteringstreffAvlyst),
   ),
   http.get(rekrutteringstreffUrl('formattering'), () =>
@@ -96,6 +99,9 @@ export const handlers = [
   ),
   http.get(svarUrl('avlyst'), () =>
     HttpResponse.json(mockBaseRekrutteringstreffSvarErInvitertOgIkkeSvart),
+  ),
+  http.get(svarUrl('avlyst-ikke-invitert'), () =>
+    HttpResponse.json(mockBaseRekrutteringstreffSvarIkkeInvitert),
   ),
   http.get(
     svarUrl('ikke-funnet'),

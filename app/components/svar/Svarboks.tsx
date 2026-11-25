@@ -52,22 +52,6 @@ const Svarboks: React.FC<SvarboksProps> = ({
     );
   }
 
-  if (!erInvitert) {
-    return (
-      <BoksMedTittelOgInnhold
-        fargeKode={'blå'}
-        className='mb-8'
-        tittel='Vil du være med?'
-      >
-        <p className='text-base'>
-          Du har ikke mottatt invitasjon til dette rekrutteringstreffet. Dersom
-          du er interessert kan du kontakte veilederen din i dialogen og be hen
-          sjekke om du kan få en invitasjon.
-        </p>
-      </BoksMedTittelOgInnhold>
-    );
-  }
-
   if (status === RekrutteringstreffStatus.AVLYST) {
     return (
       <Boks
@@ -84,11 +68,24 @@ const Svarboks: React.FC<SvarboksProps> = ({
           />
         </div>
         <div className='font-bold mt-2 text-base'>Arrangement avlyst</div>
-        <p className='text-base'>
-          Vi beklager ulempene dette medfører, og vil informere dersom treffet
-          settes opp på nytt.
-        </p>
+        <p className='text-base'>Vi beklager ulempene dette medfører.</p>
       </Boks>
+    );
+  }
+
+  if (!erInvitert) {
+    return (
+      <BoksMedTittelOgInnhold
+        fargeKode={'blå'}
+        className='mb-8'
+        tittel='Vil du være med?'
+      >
+        <p className='text-base'>
+          Du har ikke mottatt invitasjon til dette rekrutteringstreffet. Dersom
+          du er interessert kan du kontakte veilederen din i dialogen og be hen
+          sjekke om du kan få en invitasjon.
+        </p>
+      </BoksMedTittelOgInnhold>
     );
   }
 
